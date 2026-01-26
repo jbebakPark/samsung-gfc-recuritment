@@ -4388,7 +4388,7 @@ body {
 
 .press-section .press-card {
     background: var(--primary-color);
-    color: var(--white);
+    color: var(--white) !important;
     padding: 2rem;
     border-radius: 16px;
     transition: all 0.3s;
@@ -4397,6 +4397,11 @@ body {
 .press-section .press-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(3, 78, 162, 0.3);
+}
+
+/* 모든 텍스트 요소 강제 흰색 */
+.press-section .press-card * {
+    color: var(--white) !important;
 }
 
 .press-section .press-title {
@@ -4411,7 +4416,8 @@ body {
 .press-section .press-person,
 .press-section .press-type,
 .press-section .press-date {
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: var(--white) !important;
+    font-weight: 500;
 }
 
 .press-section .press-badge {
