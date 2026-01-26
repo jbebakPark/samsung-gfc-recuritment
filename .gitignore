@@ -1,0 +1,48 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if using build tools later)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment variables (for Phase 2)
+.env
+.env.local
+.env.production
+
+# Build output (if using build tools later)
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Logs
+logs/
+*.log
+
+# Backup files
+*.backup
+*.bak
+
+# Test files
+test/
+*.test.js
+
+# Documentation drafts
+drafts/

@@ -1,0 +1,594 @@
+<!-- 지원 자격 사전 체크 -->
+<div class="eligibility-check-modal" id="eligibilityCheckModal">
+    <div class="modal-overlay" onclick="closeEligibilityCheck()"></div>
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2><i class="fas fa-clipboard-check"></i> GFC 지원 자격 사전 확인</h2>
+            <button class="close-btn" onclick="closeEligibilityCheck()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="check-intro">
+                <p class="intro-text">
+                    <i class="fas fa-info-circle"></i>
+                    지원서 제출 전에 아래 항목을 확인해 주세요.
+                    <strong>하나라도 해당되는 경우 지원이 제한될 수 있습니다.</strong>
+                </p>
+            </div>
+
+            <form id="eligibilityCheckForm">
+                <!-- 1. 개인정보 동의 -->
+                <div class="check-section">
+                    <h3><i class="fas fa-shield-alt"></i> 1. 개인정보 처리 동의</h3>
+                    <div class="check-item">
+                        <label class="check-label">
+                            <input type="checkbox" name="privacy_consent" required>
+                            <span>개인정보 수집·이용·제공·조회에 모두 동의합니다</span>
+                        </label>
+                        <p class="check-note">※ 미동의 시 지원이 불가능합니다</p>
+                    </div>
+                </div>
+
+                <!-- 2. 제재 이력 확인 -->
+                <div class="check-section">
+                    <h3><i class="fas fa-exclamation-triangle"></i> 2. 제재 이력 확인</h3>
+
+                    <div class="check-item">
+                        <p class="check-question">보험업법 위반으로 제재를 받은 이력이 있습니까?</p>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="sanction_history" value="yes" required>
+                                <span class="radio-label danger">예 (지원 불가)</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="sanction_history" value="no" required>
+                                <span class="radio-label">아니오</span>
+                            </label>
+                        </div>
+                        <div class="check-detail">
+                            <small>※ 금융감독원, 보험협회 등으로부터 받은 징계, 과태료, 영업정지 등 포함</small>
+                        </div>
+                    </div>
+
+                    <div class="check-item">
+                        <p class="check-question">보험설계사 자격 정지 또는 취소 이력이 있습니까?</p>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="license_suspension" value="yes" required>
+                                <span class="radio-label danger">예 (지원 불가)</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="license_suspension" value="no" required>
+                                <span class="radio-label">아니오</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="check-item">
+                        <p class="check-question">최근 1년 이내 타 보험사에서 해촉된 이력이 있습니까?</p>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="termination_history" value="yes" required>
+                                <span class="radio-label danger">예 (지원 불가)</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="termination_history" value="no" required>
+                                <span class="radio-label">아니오</span>
+                            </label>
+                        </div>
+                        <div class="check-detail">
+                            <small>※ 자진 퇴사가 아닌 회사 측의 일방적 해촉을 의미합니다</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 기본 자격 요건 -->
+                <div class="check-section">
+                    <h3><i class="fas fa-user-check"></i> 3. 기본 자격 요건</h3>
+
+                    <div class="check-item">
+                        <p class="check-question">학력이 전문대졸 이상입니까?</p>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="education_level" value="yes" required>
+                                <span class="radio-label">예</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="education_level" value="no" required>
+                                <span class="radio-label warning">아니오 (검토 필요)</span>
+                            </label>
+                        </div>
+                        <div class="check-detail">
+                            <small>※ 전문대졸 미만의 경우 경력 및 자격증으로 대체 가능</small>
+                        </div>
+                    </div>
+
+                    <div class="check-item">
+                        <p class="check-question">3년 이상의 경력이 있습니까? (직무 무관)</p>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="work_experience" value="yes" required>
+                                <span class="radio-label">예</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="work_experience" value="no" required>
+                                <span class="radio-label warning">아니오 (검토 필요)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. 추가 확인 사항 -->
+                <div class="check-section">
+                    <h3><i class="fas fa-clipboard-list"></i> 4. 추가 확인 사항</h3>
+
+                    <div class="check-item">
+                        <label class="check-label">
+                            <input type="checkbox" name="criminal_record" required>
+                            <span>금융 관련 범죄 이력이 없습니다</span>
+                        </label>
+                        <div class="check-detail">
+                            <small>※ 횡령, 배임, 사기, 금융실명법 위반 등</small>
+                        </div>
+                    </div>
+
+                    <div class="check-item">
+                        <label class="check-label">
+                            <input type="checkbox" name="bankruptcy" required>
+                            <span>파산 또는 회생절차 진행 중이 아닙니다</span>
+                        </label>
+                    </div>
+
+                    <div class="check-item">
+                        <label class="check-label">
+                            <input type="checkbox" name="health_status" required>
+                            <span>업무 수행에 지장이 없는 건강 상태입니다</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 결과 메시지 -->
+                <div id="eligibilityResult" class="eligibility-result" style="display: none;"></div>
+
+                <!-- 버튼 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeEligibilityCheck()">
+                        취소
+                    </button>
+                    <button type="button" class="btn-primary" onclick="checkEligibility()">
+                        자격 확인
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .eligibility-check-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        overflow-y: auto;
+    }
+
+    .eligibility-check-modal.active {
+        display: block;
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 10001;
+    }
+
+    .modal-container {
+        position: relative;
+        max-width: 800px;
+        margin: 2rem auto;
+        background: white;
+        border-radius: 16px;
+        z-index: 10002;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header {
+        background: var(--gradient-primary);
+        color: white;
+        padding: 1.5rem 2rem;
+        border-radius: 16px 16px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .modal-header h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background 0.3s;
+    }
+
+    .close-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-body {
+        padding: 2rem;
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }
+
+    .check-intro {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        border-radius: 4px;
+    }
+
+    .intro-text {
+        margin: 0;
+        color: #1565c0;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .intro-text i {
+        margin-top: 0.2rem;
+    }
+
+    .check-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid #f0f0f0;
+    }
+
+    .check-section:last-of-type {
+        border-bottom: none;
+    }
+
+    .check-section h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .check-item {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: #f9f9f9;
+        border-radius: 8px;
+    }
+
+    .check-question {
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 0.75rem;
+    }
+
+    .check-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .check-label input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .radio-group {
+        display: flex;
+        gap: 2rem;
+        margin: 0.75rem 0;
+    }
+
+    .radio-group label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+
+    .radio-group input[type="radio"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .radio-label {
+        font-weight: 500;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        transition: all 0.3s;
+    }
+
+    .radio-label.danger {
+        background: #ffebee;
+        color: #c62828;
+    }
+
+    .radio-label.warning {
+        background: #fff3e0;
+        color: #e65100;
+    }
+
+    .radio-group input[type="radio"]:checked+.radio-label {
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .check-note {
+        margin: 0.5rem 0 0 0;
+        font-size: 0.85rem;
+        color: #d32f2f;
+        font-weight: 600;
+    }
+
+    .check-detail {
+        margin-top: 0.5rem;
+    }
+
+    .check-detail small {
+        color: var(--text-light);
+        font-size: 0.85rem;
+    }
+
+    .eligibility-result {
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        font-weight: 600;
+    }
+
+    .eligibility-result.success {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        color: #155724;
+    }
+
+    .eligibility-result.warning {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        color: #856404;
+    }
+
+    .eligibility-result.error {
+        background: #f8d7da;
+        border: 2px solid #dc3545;
+        color: #721c24;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        padding-top: 1.5rem;
+        border-top: 2px solid #f0f0f0;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 0.75rem 2rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background: var(--gradient-primary);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(3, 78, 162, 0.3);
+    }
+
+    .btn-secondary {
+        background: #e0e0e0;
+        color: var(--text-dark);
+    }
+
+    .btn-secondary:hover {
+        background: #d0d0d0;
+    }
+
+    @media (max-width: 768px) {
+        .modal-container {
+            margin: 1rem;
+            max-width: calc(100% - 2rem);
+        }
+
+        .modal-body {
+            padding: 1rem;
+        }
+
+        .radio-group {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+</style>
+
+<script>
+    // 지원 자격 체크 모달 열기
+    function openEligibilityCheck() {
+        document.getElementById('eligibilityCheckModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // 지원 자격 체크 모달 닫기
+    function closeEligibilityCheck() {
+        document.getElementById('eligibilityCheckModal').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // 지원 자격 확인
+    function checkEligibility() {
+        const form = document.getElementById('eligibilityCheckForm');
+        const formData = new FormData(form);
+
+        // 필수 항목 체크
+        if (!form.checkValidity()) {
+            alert('모든 항목을 선택해 주세요.');
+            return;
+        }
+
+        // 지원 불가 조건 체크
+        const disqualifiers = [];
+
+        // 1. 개인정보 동의
+        if (!formData.get('privacy_consent')) {
+            disqualifiers.push('개인정보 처리 동의 필수');
+        }
+
+        // 2. 제재 이력
+        if (formData.get('sanction_history') === 'yes') {
+            disqualifiers.push('보험업법 위반 제재 이력');
+        }
+
+        if (formData.get('license_suspension') === 'yes') {
+            disqualifiers.push('보험설계사 자격 정지/취소 이력');
+        }
+
+        if (formData.get('termination_history') === 'yes') {
+            disqualifiers.push('최근 1년 이내 타사 해촉 이력');
+        }
+
+        // 3. 범죄 이력
+        if (!formData.get('criminal_record')) {
+            disqualifiers.push('금융 관련 범죄 이력 확인 필요');
+        }
+
+        if (!formData.get('bankruptcy')) {
+            disqualifiers.push('파산/회생절차 확인 필요');
+        }
+
+        // 경고 사항
+        const warnings = [];
+
+        if (formData.get('education_level') === 'no') {
+            warnings.push('학력 요건 미충족 (경력/자격증으로 대체 가능)');
+        }
+
+        if (formData.get('work_experience') === 'no') {
+            warnings.push('경력 요건 미충족 (추가 검토 필요)');
+        }
+
+        // 결과 표시
+        const resultDiv = document.getElementById('eligibilityResult');
+        resultDiv.style.display = 'block';
+
+        if (disqualifiers.length > 0) {
+            // 지원 불가
+            resultDiv.className = 'eligibility-result error';
+            resultDiv.innerHTML = `
+            <h4><i class="fas fa-times-circle"></i> 지원이 제한됩니다</h4>
+            <p>다음 사유로 인해 현재 지원이 어렵습니다:</p>
+            <ul>
+                ${disqualifiers.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+            <p style="margin-top: 1rem;">
+                <strong>문의:</strong> GFC 채용팀 02-1234-5678
+            </p>
+        `;
+
+            // 제출 버튼 비활성화
+            document.querySelector('.btn-primary').textContent = '지원 불가';
+            document.querySelector('.btn-primary').disabled = true;
+            document.querySelector('.btn-primary').style.background = '#ccc';
+
+        } else if (warnings.length > 0) {
+            // 검토 필요
+            resultDiv.className = 'eligibility-result warning';
+            resultDiv.innerHTML = `
+            <h4><i class="fas fa-exclamation-triangle"></i> 추가 검토가 필요합니다</h4>
+            <p>다음 항목에 대한 추가 검토가 필요합니다:</p>
+            <ul>
+                ${warnings.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+            <p style="margin-top: 1rem;">
+                지원서를 제출하시면 담당자가 검토 후 연락드립니다.
+            </p>
+            <button class="btn-primary" onclick="proceedToApplication()" style="margin-top: 1rem;">
+                지원서 작성 계속하기
+            </button>
+        `;
+
+        } else {
+            // 지원 가능
+            resultDiv.className = 'eligibility-result success';
+            resultDiv.innerHTML = `
+            <h4><i class="fas fa-check-circle"></i> 지원 자격이 확인되었습니다!</h4>
+            <p>모든 기본 요건을 충족하셨습니다. 지원서 작성을 계속 진행해 주세요.</p>
+            <button class="btn-primary" onclick="proceedToApplication()" style="margin-top: 1rem;">
+                지원서 작성하기
+            </button>
+        `;
+        }
+
+        // 스크롤을 결과로 이동
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // 지원서 작성 페이지로 이동
+    function proceedToApplication() {
+        closeEligibilityCheck();
+        // 지원서 양식으로 스크롤 또는 페이지 이동
+        const applicationForm = document.getElementById('applicationForm');
+        if (applicationForm) {
+            applicationForm.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    // 페이지 로드 시 자동으로 자격 체크 모달 표시
+    document.addEventListener('DOMContentLoaded', () => {
+        // URL 파라미터로 자격 체크 건너뛰기 가능
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.get('skip_check')) {
+            // 3초 후 자동으로 모달 표시
+            setTimeout(() => {
+                openEligibilityCheck();
+            }, 1000);
+        }
+    });
+</script>

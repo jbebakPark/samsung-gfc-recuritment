@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 지원서 컬렉션
+    match /applications/{applicationId} {
+      // 읽기: 관리자만 가능
+      allow read: if request.auth != null && request.auth.token.admin == true;
+      
+      // 생성: 누구나 가능 (지원서 제출)
+      allow create: if true;
+      
+      // 수정: 관리자만 가능
+      allow update: if request.auth != null && request.auth.token.admin == true;
+      
+      // 삭제: 관리자만 가능
+      allow delete: if request.auth != null && request.auth.token.admin == true;
+    }
+    
+    // 관리자 설정
+    match /admin/{adminId} {
+      allow read, write: if request.auth != null && request.auth.token.admin == true;
+    }
+    
+    // 통계 데이터
+    match /statistics/{statId} {
+      allow read: if request.auth != null && request.auth.token.admin == true;
+      allow write: if false; // Functions에서만 업데이트
+    }
+  }
+}
