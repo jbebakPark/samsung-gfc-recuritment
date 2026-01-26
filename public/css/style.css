@@ -4414,10 +4414,22 @@ body {
 
 .press-section .press-company,
 .press-section .press-person,
-.press-section .press-type,
-.press-section .press-date {
+.press-section .press-type {
     color: var(--white) !important;
     font-weight: 500;
+}
+
+/* 날짜 박스 강화 */
+.press-section .press-date {
+    color: var(--white) !important;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    margin: 1rem 0;
+    letter-spacing: 0.05em;
 }
 
 .press-section .press-badge {
