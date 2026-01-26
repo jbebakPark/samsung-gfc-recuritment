@@ -4382,6 +4382,109 @@ body {
     }
 }
 
+/* ========================================
+   보도자료 섹션 가독성 개선
+   ======================================== */
+
+.press-section .press-card {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 2rem;
+    border-radius: 16px;
+    transition: all 0.3s;
+}
+
+.press-section .press-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(3, 78, 162, 0.3);
+}
+
+.press-section .press-title {
+    color: var(--white) !important;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1rem 0;
+    line-height: 1.5;
+}
+
+.press-section .press-company,
+.press-section .press-person,
+.press-section .press-type,
+.press-section .press-date {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.press-section .press-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white) !important;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.press-section .btn-press {
+    background: var(--white);
+    color: var(--primary-color) !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    margin-top: 1rem;
+}
+
+.press-section .btn-press:hover {
+    background: #FFD700;
+    color: var(--primary-color) !important;
+    transform: translateY(-2px);
+}
+
+.press-section .press-filter {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.press-section .filter-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--primary-color);
+    background: var(--white);
+    color: var(--primary-color);
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.press-section .filter-btn:hover,
+.press-section .filter-btn.active {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.press-section .press-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .press-section .press-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .press-section .press-title {
+        font-size: 1.1rem;
+    }
+}
+
 /* Print Styles */
 @media print {
 
