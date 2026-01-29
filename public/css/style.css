@@ -5546,6 +5546,14 @@ body {
     color: var(--primary-color);
 }
 
+.annual-note {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.3rem;
+    font-style: italic;
+}
+
 .comparison-note {
     display: flex;
     align-items: center;
