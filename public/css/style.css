@@ -510,6 +510,61 @@ body {
     }
 }
 
+/* GFC Video Section */
+.gfc-video-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.video-cta {
+    text-align: center;
+    background: var(--bg-light);
+    padding: 2.5rem;
+    border-radius: 16px;
+    margin-top: 2rem;
+}
+
+.video-cta p {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.video-cta p i {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.video-cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .video-cta {
+        padding: 2rem;
+    }
+
+    .video-cta p {
+        font-size: 1rem;
+        flex-direction: column;
+    }
+
+    .video-cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .video-cta-buttons .btn {
+        width: 100%;
+    }
+}
+
 /* About Section */
 .about-section {
     background: var(--bg-light);
@@ -4504,6 +4559,696 @@ body {
 
     .press-section .press-title {
         font-size: 1.1rem;
+    }
+}
+
+/* ============================================
+   종합자산관리 Section Styles
+   ============================================ */
+
+.wealth-management-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.wealth-management-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    background: linear-gradient(135deg, rgba(3, 78, 162, 0.05) 0%, rgba(29, 116, 198, 0.05) 100%);
+    z-index: 0;
+}
+
+.wealth-management-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* 종합자산관리 소개 */
+.wealth-intro {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+    border-left: 5px solid var(--primary-color);
+}
+
+.wealth-intro h3 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.wealth-intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+}
+
+/* 서비스 그리드 */
+.wealth-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.wealth-service-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.wealth-service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--gradient-primary);
+}
+
+.wealth-service-card.premium::before {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+}
+
+.wealth-service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.wealth-service-card .service-badge {
+    display: inline-block;
+    background: var(--gradient-primary);
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.wealth-service-card.premium .service-badge {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: var(--text-dark);
+}
+
+.wealth-service-card .service-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2.5rem;
+    color: white;
+}
+
+.wealth-service-card.premium .service-icon {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: var(--text-dark);
+}
+
+.wealth-service-card h3 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.wealth-service-card .service-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.wealth-service-card .service-content h4 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.wealth-service-card .service-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.wealth-service-card .service-list li {
+    padding: 0.75rem 0;
+    color: var(--text-dark);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    line-height: 1.6;
+}
+
+.wealth-service-card .service-list li i {
+    color: var(--primary-color);
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.wealth-service-card .service-highlight {
+    background: var(--bg-light);
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.wealth-service-card .service-highlight i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.wealth-service-card .service-highlight span {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+}
+
+/* 종합자산관리 프로세스 */
+.wealth-process {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+}
+
+.wealth-process h3 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 2.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.process-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.flow-step {
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+}
+
+.flow-step .step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+}
+
+.flow-step .step-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.flow-step h4 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.flow-step p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+.flow-arrow {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+/* 차별화 포인트 */
+.wealth-advantages {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+}
+
+.wealth-advantages h3 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 2.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.advantage-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.advantage-card {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-light);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.advantage-card:hover {
+    background: white;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-5px);
+}
+
+.advantage-card .advantage-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: white;
+}
+
+.advantage-card h4 {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+}
+
+.advantage-card p {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* CTA */
+.wealth-cta {
+    text-align: center;
+    background: var(--gradient-primary);
+    padding: 3rem;
+    border-radius: 20px;
+    color: white;
+}
+
+.wealth-cta p {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.wealth-cta .btn-large {
+    padding: 1.2rem 3rem;
+    font-size: 1.1rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .wealth-services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-flow {
+        flex-direction: column;
+    }
+
+    .flow-arrow {
+        transform: rotate(90deg);
+        margin: 1rem 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .wealth-intro {
+        padding: 2rem;
+    }
+
+    .wealth-intro h3 {
+        font-size: 1.5rem;
+    }
+
+    .wealth-intro p {
+        font-size: 1rem;
+    }
+
+    .wealth-service-card {
+        padding: 2rem;
+    }
+
+    .wealth-service-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .wealth-process {
+        padding: 2rem;
+    }
+
+    .wealth-process h3 {
+        font-size: 1.5rem;
+    }
+
+    .wealth-advantages {
+        padding: 2rem;
+    }
+
+    .wealth-advantages h3 {
+        font-size: 1.5rem;
+    }
+
+    .advantage-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .wealth-cta {
+        padding: 2rem;
+    }
+
+    .wealth-cta p {
+        font-size: 1.1rem;
+        flex-direction: column;
+    }
+}
+
+/* ============================================
+   모바일 가독성 개선 (전역)
+   ============================================ */
+
+@media (max-width: 768px) {
+
+    /* 기본 텍스트 크기 증가 */
+    body {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    /* 제목 크기 조정 */
+    h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.3;
+    }
+
+    h2 {
+        font-size: 1.6rem !important;
+        line-height: 1.3;
+    }
+
+    h3 {
+        font-size: 1.3rem !important;
+        line-height: 1.4;
+    }
+
+    h4 {
+        font-size: 1.1rem !important;
+        line-height: 1.4;
+    }
+
+    /* 본문 텍스트 가독성 강화 */
+    p {
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    /* 리스트 가독성 */
+    li {
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 0.5rem;
+    }
+
+    /* 버튼 크기 증가 (터치 용이성) */
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        min-height: 48px;
+        /* 터치 최소 크기 */
+    }
+
+    .btn-small {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        min-height: 44px;
+    }
+
+    /* 카드 여백 증가 */
+    .card,
+    .about-card,
+    .why-card,
+    .insight-card,
+    .story-card {
+        padding: 1.5rem !important;
+        margin-bottom: 1.5rem;
+    }
+
+    /* 섹션 여백 조정 */
+    .section {
+        padding: 3rem 0;
+    }
+
+    .section-header {
+        margin-bottom: 2rem;
+    }
+
+    /* 텍스트 대비 강화 - 밝은 배경 */
+    .bg-light,
+    .about-section,
+    .target-section,
+    .gfc-video-section,
+    .wealth-management-section {
+        background: #FFFFFF !important;
+    }
+
+    /* 텍스트 색상 명확화 */
+    .text-light {
+        color: #555555 !important;
+        /* 더 진한 회색 */
+    }
+
+    /* 링크 가독성 */
+    a {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+
+    a:hover {
+        color: var(--secondary-color);
+    }
+
+    /* 네비게이션 메뉴 개선 */
+    .nav-menu a {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+
+    /* 입력 필드 크기 증가 */
+    input,
+    textarea,
+    select {
+        font-size: 16px !important;
+        /* iOS 줌 방지 */
+        padding: 0.75rem;
+        min-height: 48px;
+    }
+
+    /* 테이블 가독성 */
+    table {
+        font-size: 0.95rem;
+    }
+
+    th,
+    td {
+        padding: 0.75rem;
+    }
+
+    /* 이미지 반응형 */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* 컨테이너 여백 */
+    .container {
+        padding: 0 1.25rem;
+    }
+
+    /* Hero 섹션 텍스트 */
+    .hero-title {
+        font-size: 2rem !important;
+        line-height: 1.3;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem !important;
+    }
+
+    /* 통계 숫자 */
+    .stat-number {
+        font-size: 2rem !important;
+    }
+
+    .stat-label {
+        font-size: 0.95rem !important;
+    }
+
+    /* FAQ 아코디언 */
+    .faq-question {
+        font-size: 1rem !important;
+        padding: 1rem !important;
+    }
+
+    .faq-answer {
+        font-size: 0.95rem !important;
+        padding: 1rem !important;
+    }
+
+    /* 플로팅 버튼 크기 */
+    .fab-btn {
+        width: 56px !important;
+        height: 56px !important;
+        font-size: 1.3rem !important;
+    }
+
+    /* 그리드 간격 */
+    .grid,
+    .about-grid,
+    .why-grid,
+    .insights-grid {
+        gap: 1.5rem;
+    }
+
+    /* 카드 제목 */
+    .card h3,
+    .about-card h3,
+    .why-card h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 0.75rem;
+    }
+
+    /* 아이콘 크기 */
+    .card-icon,
+    .service-icon,
+    .advantage-icon {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 1.8rem !important;
+    }
+
+    /* 배지 크기 */
+    .badge,
+    .service-badge,
+    .training-badge {
+        font-size: 0.85rem !important;
+        padding: 0.4rem 0.9rem !important;
+    }
+
+    /* 강조 텍스트 */
+    strong {
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    /* 인용구 */
+    blockquote {
+        font-size: 1rem !important;
+        padding: 1rem !important;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    /* 알림 박스 */
+    .notice,
+    .alert,
+    .info-box {
+        font-size: 0.95rem !important;
+        padding: 1rem !important;
+    }
+
+    /* 프로세스 단계 */
+    .process-step h4,
+    .flow-step h4 {
+        font-size: 1rem !important;
+    }
+
+    .process-step p,
+    .flow-step p {
+        font-size: 0.9rem !important;
+    }
+}
+
+/* 초소형 모바일 (320px - 375px) */
+@media (max-width: 375px) {
+    body {
+        font-size: 15px;
+    }
+
+    h1 {
+        font-size: 1.6rem !important;
+    }
+
+    h2 {
+        font-size: 1.4rem !important;
+    }
+
+    h3 {
+        font-size: 1.2rem !important;
+    }
+
+    .btn {
+        padding: 0.9rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .section {
+        padding: 2.5rem 0;
     }
 }
 
