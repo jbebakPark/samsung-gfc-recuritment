@@ -4553,14 +4553,173 @@ body {
 }
 
 @media (max-width: 768px) {
+
+    /* 보도자료 섹션 배경 */
+    .press-section {
+        background: #f8f9fa !important;
+        padding: 3rem 0;
+    }
+
+    /* 섹션 제목 가독성 */
+    .press-section .section-title {
+        font-size: 1.8rem !important;
+        color: var(--text-dark) !important;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+    }
+
+    .press-section .section-subtitle {
+        font-size: 1rem !important;
+        color: #555555 !important;
+        line-height: 1.6;
+    }
+
+    /* 필터 버튼 크기 증가 */
+    .press-section .filter-btn {
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+        min-height: 48px;
+        font-weight: 600;
+    }
+
+    /* 보도자료 카드 */
+    .press-section .press-card {
+        padding: 2rem 1.5rem !important;
+        margin-bottom: 1.5rem;
+        background: var(--primary-color) !important;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 그리드 레이아웃 */
     .press-section .press-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    /* 배지 크기 */
+    .press-section .press-badge {
+        font-size: 0.9rem !important;
+        padding: 0.5rem 1.2rem !important;
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+
+    /* 날짜 박스 - 더 크고 명확하게 */
+    .press-section .press-date {
+        font-size: 2rem !important;
+        font-weight: 900 !important;
+        padding: 1.5rem !important;
+        margin: 1rem 0 !important;
+        background: var(--white) !important;
+        color: var(--primary-color) !important;
+        border-radius: 12px;
+        border: 3px solid var(--primary-color);
+        text-align: center;
+        letter-spacing: 0.05em;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 제목 가독성 강화 */
+    .press-section .press-title {
+        font-size: 1.2rem !important;
+        font-weight: 700 !important;
+        line-height: 1.5 !important;
+        margin: 1rem 0 !important;
+        color: var(--white) !important;
+    }
+
+    /* 회사명, 인물, 타입 */
+    .press-section .press-company,
+    .press-section .press-person,
+    .press-section .press-type {
+        font-size: 1rem !important;
+        font-weight: 500 !important;
+        color: rgba(255, 255, 255, 0.95) !important;
+        margin: 0.5rem 0 !important;
+        line-height: 1.6;
+    }
+
+    /* 기사 보기 버튼 - 크고 명확하게 */
+    .press-section .btn-press {
+        padding: 1rem 2rem !important;
+        font-size: 1rem !important;
+        font-weight: 700 !important;
+        min-height: 48px;
+        margin-top: 1.5rem !important;
+        background: var(--white) !important;
+        color: var(--primary-color) !important;
+        border-radius: 25px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .press-section .btn-press:hover {
+        background: #FFD700 !important;
+        transform: none;
+    }
+
+    /* 모든 텍스트 요소 명확한 색상 */
+    .press-section .press-card * {
+        color: var(--white) !important;
+    }
+
+    /* 날짜만 파란색 배경에 파란색 텍스트 */
+    .press-section .press-date {
+        color: var(--primary-color) !important;
+    }
+
+    /* 버튼 텍스트는 파란색 */
+    .press-section .btn-press,
+    .press-section .btn-press * {
+        color: var(--primary-color) !important;
+    }
+
+    /* 컨테이너 여백 */
+    .press-section .container {
+        padding: 0 1.25rem;
+    }
+
+    /* 카드 내부 여백 */
+    .press-section .press-card>* {
+        margin-bottom: 0.75rem;
+    }
+
+    /* 마지막 요소 여백 제거 */
+    .press-section .press-card>*:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* 초소형 모바일 (375px 이하) */
+@media (max-width: 375px) {
+    .press-section .section-title {
+        font-size: 1.6rem !important;
+    }
+
+    .press-section .press-date {
+        font-size: 1.8rem !important;
+        padding: 1.2rem !important;
     }
 
     .press-section .press-title {
-        font-size: 1.1rem;
+        font-size: 1.1rem !important;
+    }
+
+    .press-section .press-card {
+        padding: 1.5rem 1.2rem !important;
+    }
+
+    .press-section .btn-press {
+        padding: 0.9rem 1.5rem !important;
+        font-size: 0.95rem !important;
     }
 }
+
 
 /* ============================================
    종합자산관리 Section Styles
