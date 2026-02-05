@@ -414,7 +414,7 @@ Hero 섹션 및 Why Join 섹션의 수치는 정기적으로 업데이트:
 
 - **전화:** 010-5137-2327
 - **이메일:** jb2park@naver.com
-- **카카오톡:** [삼성생명 GFC 채용 오픈챗](https://open.kakao.com/o/s15lHyCh)
+- **카카오톡:** [삼성생명 GFC 채용 오픈챗](https://open.kakao.com/o/sleUSUei)
 
 ---
 
