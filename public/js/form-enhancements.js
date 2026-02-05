@@ -350,13 +350,52 @@
                 let isValid = true;
                 let errorMessage = '';
                 
-                // Check if birth date is filled
-                const hiddenDateInputs = form.querySelectorAll('input[type="hidden"][data-converted="true"]');
+                // Get active form content
+                const activeContent = form.querySelector('.form-content:not(.hidden)');
+                if (!activeContent) return;
+                
+                // Check birth date and age validation
+                const hiddenDateInputs = activeContent.querySelectorAll('input[type="hidden"][data-converted="true"]');
                 
                 hiddenDateInputs.forEach(input => {
+                    // Check if birth date is filled
                     if (!input.value && input.hasAttribute('required')) {
                         isValid = false;
                         errorMessage = '생년월일을 모두 선택해주세요.';
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Validate age
+                    if (input.value) {
+                        const ageResult = validateAge(input.value);
+                        if (!ageResult.valid) {
+                            isValid = false;
+                            errorMessage = ageResult.message;
+                            
+                            // Show error on the select container
+                            const selectContainer = input.previousElementSibling;
+                            if (selectContainer && selectContainer.classList.contains('date-select-container')) {
+                                showAgeError(selectContainer, ageResult.message);
+                            }
+                            e.preventDefault();
+                            return;
+                        }
+                    }
+                });
+                
+                if (!isValid && errorMessage) {
+                    alert(errorMessage);
+                    e.preventDefault();
+                    return false;
+                }
+                
+                console.log('Form validation passed');
+            });
+        });
+        
+        console.log('Form validation initialized');
+    }
                         return;
                     }
                     
