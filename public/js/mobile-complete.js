@@ -1,0 +1,268 @@
+// ============================================
+// SAMSUNG MOBILE NAVIGATION - COMPLETE REBUILD
+// 모바일 전용 JavaScript (완전 재작성)
+// ============================================
+
+(function() {
+    'use strict';
+    
+    console.log('Samsung Mobile Navigation - Loading...');
+    
+    // ============================================
+    // DOM ELEMENTS
+    // ============================================
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const body = document.body;
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    
+    // ============================================
+    // MOBILE MENU TOGGLE
+    // ============================================
+    if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isActive = navMenu.classList.contains('active');
+            
+            if (isActive) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+    }
+    
+    function openMenu() {
+        navMenu.classList.add('active');
+        body.classList.add('menu-open');
+        mobileMenuToggle.querySelector('i').classList.remove('fa-bars');
+        mobileMenuToggle.querySelector('i').classList.add('fa-times');
+        console.log('Menu opened');
+    }
+    
+    function closeMenu() {
+        navMenu.classList.remove('active');
+        body.classList.remove('menu-open');
+        mobileMenuToggle.querySelector('i').classList.remove('fa-times');
+        mobileMenuToggle.querySelector('i').classList.add('fa-bars');
+        
+        // Close all dropdowns
+        document.querySelectorAll('.nav-dropdown.active').forEach(dropdown => {
+            dropdown.classList.remove('active');
+        });
+        
+        console.log('Menu closed');
+    }
+    
+    // ============================================
+    // CLOSE MENU ON BACKDROP CLICK
+    // ============================================
+    document.addEventListener('click', function(e) {
+        if (body.classList.contains('menu-open')) {
+            // Check if click is outside menu and toggle button
+            if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                closeMenu();
+            }
+        }
+    });
+    
+    // ============================================
+    // DROPDOWN TOGGLES
+    // ============================================
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Only work on mobile
+            if (window.innerWidth <= 1024) {
+                const dropdown = this.closest('.nav-dropdown');
+                const isActive = dropdown.classList.contains('active');
+                
+                // Close all other dropdowns
+                document.querySelectorAll('.nav-dropdown.active').forEach(item => {
+                    if (item !== dropdown) {
+                        item.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current dropdown
+                if (isActive) {
+                    dropdown.classList.remove('active');
+                } else {
+                    dropdown.classList.add('active');
+                }
+                
+                console.log('Dropdown toggled:', dropdown);
+            }
+        });
+    });
+    
+    // ============================================
+    // CLOSE MENU ON LINK CLICK
+    // ============================================
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (window.innerWidth <= 1024) {
+                const href = this.getAttribute('href');
+                
+                // If internal link
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    closeMenu();
+                    
+                    // Smooth scroll to target
+                    const target = document.querySelector(href);
+                    if (target) {
+                        setTimeout(() => {
+                            const headerHeight = 70;
+                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                            
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }, 300);
+                    }
+                }
+            }
+        });
+    });
+    
+    // ============================================
+    // CLOSE MENU ON RESIZE TO DESKTOP
+    // ============================================
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            if (window.innerWidth > 1024 && body.classList.contains('menu-open')) {
+                closeMenu();
+            }
+        }, 250);
+    });
+    
+    // ============================================
+    // PREVENT SCROLL WHEN MENU OPEN
+    // ============================================
+    let scrollPosition = 0;
+    
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'class') {
+                if (body.classList.contains('menu-open')) {
+                    scrollPosition = window.pageYOffset;
+                    body.style.top = `-${scrollPosition}px`;
+                } else {
+                    body.style.top = '';
+                    window.scrollTo(0, scrollPosition);
+                }
+            }
+        });
+    });
+    
+    observer.observe(body, {
+        attributes: true,
+        attributeFilter: ['class']
+    });
+    
+    // ============================================
+    // SMOOTH SCROLL FOR ALL ANCHOR LINKS
+    // ============================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            if (href !== '#' && href !== '#top') {
+                const target = document.querySelector(href);
+                
+                if (target) {
+                    e.preventDefault();
+                    
+                    const headerHeight = 70;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+    
+    // ============================================
+    // HEADER SCROLL EFFECT
+    // ============================================
+    const header = document.querySelector('.header');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        
+        // Add scrolled class
+        if (currentScroll > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        
+        // Hide/show header
+        if (currentScroll > lastScroll && currentScroll > 200 && !body.classList.contains('menu-open')) {
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            header.style.transform = 'translateY(0)';
+        }
+        
+        lastScroll = currentScroll;
+    });
+    
+    // ============================================
+    // ACTIVE SECTION HIGHLIGHTING
+    // ============================================
+    const sections = document.querySelectorAll('section[id]');
+    
+    function highlightActiveSection() {
+        const scrollPosition = window.pageYOffset + 100;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                // Remove active from all
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active to current
+                const activeLink = document.querySelector(`.nav-menu a[href="#${sectionId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        });
+    }
+    
+    let scrollTimer;
+    window.addEventListener('scroll', function() {
+        if (scrollTimer) {
+            clearTimeout(scrollTimer);
+        }
+        scrollTimer = setTimeout(highlightActiveSection, 100);
+    });
+    
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    console.log('Samsung Mobile Navigation - Loaded Successfully');
+    console.log('- Mobile menu toggle:', !!mobileMenuToggle);
+    console.log('- Nav menu:', !!navMenu);
+    console.log('- Dropdown toggles:', dropdownToggles.length);
+    console.log('- Nav links:', navLinks.length);
+    
+})();
