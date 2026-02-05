@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>지원자 관리 - 삼성생명 GFC</title>
-    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         :root {
@@ -294,9 +293,7 @@
         }
 
         @keyframes spin {
-            100% {
-                transform: rotate(360deg);
-            }
+            100% { transform: rotate(360deg); }
         }
 
         .empty-state {
@@ -429,7 +426,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="admin-container">
         <!-- Header -->
@@ -439,7 +435,6 @@
                 <p>삼성생명 GFC 채용 시스템</p>
             </div>
             <nav class="admin-nav">
-                <a href="index.html"><i class="fas fa-tachometer-alt"></i> 대시보드</a>
                 <a href="applications.html" class="active">지원자 관리</a>
                 <a href="interviews.html">인터뷰 관리</a>
                 <a href="../index.html"><i class="fas fa-home"></i> 메인</a>
@@ -519,7 +514,12 @@
                     <option value="interviewed">면접 완료</option>
                 </select>
 
-                <input type="search" id="search-input" placeholder="이름, 이메일, 전화번호 검색..." onkeyup="handleSearch(event)">
+                <input 
+                    type="search" 
+                    id="search-input" 
+                    placeholder="이름, 이메일, 전화번호 검색..."
+                    onkeyup="handleSearch(event)"
+                >
 
                 <button class="btn btn-primary" onclick="applyFilters()">
                     <i class="fas fa-search"></i> 검색
@@ -548,5 +548,4 @@
 
     <script src="applications.js"></script>
 </body>
-
 </html>

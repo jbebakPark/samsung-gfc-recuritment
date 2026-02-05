@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>인터뷰 관리 - 삼성생명 GFC</title>
-    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         :root {
@@ -381,29 +380,12 @@
         }
     </style>
 </head>
-
 <body>
     <div class="admin-container">
         <!-- Header -->
         <div class="admin-header">
-            <div>
-                <h1><i class="fas fa-microphone-alt"></i> 인터뷰 관리</h1>
-                <p>삼성생명 GFC 관련 인터뷰 및 미디어 자료 관리</p>
-            </div>
-            <nav class="admin-nav" style="display: flex; gap: 1rem;">
-                <a href="index.html"
-                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.3s;"><i
-                        class="fas fa-tachometer-alt"></i> 대시보드</a>
-                <a href="applications.html"
-                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.3s;">지원자
-                    관리</a>
-                <a href="interviews.html" class="active"
-                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255, 255, 255, 0.3);">인터뷰
-                    관리</a>
-                <a href="../index.html"
-                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.3s;"><i
-                        class="fas fa-home"></i> 메인</a>
-            </nav>
+            <h1><i class="fas fa-microphone-alt"></i> 인터뷰 관리</h1>
+            <p>삼성생명 GFC 관련 인터뷰 및 미디어 자료 관리</p>
         </div>
 
         <!-- Filter Section -->
@@ -437,7 +419,12 @@
             </div>
 
             <div class="search-bar">
-                <input type="text" class="search-input" id="searchInput" placeholder="제목, 매체명, 인터뷰어 이름으로 검색...">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchInput" 
+                    placeholder="제목, 매체명, 인터뷰어 이름으로 검색..."
+                >
                 <button class="btn btn-primary" onclick="applyFilters()">
                     <i class="fas fa-search"></i> 검색
                 </button>
@@ -451,8 +438,7 @@
                     <span id="filterResultText">전체 인터뷰: <strong id="totalCount">0</strong>개</span>
                 </div>
                 <div>
-                    <select id="sortSelect" onchange="applyFilters()"
-                        style="padding: 0.5rem; border: 2px solid var(--border-color); border-radius: 6px;">
+                    <select id="sortSelect" onchange="applyFilters()" style="padding: 0.5rem; border: 2px solid var(--border-color); border-radius: 6px;">
                         <option value="date-desc">최신순</option>
                         <option value="date-asc">오래된순</option>
                         <option value="title-asc">제목순 (ㄱ-ㅎ)</option>
@@ -476,7 +462,7 @@
         let searchQuery = '';
 
         // 페이지 로드 시 초기화
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             loadInterviews();
             setupEventListeners();
         });
@@ -485,7 +471,7 @@
         function setupEventListeners() {
             // 카테고리 탭 클릭
             document.querySelectorAll('.filter-tab').forEach(tab => {
-                tab.addEventListener('click', function () {
+                tab.addEventListener('click', function() {
                     document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
                     currentCategory = this.getAttribute('data-category');
@@ -494,7 +480,7 @@
             });
 
             // 검색 입력 엔터키
-            document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     applyFilters();
                 }
@@ -624,11 +610,11 @@
             // 필터링
             let filtered = interviews.filter(interview => {
                 const categoryMatch = currentCategory === 'all' || interview.category === currentCategory;
-                const searchMatch = searchQuery === '' ||
+                const searchMatch = searchQuery === '' || 
                     interview.title.toLowerCase().includes(searchQuery) ||
                     interview.source.toLowerCase().includes(searchQuery) ||
                     interview.interviewer.toLowerCase().includes(searchQuery);
-
+                
                 return categoryMatch && searchMatch;
             });
 
@@ -657,7 +643,7 @@
                 blog: '블로그 인터뷰'
             };
 
-            const text = searchQuery
+            const text = searchQuery 
                 ? `"${searchQuery}" 검색 결과: <strong id="totalCount">${count}</strong>개`
                 : `${categoryNames[currentCategory]}: <strong id="totalCount">${count}</strong>개`;
 
@@ -743,10 +729,10 @@
         // 날짜 포맷팅
         function formatDate(dateString) {
             const date = new Date(dateString);
-            return date.toLocaleDateString('ko-KR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
+            return date.toLocaleDateString('ko-KR', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
             });
         }
 
@@ -779,5 +765,4 @@
         }
     </script>
 </body>
-
 </html>

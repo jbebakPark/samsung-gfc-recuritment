@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 대시보드 - 삼성생명 GFC 채용</title>
-    <link rel="stylesheet" href="../public/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         /* 관리자 대시보드 전용 스타일 */
         .admin-container {
@@ -206,28 +204,11 @@
         }
     </style>
 </head>
-
 <body>
     <div class="admin-container">
         <div class="admin-header">
-            <div>
-                <h1>관리자 대시보드</h1>
-                <p>삼성생명 GFC 채용 관리 시스템</p>
-            </div>
-            <nav class="admin-nav" style="display: flex; gap: 1rem;">
-                <a href="index.html" class="active"
-                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255, 255, 255, 0.3);"><i
-                        class="fas fa-tachometer-alt"></i> 대시보드</a>
-                <a href="applications.html"
-                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.3s;">지원자
-                    관리</a>
-                <a href="interviews.html"
-                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.3s;">인터뷰
-                    관리</a>
-                <a href="../index.html"
-                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.3s;"><i
-                        class="fas fa-home"></i> 메인</a>
-            </nav>
+            <h1>관리자 대시보드</h1>
+            <p>삼성생명 GFC 채용 관리 시스템</p>
         </div>
 
         <div class="phase-notice">
@@ -270,7 +251,7 @@
         <!-- 지원자 관리 -->
         <div class="admin-section">
             <h2>지원자 관리</h2>
-
+            
             <div class="filter-bar">
                 <select disabled>
                     <option>전체 트랙</option>
@@ -310,8 +291,7 @@
                     <tbody>
                         <tr>
                             <td colspan="7" style="text-align: center; padding: 3rem; color: var(--text-light);">
-                                <i class="fas fa-database"
-                                    style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+                                <i class="fas fa-database" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
                                 Phase 2에서 Supabase 연동 후 데이터가 표시됩니다.
                             </td>
                         </tr>
@@ -340,7 +320,7 @@
         <!-- 자료실 관리 -->
         <div class="admin-section">
             <h2>자료실 관리</h2>
-
+            
             <div class="upload-section" onclick="alert('Phase 2에서 파일 업로드 기능이 활성화됩니다.')">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <h3>파일 업로드</h3>
@@ -379,5 +359,4 @@
         console.log('- 이메일 알림 발송');
     </script>
 </body>
-
 </html>
