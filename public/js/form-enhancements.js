@@ -396,66 +396,6 @@
         
         console.log('Form validation initialized');
     }
-                        return;
-                    }
-                    
-                    // 나이 검증
-                    if (input.value) {
-                        const validation = validateAge(input.value);
-                        if (!validation.valid) {
-                            e.preventDefault();
-                            isValid = false;
-                            errorMessage = validation.message;
-                            
-                            // Show error on the select container
-                            const selectContainer = input.previousElementSibling;
-                            if (selectContainer && selectContainer.classList.contains('birth-select-container')) {
-                                showAgeError(selectContainer, validation.message);
-                            }
-                            return;
-                        }
-                    }
-                });
-                
-                if (!isValid) {
-                    e.preventDefault();
-                    alert(errorMessage);
-                    return false;
-                }
-                
-                // Check required fields based on active tab
-                const activeTab = form.querySelector('.tab-btn.active');
-                const track = activeTab ? activeTab.getAttribute('data-track') : 'jobfair';
-                const activeContent = form.querySelector(`#${track}-content`);
-                
-                if (activeContent) {
-                    const requiredInputs = activeContent.querySelectorAll('[required]');
-                    let missingFields = [];
-                    
-                    requiredInputs.forEach(input => {
-                        if (input.type === 'checkbox') {
-                            if (!input.checked) {
-                                missingFields.push('개인정보 수집 및 이용 동의');
-                            }
-                        } else if (!input.value || input.value.trim() === '') {
-                            const label = activeContent.querySelector(`label[for="${input.id}"]`);
-                            if (label) {
-                                missingFields.push(label.textContent.replace('*', '').trim());
-                            }
-                        }
-                    });
-                    
-                    if (missingFields.length > 0) {
-                        e.preventDefault();
-                        alert(`다음 필수 항목을 입력해주세요:\n${missingFields.join('\n')}`);
-                        return false;
-                    }
-                }
-            });
-        });
-        
-        console.log('Form validation enhanced with age check');
-    }
     
     // ============================================
     // PHONE NUMBER FORMATTING
