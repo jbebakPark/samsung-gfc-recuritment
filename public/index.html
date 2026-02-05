@@ -2502,7 +2502,8 @@
                 <form id="applicationForm" class="application-form">
                     <div class="form-tabs">
                         <button type="button" class="tab-btn active" data-track="jobfair">Job Fair 참가</button>
-                        <button type="button" class="tab-btn" data-track="referral">추천인 경로</button>
+                        <button type="button" class="tab-btn" data-track="referral">추천인 지원</button>
+                        <button type="button" class="tab-btn" data-track="direct">직접 지원</button>
                     </div>
 
                     <div class="form-content" id="jobfair-content">
@@ -2524,15 +2525,16 @@
                                 <input type="tel" id="phone" name="phone" required placeholder="010-1234-5678">
                             </div>
                             <div class="form-group">
-                                <label for="email">이메일 <span class="required">*</span></label>
-                                <input type="email" id="email" name="email" required placeholder="example@email.com">
+                                <label for="email">이메일</label>
+                                <input type="email" id="email" name="email" placeholder="example@email.com">
+                                <small class="field-note">선택 항목</small>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="region">희망 근무 지역 <span class="required">*</span></label>
-                            <select id="region" name="region" required>
-                                <option value="">선택해주세요</option>
+                            <label for="region">희망 근무 지역</label>
+                            <select id="region" name="region">
+                                <option value="">선택해주세요 (선택)</option>
                                 <option value="서울">서울</option>
                                 <option value="경기">경기</option>
                                 <option value="인천">인천</option>
@@ -2553,9 +2555,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="fair-date">참가 희망 Job Fair <span class="required">*</span></label>
-                            <select id="fair-date" name="fair-date" required>
-                                <option value="">선택해주세요</option>
+                            <label for="fair-date">참가 희망 Job Fair</label>
+                            <select id="fair-date" name="fair-date">
+                                <option value="">선택해주세요 (선택)</option>
                                 <option value="2026-01-29">1월 29일 (목) - 용인 휴먼센터 (10:30)</option>
                                 <option value="2026-02-19">2월 19일 (예정) - 부산/경남</option>
                                 <option value="2026-03-19">3월 19일 (예정) - 대구/경북</option>
@@ -2564,15 +2566,17 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="career">주요 경력 <span class="required">*</span></label>
-                            <textarea id="career" name="career" rows="4" required
-                                placeholder="예: 중소기업 대표이사 15년, 금융업 영업부장 10년 등"></textarea>
+                            <label for="career">주요 경력</label>
+                            <textarea id="career" name="career" rows="4"
+                                placeholder="예: 중소기업 대표이사 15년, 금융업 영업부장 10년 등 (선택)"></textarea>
+                            <small class="field-note">선택 항목</small>
                         </div>
 
                         <div class="form-group">
                             <label for="motivation">지원 동기</label>
                             <textarea id="motivation" name="motivation" rows="4"
-                                placeholder="GFC에 지원하게 된 동기를 간단히 작성해주세요"></textarea>
+                                placeholder="GFC에 지원하게 된 동기를 간단히 작성해주세요 (선택)"></textarea>
+                            <small class="field-note">선택 항목</small>
                         </div>
 
                         <div class="form-group checkbox-group">
@@ -2585,7 +2589,7 @@
                     </div>
 
                     <div class="form-content hidden" id="referral-content">
-                        <h3>추천인 경로 지원</h3>
+                        <h3>추천인 지원</h3>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="ref-name">성명 <span class="required">*</span></label>
@@ -2603,13 +2607,14 @@
                                 <input type="tel" id="ref-phone" name="ref-phone" placeholder="010-1234-5678">
                             </div>
                             <div class="form-group">
-                                <label for="ref-email">이메일 <span class="required">*</span></label>
+                                <label for="ref-email">이메일</label>
                                 <input type="email" id="ref-email" name="ref-email" placeholder="example@email.com">
+                                <small class="field-note">선택 항목</small>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="ref-region">희망 근무 지역 <span class="required">*</span></label>
+                            <label for="ref-region">희망 근무 지역</label>
                             <select id="ref-region" name="ref-region">
                                 <option value="">선택해주세요</option>
                                 <option value="서울">서울</option>
@@ -2639,24 +2644,99 @@
                             <div class="form-group">
                                 <label for="referrer-branch">추천인 소속 지점</label>
                                 <input type="text" id="referrer-branch" name="referrer-branch" placeholder="예: 서울강남지점">
+                                <small class="field-note">선택 항목</small>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="ref-career">주요 경력 <span class="required">*</span></label>
+                            <label for="ref-career">주요 경력</label>
                             <textarea id="ref-career" name="ref-career" rows="4"
-                                placeholder="예: 중소기업 대표이사 15년, 금융업 영업부장 10년 등"></textarea>
+                                placeholder="예: 중소기업 대표이사 15년, 금융업 영업부장 10년 등 (선택)"></textarea>
+                            <small class="field-note">선택 항목</small>
                         </div>
 
                         <div class="form-group">
                             <label for="ref-motivation">지원 동기</label>
                             <textarea id="ref-motivation" name="ref-motivation" rows="4"
-                                placeholder="GFC에 지원하게 된 동기를 간단히 작성해주세요"></textarea>
+                                placeholder="GFC에 지원하게 된 동기를 간단히 작성해주세요 (선택)"></textarea>
+                            <small class="field-note">선택 항목</small>
                         </div>
 
                         <div class="form-group checkbox-group">
                             <label>
                                 <input type="checkbox" name="ref-privacy">
+                                <span>개인정보 수집 및 이용에 동의합니다 <span class="required">*</span></span>
+                            </label>
+                            <p class="privacy-note">수집된 정보는 채용 목적으로만 사용되며, 채용 종료 후 파기됩니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-content hidden" id="direct-content">
+                        <h3>직접 지원</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dir-name">성명 <span class="required">*</span></label>
+                                <input type="text" id="dir-name" name="dir-name" placeholder="홍길동">
+                            </div>
+                            <div class="form-group">
+                                <label for="dir-birth">생년월일 <span class="required">*</span></label>
+                                <input type="date" id="dir-birth" name="dir-birth">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dir-phone">연락처 <span class="required">*</span></label>
+                                <input type="tel" id="dir-phone" name="dir-phone" placeholder="010-1234-5678">
+                            </div>
+                            <div class="form-group">
+                                <label for="dir-email">이메일</label>
+                                <input type="email" id="dir-email" name="dir-email" placeholder="example@email.com">
+                                <small class="field-note">선택 항목</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dir-region">희망 근무 지역</label>
+                            <select id="dir-region" name="dir-region">
+                                <option value="">선택해주세요 (선택)</option>
+                                <option value="서울">서울</option>
+                                <option value="경기">경기</option>
+                                <option value="인천">인천</option>
+                                <option value="부산">부산</option>
+                                <option value="대구">대구</option>
+                                <option value="대전">대전</option>
+                                <option value="광주">광주</option>
+                                <option value="울산">울산</option>
+                                <option value="강원">강원</option>
+                                <option value="충북">충북</option>
+                                <option value="충남">충남</option>
+                                <option value="전북">전북</option>
+                                <option value="전남">전남</option>
+                                <option value="경북">경북</option>
+                                <option value="경남">경남</option>
+                                <option value="제주">제주</option>
+                            </select>
+                            <small class="field-note">선택 항목</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dir-career">주요 경력</label>
+                            <textarea id="dir-career" name="dir-career" rows="4"
+                                placeholder="예: 중소기업 대표이사 15년, 금융업 영업부장 10년 등 (선택)"></textarea>
+                            <small class="field-note">선택 항목</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dir-motivation">지원 동기</label>
+                            <textarea id="dir-motivation" name="dir-motivation" rows="4"
+                                placeholder="GFC에 지원하게 된 동기를 간단히 작성해주세요 (선택)"></textarea>
+                            <small class="field-note">선택 항목</small>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" name="dir-privacy">
                                 <span>개인정보 수집 및 이용에 동의합니다 <span class="required">*</span></span>
                             </label>
                             <p class="privacy-note">수집된 정보는 채용 목적으로만 사용되며, 채용 종료 후 파기됩니다.</p>

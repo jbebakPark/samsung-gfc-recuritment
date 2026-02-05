@@ -936,3 +936,37 @@
         border-color: #1428A0 !important;
     }
 }
+
+/* ==========================================
+   FORM ENHANCEMENTS - AGE ERROR AND FIELD NOTES
+   ========================================== */
+
+/* Field notes for optional fields */
+.field-note {
+    display: block;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+/* Age error styling */
+.age-error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+/* Birth select container error state */
+.birth-select-container.error {
+    border: 1px solid #ef4444;
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: #fef2f2;
+}
+
+/* Required field indicator */
+.required {
+    color: #ef4444;
+}

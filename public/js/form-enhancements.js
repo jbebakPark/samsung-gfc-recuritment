@@ -1,6 +1,6 @@
 // ============================================
 // SAMSUNG GFC APPLICATION FORM ENHANCEMENTS
-// 지원서 폼 개선 (추천인 경로, 생년월일)
+// 지원서 폼 개선 (추천인 경로, 생년월일, 나이 제한)
 // 2026-02-05
 // ============================================
 
@@ -8,6 +8,101 @@
     'use strict';
     
     console.log('Application Form Enhancements - Loading...');
+    
+    // ============================================
+    // AGE VALIDATION CONFIGURATION
+    // ============================================
+    const AGE_CONFIG = {
+        MIN_AGE: 25,  // 최소 나이
+        MAX_AGE: 70,  // 최대 나이
+        ERROR_MESSAGE: {
+            TOO_YOUNG: '지원 가능 최소 나이는 {MIN_AGE}세입니다. 현재 나이: {CURRENT_AGE}세',
+            TOO_OLD: '지원 가능 최대 나이는 {MAX_AGE}세입니다. 현재 나이: {CURRENT_AGE}세',
+            INVALID_DATE: '올바른 생년월일을 입력해주세요.',
+            FUTURE_DATE: '미래 날짜는 입력할 수 없습니다.'
+        }
+    };
+    
+    // ============================================
+    // AGE CALCULATION AND VALIDATION
+    // ============================================
+    function calculateAge(birthDate) {
+        const today = new Date();
+        const birth = new Date(birthDate);
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
+        
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+            age--;
+        }
+        
+        return age;
+    }
+    
+    function validateAge(birthDate) {
+        if (!birthDate) {
+            return { valid: false, message: AGE_CONFIG.ERROR_MESSAGE.INVALID_DATE };
+        }
+        
+        const birth = new Date(birthDate);
+        const today = new Date();
+        
+        // 미래 날짜 체크
+        if (birth > today) {
+            return { valid: false, message: AGE_CONFIG.ERROR_MESSAGE.FUTURE_DATE };
+        }
+        
+        const age = calculateAge(birthDate);
+        
+        // 최소 나이 체크
+        if (age < AGE_CONFIG.MIN_AGE) {
+            return { 
+                valid: false, 
+                message: AGE_CONFIG.ERROR_MESSAGE.TOO_YOUNG
+                    .replace('{MIN_AGE}', AGE_CONFIG.MIN_AGE)
+                    .replace('{CURRENT_AGE}', age)
+            };
+        }
+        
+        // 최대 나이 체크
+        if (age > AGE_CONFIG.MAX_AGE) {
+            return { 
+                valid: false, 
+                message: AGE_CONFIG.ERROR_MESSAGE.TOO_OLD
+                    .replace('{MAX_AGE}', AGE_CONFIG.MAX_AGE)
+                    .replace('{CURRENT_AGE}', age)
+            };
+        }
+        
+        return { valid: true, age: age };
+    }
+    
+    function showAgeError(input, message) {
+        // Remove existing error
+        const existingError = input.parentElement.querySelector('.age-error');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // Add error message
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'age-error';
+        errorDiv.style.color = '#ef4444';
+        errorDiv.style.fontSize = '0.875rem';
+        errorDiv.style.marginTop = '0.25rem';
+        errorDiv.textContent = message;
+        
+        input.parentElement.appendChild(errorDiv);
+        input.style.borderColor = '#ef4444';
+    }
+    
+    function clearAgeError(input) {
+        const existingError = input.parentElement.querySelector('.age-error');
+        if (existingError) {
+            existingError.remove();
+        }
+        input.style.borderColor = '';
+    }
     
     // ============================================
     // TAB SWITCHING FUNCTIONALITY
@@ -135,15 +230,43 @@
                 const day = daySelect.value;
                 
                 if (year && month && day) {
-                    hiddenInput.value = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+                    const dateStr = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+                    hiddenInput.value = dateStr;
+                    
+                    // 나이 검증 수행
+                    const validation = validateAge(dateStr);
+                    if (!validation.valid) {
+                        showAgeError(selectContainer, validation.message);
+                    } else {
+                        clearAgeError(selectContainer);
+                        console.log(`Valid age: ${validation.age}세`);
+                    }
                 } else {
                     hiddenInput.value = '';
+                    clearAgeError(selectContainer);
                 }
             }
             
             yearSelect.addEventListener('change', updateHiddenInput);
             monthSelect.addEventListener('change', updateHiddenInput);
             daySelect.addEventListener('change', updateHiddenInput);
+            
+            // Add age validation on change
+            function validateBirthDate() {
+                const birthDate = hiddenInput.value;
+                if (birthDate) {
+                    const result = validateAge(birthDate);
+                    if (!result.valid) {
+                        showAgeError(selectContainer, result.message);
+                    } else {
+                        clearAgeError(selectContainer);
+                    }
+                }
+            }
+            
+            yearSelect.addEventListener('change', validateBirthDate);
+            monthSelect.addEventListener('change', validateBirthDate);
+            daySelect.addEventListener('change', validateBirthDate);
             
             console.log('Birth date selects created for:', inputId);
         });
@@ -224,20 +347,75 @@
         
         forms.forEach(form => {
             form.addEventListener('submit', function(e) {
+                let isValid = true;
+                let errorMessage = '';
+                
                 // Check if birth date is filled
                 const hiddenDateInputs = form.querySelectorAll('input[type="hidden"][data-converted="true"]');
                 
                 hiddenDateInputs.forEach(input => {
                     if (!input.value && input.hasAttribute('required')) {
-                        e.preventDefault();
-                        alert('생년월일을 모두 선택해주세요.');
-                        return false;
+                        isValid = false;
+                        errorMessage = '생년월일을 모두 선택해주세요.';
+                        return;
+                    }
+                    
+                    // 나이 검증
+                    if (input.value) {
+                        const validation = validateAge(input.value);
+                        if (!validation.valid) {
+                            e.preventDefault();
+                            isValid = false;
+                            errorMessage = validation.message;
+                            
+                            // Show error on the select container
+                            const selectContainer = input.previousElementSibling;
+                            if (selectContainer && selectContainer.classList.contains('birth-select-container')) {
+                                showAgeError(selectContainer, validation.message);
+                            }
+                            return;
+                        }
                     }
                 });
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    alert(errorMessage);
+                    return false;
+                }
+                
+                // Check required fields based on active tab
+                const activeTab = form.querySelector('.tab-btn.active');
+                const track = activeTab ? activeTab.getAttribute('data-track') : 'jobfair';
+                const activeContent = form.querySelector(`#${track}-content`);
+                
+                if (activeContent) {
+                    const requiredInputs = activeContent.querySelectorAll('[required]');
+                    let missingFields = [];
+                    
+                    requiredInputs.forEach(input => {
+                        if (input.type === 'checkbox') {
+                            if (!input.checked) {
+                                missingFields.push('개인정보 수집 및 이용 동의');
+                            }
+                        } else if (!input.value || input.value.trim() === '') {
+                            const label = activeContent.querySelector(`label[for="${input.id}"]`);
+                            if (label) {
+                                missingFields.push(label.textContent.replace('*', '').trim());
+                            }
+                        }
+                    });
+                    
+                    if (missingFields.length > 0) {
+                        e.preventDefault();
+                        alert(`다음 필수 항목을 입력해주세요:\n${missingFields.join('\n')}`);
+                        return false;
+                    }
+                }
             });
         });
         
-        console.log('Form validation enhanced');
+        console.log('Form validation enhanced with age check');
     }
     
     // ============================================
