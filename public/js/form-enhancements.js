@@ -116,32 +116,57 @@
             return;
         }
         
+        // Function to switch tabs
+        function switchToTab(track) {
+            // Remove active class from all buttons
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to target button
+            const targetButton = document.querySelector(`.tab-btn[data-track="${track}"]`);
+            if (targetButton) {
+                targetButton.classList.add('active');
+            }
+            
+            // Hide all form contents
+            formContents.forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('active');
+            });
+            
+            // Show selected form content
+            const targetContent = document.getElementById(`${track}-content`);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+                targetContent.classList.add('active');
+                console.log('Switched to track:', track);
+            }
+        }
+        
+        // Tab button click handlers
         tabButtons.forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const track = this.getAttribute('data-track');
-                
-                // Remove active class from all buttons
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                
-                // Add active class to clicked button
-                this.classList.add('active');
-                
-                // Hide all form contents
-                formContents.forEach(content => {
-                    content.classList.add('hidden');
-                    content.classList.remove('active');
-                });
-                
-                // Show selected form content
-                const targetContent = document.getElementById(`${track}-content`);
-                if (targetContent) {
-                    targetContent.classList.remove('hidden');
-                    targetContent.classList.add('active');
-                    console.log('Switched to track:', track);
-                }
+                switchToTab(track);
             });
+        });
+        
+        // Handle links with data-track attribute
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a[data-track]');
+            if (link) {
+                const track = link.getAttribute('data-track');
+                // Scroll to apply section
+                const applySection = document.getElementById('apply');
+                if (applySection) {
+                    e.preventDefault();
+                    applySection.scrollIntoView({ behavior: 'smooth' });
+                    // Wait for scroll to complete, then switch tab
+                    setTimeout(() => {
+                        switchToTab(track);
+                    }, 500);
+                }
+            }
         });
         
         console.log('Tab switching initialized:', tabButtons.length, 'tabs');
