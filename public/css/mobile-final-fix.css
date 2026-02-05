@@ -1,0 +1,684 @@
+/* ============================================
+   SAMSUNG MOBILE - FINAL FIX
+   모든 모바일 레이아웃 문제 해결
+   2026-02-05
+   ============================================ */
+
+/* ============================================
+   1. 로고 중앙 정렬 FIX
+   ============================================ */
+@media (max-width: 768px) {
+    /* 로고 컨테이너 중앙 정렬 */
+    .nav-brand {
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        gap: 0.5rem !important;
+    }
+    
+    .logo {
+        height: 32px !important;
+        width: auto !important;
+    }
+    
+    .brand-text {
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+        color: #1428A0 !important;
+    }
+    
+    /* 햄버거 메뉴는 우측에 고정 */
+    .mobile-menu-toggle {
+        margin-left: auto !important;
+    }
+}
+
+/* ============================================
+   2. 일정 카드 (하루 일과) 중앙 정렬
+   ============================================ */
+@media (max-width: 768px) {
+    /* 일정 섹션 전체 */
+    .daily-schedule,
+    .schedule-section,
+    [id*="schedule"],
+    .timeline-section {
+        text-align: center !important;
+        padding: 2rem 1rem !important;
+    }
+    
+    /* 일정 제목 */
+    .daily-schedule h2,
+    .daily-schedule h3,
+    .schedule-section h2,
+    .schedule-section h3 {
+        text-align: center !important;
+        margin-bottom: 1.5rem !important;
+        font-size: 1.75rem !important;
+        color: #1428A0 !important;
+    }
+    
+    /* 일정 부제 */
+    .daily-schedule p,
+    .schedule-section p {
+        text-align: center !important;
+        margin-bottom: 2rem !important;
+        color: #4A5568 !important;
+        font-size: 1rem !important;
+    }
+    
+    /* 일정 카드 컨테이너 */
+    .schedule-grid,
+    .timeline-items,
+    .schedule-cards {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* 개별 일정 카드 */
+    .schedule-card,
+    .timeline-item,
+    .time-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1.5rem !important;
+        background: #FFFFFF !important;
+        border: 2px solid #E2E8F0 !important;
+        border-radius: 16px !important;
+        box-shadow: 0 2px 8px rgba(10, 26, 107, 0.06) !important;
+        text-align: center !important;
+        margin: 0 auto !important;
+    }
+    
+    /* 시간 표시 */
+    .schedule-time,
+    .time {
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        color: #1428A0 !important;
+        margin-bottom: 0.75rem !important;
+        text-align: center !important;
+        display: block !important;
+    }
+    
+    /* 일정 내용 */
+    .schedule-title,
+    .schedule-description,
+    .activity {
+        font-size: 1rem !important;
+        color: #2D3748 !important;
+        line-height: 1.6 !important;
+        text-align: center !important;
+        word-break: keep-all !important;
+        white-space: normal !important;
+    }
+}
+
+/* ============================================
+   3. 채용설명회 신청 버튼 FIX
+   ============================================ */
+@media (max-width: 768px) {
+    /* 채용설명회 섹션 */
+    #job-fair {
+        padding: 3rem 1rem !important;
+        text-align: center !important;
+    }
+    
+    /* 채용설명회 제목 */
+    #job-fair h2 {
+        text-align: center !important;
+        margin-bottom: 1rem !important;
+        font-size: 1.75rem !important;
+    }
+    
+    /* 채용설명회 카드 */
+    .job-fair-card,
+    .event-card,
+    .fair-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 2rem 1.5rem !important;
+        margin: 1rem 0 !important;
+        background: #FFFFFF !important;
+        border-radius: 20px !important;
+        box-shadow: 0 4px 16px rgba(10, 26, 107, 0.08) !important;
+        border: 2px solid #E2E8F0 !important;
+        text-align: center !important;
+    }
+    
+    /* 날짜 배지 */
+    .date-badge,
+    .event-date {
+        display: inline-block !important;
+        padding: 1rem 1.5rem !important;
+        background: linear-gradient(135deg, #1428A0 0%, #2E4DB8 100%) !important;
+        color: #FFFFFF !important;
+        border-radius: 12px !important;
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 1.5rem !important;
+        text-align: center !important;
+    }
+    
+    /* 일정 제목 */
+    .event-title,
+    .fair-title {
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        color: #1A1A1A !important;
+        margin-bottom: 1rem !important;
+        text-align: center !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* 시간/장소 정보 */
+    .event-info,
+    .fair-info,
+    .info-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+        margin: 1.5rem 0 !important;
+        padding: 1rem !important;
+        background: #F7FAFC !important;
+        border-radius: 12px !important;
+    }
+    
+    .event-info p,
+    .fair-info p,
+    .info-item p {
+        font-size: 1rem !important;
+        color: #4A5568 !important;
+        margin: 0.5rem 0 !important;
+        text-align: center !important;
+        line-height: 1.8 !important;
+    }
+    
+    .event-info i,
+    .fair-info i {
+        color: #1428A0 !important;
+        font-size: 1.1rem !important;
+        margin-right: 0.5rem !important;
+    }
+    
+    /* 프로그램 일정 리스트 */
+    .program-schedule,
+    .schedule-list {
+        text-align: left !important;
+        margin: 1.5rem 0 !important;
+        padding: 1rem !important;
+        background: #F7FAFC !important;
+        border-radius: 12px !important;
+    }
+    
+    .program-schedule li,
+    .schedule-list li {
+        padding: 0.75rem 1rem !important;
+        margin: 0.5rem 0 !important;
+        font-size: 0.95rem !important;
+        color: #2D3748 !important;
+        line-height: 1.6 !important;
+        word-break: keep-all !important;
+    }
+    
+    /* 신청 버튼 - 작동하도록 수정 */
+    .btn-register,
+    .btn-apply,
+    .register-btn,
+    .apply-btn {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1.25rem 2rem !important;
+        margin: 1.5rem 0 0 0 !important;
+        background: linear-gradient(135deg, #1428A0 0%, #2E4DB8 100%) !important;
+        color: #FFFFFF !important;
+        border: none !important;
+        border-radius: 50px !important;
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+        text-align: center !important;
+        text-decoration: none !important;
+        cursor: pointer !important;
+        box-shadow: 0 4px 16px rgba(20, 40, 160, 0.3) !important;
+        transition: all 0.3s ease !important;
+        -webkit-tap-highlight-color: transparent !important;
+        touch-action: manipulation !important;
+    }
+    
+    .btn-register:active,
+    .btn-apply:active,
+    .register-btn:active,
+    .apply-btn:active {
+        transform: scale(0.97) translateY(2px) !important;
+        box-shadow: 0 2px 8px rgba(20, 40, 160, 0.3) !important;
+    }
+    
+    /* 버튼 아이콘 */
+    .btn-register i,
+    .btn-apply i,
+    .register-btn i,
+    .apply-btn i {
+        margin-right: 0.5rem !important;
+        font-size: 1rem !important;
+    }
+    
+    /* 2개 버튼이 나란히 있는 경우 */
+    .button-group,
+    .btn-group {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        width: 100% !important;
+        margin-top: 1.5rem !important;
+    }
+    
+    .button-group .btn,
+    .btn-group .btn {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+}
+
+/* ============================================
+   4. FAQ 섹션 중앙 정렬 & 드롭다운 FIX
+   ============================================ */
+@media (max-width: 768px) {
+    /* FAQ 섹션 */
+    #faq,
+    .faq-section {
+        padding: 3rem 1rem !important;
+        text-align: center !important;
+    }
+    
+    /* FAQ 제목 */
+    #faq h2,
+    .faq-section h2 {
+        text-align: center !important;
+        margin-bottom: 2rem !important;
+        font-size: 1.75rem !important;
+        color: #1428A0 !important;
+    }
+    
+    /* FAQ 컨테이너 */
+    .faq-container,
+    .faq-list {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+    
+    /* FAQ 아이템 */
+    .faq-item {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 1rem !important;
+        background: #FFFFFF !important;
+        border: 2px solid #E2E8F0 !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+        box-shadow: 0 2px 8px rgba(10, 26, 107, 0.06) !important;
+    }
+    
+    /* FAQ 질문 버튼 */
+    .faq-question,
+    .faq-toggle {
+        width: 100% !important;
+        padding: 1.25rem 1.5rem !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        background: transparent !important;
+        border: none !important;
+        text-align: left !important;
+        cursor: pointer !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        color: #1A1A1A !important;
+        line-height: 1.6 !important;
+        word-break: keep-all !important;
+        transition: all 0.3s ease !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    
+    .faq-question:active,
+    .faq-toggle:active {
+        background: rgba(20, 40, 160, 0.05) !important;
+    }
+    
+    /* FAQ 화살표 아이콘 */
+    .faq-question i,
+    .faq-toggle i,
+    .faq-icon {
+        font-size: 1rem !important;
+        color: #1428A0 !important;
+        transition: transform 0.3s ease !important;
+        flex-shrink: 0 !important;
+        margin-left: 1rem !important;
+    }
+    
+    .faq-item.active .faq-question i,
+    .faq-item.active .faq-toggle i,
+    .faq-item.active .faq-icon {
+        transform: rotate(180deg) !important;
+    }
+    
+    /* FAQ 답변 */
+    .faq-answer {
+        max-height: 0 !important;
+        overflow: hidden !important;
+        transition: max-height 0.4s ease, padding 0.4s ease !important;
+        padding: 0 1.5rem !important;
+        background: #F7FAFC !important;
+    }
+    
+    .faq-item.active .faq-answer {
+        max-height: 1000px !important;
+        padding: 1.5rem !important;
+    }
+    
+    .faq-answer p {
+        font-size: 0.95rem !important;
+        color: #4A5568 !important;
+        line-height: 1.8 !important;
+        margin: 0 !important;
+        text-align: left !important;
+        word-break: keep-all !important;
+    }
+}
+
+/* ============================================
+   5. 지원 전 확인 체크박스 FIX
+   ============================================ */
+@media (max-width: 768px) {
+    /* 지원 확인 섹션 */
+    .pre-apply-check,
+    .checklist-section,
+    .requirements-section {
+        padding: 2rem 1.5rem !important;
+        background: #F7FAFC !important;
+        border-radius: 20px !important;
+        margin: 2rem 0 !important;
+        text-align: center !important;
+    }
+    
+    /* 제목 */
+    .pre-apply-check h3,
+    .checklist-section h3 {
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        color: #1A1A1A !important;
+        margin-bottom: 1rem !important;
+        text-align: center !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* 안내 문구 */
+    .pre-apply-check .intro,
+    .checklist-intro {
+        font-size: 0.95rem !important;
+        color: #4A5568 !important;
+        margin-bottom: 1.5rem !important;
+        text-align: center !important;
+        line-height: 1.8 !important;
+        word-break: keep-all !important;
+    }
+    
+    /* 체크박스 리스트 */
+    .checklist,
+    .requirements-list {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        width: 100% !important;
+        margin: 1.5rem 0 !important;
+    }
+    
+    /* 체크박스 아이템 */
+    .checklist-item,
+    .requirement-item {
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 1rem !important;
+        padding: 1.25rem !important;
+        background: #FFFFFF !important;
+        border: 2px solid #E2E8F0 !important;
+        border-radius: 12px !important;
+        text-align: left !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* 체크박스 입력 */
+    .checklist-item input[type="checkbox"],
+    .requirement-item input[type="checkbox"] {
+        width: 24px !important;
+        height: 24px !important;
+        min-width: 24px !important;
+        margin: 0 !important;
+        margin-top: 2px !important;
+        cursor: pointer !important;
+        accent-color: #1428A0 !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* 체크박스 라벨 */
+    .checklist-item label,
+    .requirement-item label {
+        flex: 1 !important;
+        font-size: 0.95rem !important;
+        color: #2D3748 !important;
+        line-height: 1.6 !important;
+        cursor: pointer !important;
+        word-break: keep-all !important;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        max-width: calc(100% - 40px) !important;
+    }
+    
+    /* 체크된 상태 */
+    .checklist-item.checked,
+    .requirement-item.checked {
+        background: rgba(20, 40, 160, 0.05) !important;
+        border-color: #1428A0 !important;
+    }
+    
+    .checklist-item.checked label,
+    .requirement-item.checked label {
+        color: #1428A0 !important;
+        font-weight: 600 !important;
+    }
+}
+
+/* ============================================
+   6. 모달/팝업 중앙 정렬
+   ============================================ */
+@media (max-width: 768px) {
+    /* 모달 오버레이 */
+    .modal-overlay,
+    .popup-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        background: rgba(0, 0, 0, 0.7) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 9999 !important;
+        padding: 1rem !important;
+    }
+    
+    /* 모달 컨텐츠 */
+    .modal-content,
+    .popup-content {
+        width: 100% !important;
+        max-width: 90% !important;
+        max-height: 85vh !important;
+        background: #FFFFFF !important;
+        border-radius: 20px !important;
+        padding: 2rem 1.5rem !important;
+        overflow-y: auto !important;
+        text-align: center !important;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    /* 모달 제목 */
+    .modal-title,
+    .popup-title {
+        font-size: 1.5rem !important;
+        font-weight: 700 !important;
+        color: #1428A0 !important;
+        margin-bottom: 1.5rem !important;
+        text-align: center !important;
+    }
+    
+    /* 모달 본문 */
+    .modal-body,
+    .popup-body {
+        font-size: 1rem !important;
+        color: #2D3748 !important;
+        line-height: 1.8 !important;
+        text-align: left !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    /* 닫기 버튼 */
+    .modal-close,
+    .popup-close {
+        position: absolute !important;
+        top: 1rem !important;
+        right: 1rem !important;
+        width: 40px !important;
+        height: 40px !important;
+        background: transparent !important;
+        border: none !important;
+        color: #718096 !important;
+        font-size: 1.5rem !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    .modal-close:active,
+    .popup-close:active {
+        background: rgba(0, 0, 0, 0.1) !important;
+        transform: scale(0.95) !important;
+    }
+}
+
+/* ============================================
+   7. 추가 텍스트 정렬 개선
+   ============================================ */
+@media (max-width: 768px) {
+    /* 모든 섹션 제목 중앙 정렬 */
+    .section-title,
+    h1, h2, h3 {
+        text-align: center !important;
+        word-break: keep-all !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* 모든 섹션 부제 중앙 정렬 */
+    .section-subtitle,
+    .section-description {
+        text-align: center !important;
+        word-break: keep-all !important;
+        line-height: 1.7 !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    /* 카드 제목 */
+    .card-title {
+        text-align: center !important;
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    /* 카드 내용 */
+    .card-text,
+    .card-description {
+        text-align: center !important;
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        color: #4A5568 !important;
+    }
+    
+    /* 리스트 아이템 */
+    ul, ol {
+        padding-left: 1.5rem !important;
+        text-align: left !important;
+    }
+    
+    li {
+        margin-bottom: 0.5rem !important;
+        line-height: 1.6 !important;
+        word-break: keep-all !important;
+    }
+}
+
+/* ============================================
+   8. 터치 영역 최적화
+   ============================================ */
+@media (max-width: 768px) {
+    /* 모든 클릭 가능한 요소에 최소 터치 영역 보장 */
+    a, button, input[type="checkbox"], input[type="radio"],
+    .btn, .faq-question, .dropdown-toggle {
+        min-height: 44px !important;
+        min-width: 44px !important;
+        -webkit-tap-highlight-color: transparent !important;
+        touch-action: manipulation !important;
+    }
+    
+    /* 활성화 상태 시각 피드백 */
+    a:active, button:active, .btn:active {
+        opacity: 0.8 !important;
+        transform: scale(0.98) !important;
+    }
+}
+
+/* ============================================
+   9. 스크롤 최적화
+   ============================================ */
+@media (max-width: 768px) {
+    /* 부드러운 스크롤 */
+    html {
+        scroll-behavior: smooth !important;
+        scroll-padding-top: 80px !important;
+    }
+    
+    /* 모바일 오버스크롤 방지 */
+    body {
+        overscroll-behavior: contain !important;
+    }
+    
+    /* 섹션 간 간격 */
+    .section {
+        scroll-margin-top: 80px !important;
+    }
+}
+
+/* ============================================
+   10. 반응형 이미지
+   ============================================ */
+@media (max-width: 768px) {
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        display: block !important;
+    }
+    
+    /* 로고는 중앙 정렬 제외 */
+    .logo {
+        display: inline-block !important;
+    }
+}
