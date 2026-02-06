@@ -1,0 +1,183 @@
+/**
+ * Samsung GFC - Checkbox Improvements
+ * 체크박스 가시성 및 UX 개선
+ * Date: 2026-02-06
+ */
+
+/* 자가 진단 섹션 */
+.self-check {
+    background: #F8F9FA;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 1rem 0;
+}
+
+.check-intro {
+    margin-bottom: 1.5rem !important;
+    color: #2C3E50 !important;
+    font-size: 1.05rem !important;
+    line-height: 1.6;
+}
+
+.check-intro strong {
+    color: #034EA2 !important;
+    font-weight: 700;
+}
+
+/* 체크박스 아이템 */
+.check-item {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    padding: 1rem 1rem 1rem 3.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    background: #FFFFFF;
+    border: 2px solid #E8E8E8;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    min-height: 60px;
+}
+
+.check-item:hover {
+    border-color: #034EA2;
+    background: #F0F7FF;
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(3, 78, 162, 0.1);
+}
+
+/* 숨겨진 체크박스 */
+.check-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* 커스텀 체크박스 */
+.check-item .checkmark {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 28px;
+    width: 28px;
+    background-color: #FFFFFF;
+    border: 3px solid #034EA2;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.check-item:hover .checkmark {
+    border-color: #1D74C6;
+    box-shadow: 0 0 0 3px rgba(3, 78, 162, 0.1);
+}
+
+/* 체크 표시 */
+.check-item .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 8px;
+    top: 3px;
+    width: 7px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+/* 체크되었을 때 */
+.check-item input[type="checkbox"]:checked ~ .checkmark {
+    background: linear-gradient(135deg, #034EA2 0%, #1D74C6 100%);
+    border-color: #034EA2;
+    box-shadow: 0 2px 8px rgba(3, 78, 162, 0.3);
+}
+
+.check-item input[type="checkbox"]:checked ~ .checkmark:after {
+    display: block;
+}
+
+.check-item input[type="checkbox"]:checked ~ .check-text {
+    color: #034EA2;
+    font-weight: 600;
+}
+
+/* 체크박스 텍스트 */
+.check-text {
+    color: #2C3E50;
+    font-size: 1rem;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+    display: block;
+    padding-right: 0.5rem;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+    .check-item {
+        padding: 1rem 1rem 1rem 3rem;
+        min-height: 70px;
+    }
+    
+    .check-item .checkmark {
+        height: 26px;
+        width: 26px;
+        left: 0.75rem;
+    }
+    
+    .check-item .checkmark:after {
+        left: 7px;
+        top: 2px;
+        width: 6px;
+        height: 12px;
+    }
+    
+    .check-text {
+        font-size: 0.95rem;
+    }
+}
+
+/* 터치 디바이스 개선 */
+@media (hover: none) and (pointer: coarse) {
+    .check-item {
+        padding: 1.2rem 1rem 1.2rem 3.5rem;
+        min-height: 75px;
+    }
+    
+    .check-item .checkmark {
+        height: 32px;
+        width: 32px;
+    }
+    
+    .check-item .checkmark:after {
+        left: 10px;
+        top: 4px;
+        width: 8px;
+        height: 14px;
+    }
+}
+
+/* 애니메이션 */
+@keyframes checkBounce {
+    0% {
+        transform: translateY(-50%) scale(1);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.1);
+    }
+    100% {
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+.check-item input[type="checkbox"]:checked ~ .checkmark {
+    animation: checkBounce 0.3s ease;
+}
+
+/* 포커스 상태 (접근성) */
+.check-item input[type="checkbox"]:focus ~ .checkmark {
+    outline: 2px solid #034EA2;
+    outline-offset: 2px;
+}
