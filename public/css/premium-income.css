@@ -317,7 +317,7 @@
 
 .bar-fill {
     width: 100%;
-    background: linear-gradient(180deg, #1428A0 0%, #034EA2 100%);
+    background: linear-gradient(0deg, #1428A0 0%, #034EA2 100%);
     border-radius: 12px 12px 0 0;
     display: flex;
     flex-direction: column;
@@ -336,15 +336,15 @@
 }
 
 .bar-fill.bar-1 {
-    background: linear-gradient(180deg, #6c757d 0%, #495057 100%);
+    background: linear-gradient(0deg, #495057 0%, #6c757d 100%);
 }
 
 .bar-fill.bar-2 {
-    background: linear-gradient(180deg, #1428A0 0%, #034EA2 100%);
+    background: linear-gradient(0deg, #034EA2 0%, #1428A0 100%);
 }
 
 .bar-fill.bar-3 {
-    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
+    background: linear-gradient(0deg, #FFA500 0%, #FFD700 100%);
 }
 
 .bar-label {
