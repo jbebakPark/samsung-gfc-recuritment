@@ -4674,6 +4674,24 @@ body {
     .press-section .press-card * {
         color: var(--white) !important;
     }
+    
+    /* 제목 - 흰색, 크고 굵게 */
+    .press-section .press-card .press-title {
+        color: var(--white) !important;
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        line-height: 1.5 !important;
+        margin: 1rem 0 !important;
+    }
+    
+    /* 회사명, 인물명, 타입 - 흰색, 불투명도 90% */
+    .press-section .press-card .press-company,
+    .press-section .press-card .press-person,
+    .press-section .press-card .press-type {
+        color: rgba(255, 255, 255, 0.95) !important;
+        font-size: 0.95rem !important;
+        margin: 0.5rem 0 !important;
+    }
 
     /* 날짜는 흰색 배경에 파란색 텍스트 */
     .press-section .press-date {
