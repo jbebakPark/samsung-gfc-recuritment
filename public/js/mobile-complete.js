@@ -15,7 +15,8 @@
     const navMenu = document.querySelector('.nav-menu');
     const body = document.body;
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    const navLinks = document.querySelectorAll('.nav-menu a');
+    // Select all links EXCEPT dropdown toggles
+    const navLinks = document.querySelectorAll('.nav-menu a:not(.dropdown-toggle)');
     
     // ============================================
     // MOBILE MENU TOGGLE
@@ -149,24 +150,22 @@
                 
                 // If internal link (starts with #)
                 if (href && href.startsWith('#')) {
-                    // Don't prevent default for dropdown toggles
-                    if (!this.classList.contains('dropdown-toggle')) {
-                        e.preventDefault();
-                        closeMenu();
-                        
-                        // Smooth scroll to target
-                        const target = document.querySelector(href);
-                        if (target) {
-                            setTimeout(() => {
-                                const headerHeight = 70;
-                                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                                
-                                window.scrollTo({
-                                    top: targetPosition,
-                                    behavior: 'smooth'
-                                });
-                            }, 300);
-                        }
+                    // Dropdown toggles are already excluded in navLinks selection
+                    e.preventDefault();
+                    closeMenu();
+                    
+                    // Smooth scroll to target
+                    const target = document.querySelector(href);
+                    if (target) {
+                        setTimeout(() => {
+                            const headerHeight = 70;
+                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                            
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }, 300);
                     }
                 }
             }
