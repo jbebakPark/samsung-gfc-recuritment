@@ -69,7 +69,7 @@ ${applicationData.motivation.substring(0, 100)}${applicationData.motivation.leng
         
         // 카카오톡 메시지 전송 API 호출
         // 방법 1: 카카오톡 오픈채팅 웹훅 사용
-        const kakaoWebhookUrl = 'https://open.kakao.com/o/gTj6ox9h'; // 카카오톡 오픈채팅 URL
+        const kakaoWebhookUrl = 'https://open.kakao.com/o/sHw2Wgci'; // 카카오톡 오픈채팅 URL
         
         // 방법 2: 카카오톡 비즈메시지 API 사용
         const kakaoApiUrl = 'https://kapi.kakao.com/v2/api/talk/memo/default/send';

@@ -78,7 +78,7 @@
                 
                 // You can add custom logic here
                 // For example, open a modal or redirect
-                alert(`신청 기능을 준비 중입니다.\n\n연락처:\n📞 010-5137-2327\n💬 카카오톡: https://open.kakao.com/o/sleUSUei`);
+                alert(`신청 기능을 준비 중입니다.\n\n연락처:\n📞 010-5137-2327\n💬 카카오톡: https://open.kakao.com/o/sHw2Wgci`);
             });
         });
         
