@@ -2998,8 +2998,33 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">채용 자료실</h2>
-                <p class="section-subtitle">승인된 사용자만 접근 가능합니다</p>
+                <p class="section-subtitle">🔒 지원자에 한하여 다운로드 가능합니다</p>
             </div>
+            
+            <!-- 🚨 v30.0 지원자 전용 안내 배너 -->
+            <div class="applicant-only-notice" style="
+                background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+                border: 3px solid #FF9800;
+                border-radius: 12px;
+                padding: 1.5rem 2rem;
+                margin-bottom: 2rem;
+                text-align: center;
+                box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
+            ">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: #E65100;"></i>
+                    <div style="text-align: left;">
+                        <h3 style="margin: 0 0 0.5rem 0; color: #E65100; font-size: 1.3rem; font-weight: 700;">
+                            📢 지원자 전용 자료실
+                        </h3>
+                        <p style="margin: 0; color: #BF360C; font-size: 1rem; font-weight: 600; line-height: 1.6;">
+                            본 자료실의 모든 자료는 <strong style="background: #FF9800; color: white; padding: 0.2rem 0.5rem; border-radius: 4px;">지원자에 한하여</strong> 다운로드가 가능합니다.<br>
+                            자료 열람을 원하시면 <a href="#apply" style="color: #0D47A1; text-decoration: underline; font-weight: 700;">지원서를 먼저 제출</a>해주시기 바랍니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
             <div class="resources-grid">
                 <div class="resource-card locked">
                     <div class="resource-icon">
@@ -3009,7 +3034,7 @@
                     <p>삼성생명 GFC 소개 및 업무 안내</p>
                     <div class="lock-overlay">
                         <i class="fas fa-lock"></i>
-                        <p>승인된 사용자만<br>다운로드 가능합니다</p>
+                        <p>지원자에 한하여<br>다운로드 가능합니다</p>
                     </div>
                 </div>
                 <div class="resource-card locked">
@@ -3020,7 +3045,7 @@
                     <p>체계적인 GFC 교육 과정 안내</p>
                     <div class="lock-overlay">
                         <i class="fas fa-lock"></i>
-                        <p>승인된 사용자만<br>다운로드 가능합니다</p>
+                        <p>지원자에 한하여<br>다운로드 가능합니다</p>
                     </div>
                 </div>
                 <div class="resource-card locked">
@@ -3031,7 +3056,7 @@
                     <p>현직 GFC들의 성공 스토리</p>
                     <div class="lock-overlay">
                         <i class="fas fa-lock"></i>
-                        <p>승인된 사용자만<br>다운로드 가능합니다</p>
+                        <p>지원자에 한하여<br>다운로드 가능합니다</p>
                     </div>
                 </div>
                 <div class="resource-card locked">
@@ -3042,12 +3067,13 @@
                     <p>GFC 일과 및 인터뷰 영상</p>
                     <div class="lock-overlay">
                         <i class="fas fa-lock"></i>
-                        <p>승인된 사용자만<br>다운로드 가능합니다</p>
+                        <p>지원자에 한하여<br>다운로드 가능합니다</p>
                     </div>
                 </div>
             </div>
             <div class="resources-note">
-                <p><i class="fas fa-info-circle"></i> 자료 열람을 원하시면 <a href="#apply">지원서를 제출</a>하거나 담당자에게 문의해주세요.</p>
+                <p><i class="fas fa-info-circle"></i> <strong>자료 다운로드는 지원자에 한하여 가능합니다.</strong> 자료 열람을 원하시면 <a href="#apply">지원서를 먼저 제출</a>해주시거나 담당자에게 문의해주세요.</p>
+                <p style="margin-top: 0.5rem;"><i class="fas fa-phone"></i> 문의: 010-5137-2327 | <i class="fas fa-envelope"></i> jb2park@naver.com</p>
             </div>
         </div>
     </section>
