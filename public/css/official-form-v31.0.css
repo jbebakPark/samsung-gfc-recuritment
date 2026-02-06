@@ -1,0 +1,325 @@
+/* v31.0 공식 GFC 지원서 양식 스타일 */
+
+/* 폼 섹션 */
+.official-form .form-section {
+    background: #FFFFFF;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.official-form .form-section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #034EA2;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #034EA2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.official-form .form-section-title i {
+    margin-right: 0.5rem;
+}
+
+/* 라디오 그룹 */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.radio-label:hover {
+    border-color: #034EA2;
+    background: #F5F9FF;
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 0.5rem;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"]:checked + span {
+    color: #034EA2;
+    font-weight: 600;
+}
+
+.radio-label span {
+    font-size: 1rem;
+}
+
+/* 조건부 섹션 */
+.conditional-section {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #F8F9FA;
+    border-left: 4px solid #FF9800;
+    border-radius: 8px;
+}
+
+/* 동적 항목 (학력, 경력) */
+.education-item,
+.career-item {
+    background: #F8F9FA;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.education-item .item-header,
+.career-item .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #D0D0D0;
+}
+
+.education-item h4,
+.career-item h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #034EA2;
+    margin: 0;
+}
+
+/* 추가/삭제 버튼 */
+.btn-add {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-add:hover {
+    background: #45A049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.btn-add i {
+    margin-right: 0.3rem;
+}
+
+.btn-remove {
+    background: #F44336;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+}
+
+.btn-remove:hover {
+    background: #E53935;
+    transform: scale(1.05);
+}
+
+/* 개인정보 동의서 */
+.consent-section {
+    background: #FFFFFF;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.consent-header {
+    background: linear-gradient(135deg, #034EA2 0%, #0266CC 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.consent-header:hover {
+    background: linear-gradient(135deg, #0266CC 0%, #034EA2 100%);
+}
+
+.consent-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.consent-header h4 i {
+    margin-right: 0.75rem;
+    transition: transform 0.3s;
+}
+
+.consent-section.expanded .consent-header h4 i {
+    transform: rotate(90deg);
+}
+
+.consent-content {
+    padding: 1.5rem;
+    background: #F8F9FA;
+    border-top: 1px solid #E0E0E0;
+}
+
+.consent-content p {
+    margin: 0.75rem 0;
+    line-height: 1.8;
+    color: #333;
+}
+
+.consent-content strong {
+    color: #034EA2;
+    font-weight: 700;
+}
+
+.consent-content ul {
+    margin: 0.5rem 0 1rem 1.5rem;
+    padding: 0;
+}
+
+.consent-content ul li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+    color: #555;
+}
+
+.consent-checkbox {
+    background: white;
+    border: 2px solid #034EA2;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.consent-checkbox label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: #034EA2;
+}
+
+.consent-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.75rem;
+    cursor: pointer;
+}
+
+.consent-checkbox .checkbox-options {
+    display: flex;
+    gap: 2rem;
+    margin-top: 0.75rem;
+    margin-left: 2rem;
+}
+
+.consent-checkbox .checkbox-options label {
+    font-weight: normal;
+    color: #333;
+}
+
+.consent-checkbox .checkbox-options input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.5rem;
+}
+
+.consent-note {
+    background: #FFF9E6;
+    border: 2px solid #FF9800;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+}
+
+.consent-note p {
+    margin: 0;
+    line-height: 1.7;
+    color: #BF360C;
+    font-size: 0.95rem;
+}
+
+.consent-note i {
+    color: #FF9800;
+    margin-right: 0.5rem;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .official-form .form-section {
+        padding: 1.5rem;
+    }
+
+    .official-form .form-section-title {
+        font-size: 1.2rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-add {
+        margin-top: 0.5rem;
+        margin-left: 0 !important;
+    }
+
+    .radio-group {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .consent-checkbox .checkbox-options {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .education-item,
+    .career-item {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .official-form .form-section {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .official-form .form-section-title {
+        font-size: 1.1rem;
+    }
+
+    .consent-header {
+        padding: 0.75rem 1rem;
+    }
+
+    .consent-header h4 {
+        font-size: 1rem;
+    }
+
+    .consent-content {
+        padding: 1rem;
+    }
+}

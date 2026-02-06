@@ -1,0 +1,360 @@
+<!-- v31.0 삼성생명 공식 GFC 지원서 양식 -->
+                <form id="applicationForm" class="application-form official-form">
+                    
+                    <!-- 1. 기본 정보 -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-user"></i> 기본 정보
+                        </h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">성명 <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" required placeholder="홍길동">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">성별 <span class="required">*</span></label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">선택</option>
+                                    <option value="male">남성</option>
+                                    <option value="female">여성</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="birth">생년월일 <span class="required">*</span></label>
+                                <input type="date" id="birth" name="birth" required>
+                                <small class="field-note">나이 자격 요건 자동 확인</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">연령 <span class="required">*</span></label>
+                                <input type="number" id="age" name="age" readonly placeholder="자동 계산">
+                                <small class="field-note">만 나이 (자동 계산)</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">주소 <span class="required">*</span></label>
+                            <input type="text" id="address" name="address" required placeholder="서울특별시 강남구 테헤란로 123">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="home-phone">연락처 (지택)</label>
+                                <input type="tel" id="home-phone" name="home-phone" placeholder="02-1234-5678">
+                                <small class="field-note">선택 항목</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile-phone">연락처 (휴대폰) <span class="required">*</span></label>
+                                <input type="tel" id="mobile-phone" name="mobile-phone" required placeholder="010-1234-5678">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-mail <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="example@email.com">
+                        </div>
+                    </div>
+
+                    <!-- 2. 추가 정보 -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-clipboard-check"></i> 추가 정보
+                        </h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>금융투자 여부 <span class="required">*</span></label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="financial-investment" value="yes" required>
+                                        <span>1. YES</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="financial-investment" value="no">
+                                        <span>2. NO</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>결혼 여부 <span class="required">*</span></label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="marriage-status" value="married" required>
+                                        <span>기혼</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="marriage-status" value="single">
+                                        <span>미혼</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>보험사 경력 <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="insurance-experience" value="yes" required id="insurance-yes">
+                                    <span>1. 있음</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="insurance-experience" value="no" id="insurance-no">
+                                    <span>2. 없음</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 보험사 경력 상세 (조건부 표시) -->
+                        <div id="insurance-details" class="conditional-section" style="display: none;">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="insurance-company">회사명</label>
+                                    <input type="text" id="insurance-company" name="insurance-company" placeholder="예: 삼성생명">
+                                </div>
+                                <div class="form-group">
+                                    <label for="insurance-career-months">경력 (개월)</label>
+                                    <input type="number" id="insurance-career-months" name="insurance-career-months" placeholder="예: 36">
+                                </div>
+                                <div class="form-group">
+                                    <label for="insurance-salary">월급여 (만원)</label>
+                                    <input type="number" id="insurance-salary" name="insurance-salary" placeholder="예: 500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. 학력 -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-graduation-cap"></i> 학력
+                            <button type="button" class="btn-add" id="add-education" style="margin-left: 1rem;">
+                                <i class="fas fa-plus"></i> 추가
+                            </button>
+                        </h3>
+                        <small class="field-note" style="display: block; margin-bottom: 1rem;">최대 3개까지 추가 가능</small>
+
+                        <div id="education-container">
+                            <!-- 학력 1 (기본) -->
+                            <div class="education-item" data-index="1">
+                                <div class="item-header">
+                                    <h4>학력 1</h4>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="education-1-school">학교명</label>
+                                        <input type="text" id="education-1-school" name="education-1-school" placeholder="예: 서울대학교">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="education-1-major">전공</label>
+                                        <input type="text" id="education-1-major" name="education-1-major" placeholder="예: 경영학">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="education-1-location">소재지</label>
+                                        <input type="text" id="education-1-location" name="education-1-location" placeholder="예: 서울">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="education-1-status">졸업구분</label>
+                                        <select id="education-1-status" name="education-1-status">
+                                            <option value="">선택</option>
+                                            <option value="졸업">졸업</option>
+                                            <option value="재학">재학</option>
+                                            <option value="중퇴">중퇴</option>
+                                            <option value="수료">수료</option>
+                                            <option value="휴학">휴학</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="education-1-graduation">졸업년월</label>
+                                        <input type="month" id="education-1-graduation" name="education-1-graduation">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. 경력사항 -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-briefcase"></i> 경력사항
+                            <button type="button" class="btn-add" id="add-career" style="margin-left: 1rem;">
+                                <i class="fas fa-plus"></i> 추가
+                            </button>
+                        </h3>
+                        <small class="field-note" style="display: block; margin-bottom: 1rem;">최대 4개까지 추가 가능</small>
+
+                        <div id="career-container">
+                            <!-- 경력 1 (기본) -->
+                            <div class="career-item" data-index="1">
+                                <div class="item-header">
+                                    <h4>경력 1</h4>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="career-1-company">회사명</label>
+                                        <input type="text" id="career-1-company" name="career-1-company" placeholder="예: 삼성전자">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="career-1-position">직위</label>
+                                        <input type="text" id="career-1-position" name="career-1-position" placeholder="예: 부장">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="career-1-start">재직 시작</label>
+                                        <input type="month" id="career-1-start" name="career-1-start">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="career-1-end">재직 종료</label>
+                                        <input type="month" id="career-1-end" name="career-1-end">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="career-1-industry">업종</label>
+                                        <input type="text" id="career-1-industry" name="career-1-industry" placeholder="예: 제조업">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="career-1-duties">담당업무 (간략)</label>
+                                        <input type="text" id="career-1-duties" name="career-1-duties" placeholder="예: 영업관리">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. 참고사항 -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-comment-dots"></i> 참고사항
+                        </h3>
+                        <div class="form-group">
+                            <label for="notes">자유 서술</label>
+                            <textarea id="notes" name="notes" rows="6" placeholder="GFC에 지원하게 된 동기, 특별한 경력이나 자격증, 기타 전달하고 싶은 내용을 자유롭게 작성해주세요."></textarea>
+                            <small class="field-note">선택 항목</small>
+                        </div>
+                    </div>
+
+                    <!-- 6. 개인정보 수집·이용·제공·조회 동의 -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-shield-alt"></i> 개인정보 처리 동의
+                        </h3>
+
+                        <!-- 수집·이용 동의 -->
+                        <div class="consent-section">
+                            <div class="consent-header" onclick="toggleConsent('consent1')">
+                                <h4><i class="fas fa-chevron-right"></i> 1. 수집·이용에 관한 사항</h4>
+                            </div>
+                            <div class="consent-content" id="consent1" style="display: none;">
+                                <p><strong>수집·이용 목적:</strong></p>
+                                <ul>
+                                    <li>컨설턴트 선발 및 위촉: 회사 및 입사 안전책임자가 제공한 보험 모집인 입사전 범죄경력 등의 확인을 통한 회사 및 입사 안전 위의 개인(신용)정보를 수집·이용 합니다.</li>
+                                </ul>
+                                <p><strong>수집·이용 목적:</strong></p>
+                                <ul>
+                                    <li>고유식별정보 (2개): 컨설턴트는 충보자 관리 시스템 등록 및 방문</li>
+                                    <li>일반개인정보: 성명, 주소, 전화번호, 이메일, 직업, 직장</li>
+                                    <li>신용거래정보: 보험설계사 지위 선발 대등, 계약보증</li>
+                                    <li>공공정보: 생명/손해보험 등록인증 통화이력, 등록사항 문서/제재 정보, 등록 및 오수 역임 파악</li>
+                                </ul>
+                                <p><strong>보유 및 이용기간:</strong> 수집·이용 동의일로부터 1년</p>
+                                <div class="consent-checkbox">
+                                    <label>
+                                        <input type="checkbox" name="consent-collection" id="consent-collection" required>
+                                        <span>위 고유식별정보 수집·이용에 동의하십니까? <span class="required">*</span></span>
+                                    </label>
+                                    <div class="checkbox-options">
+                                        <label><input type="radio" name="consent-collection-choice" value="agree" required> 동의하지 않음</label>
+                                        <label><input type="radio" name="consent-collection-choice" value="disagree"> 동의함</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 제공 동의 -->
+                        <div class="consent-section">
+                            <div class="consent-header" onclick="toggleConsent('consent2')">
+                                <h4><i class="fas fa-chevron-right"></i> 2. 제공에 관한 사항</h4>
+                            </div>
+                            <div class="consent-content" id="consent2" style="display: none;">
+                                <p><strong>제공받는 자:</strong></p>
+                                <ul>
+                                    <li>생명/손해보험협회: 보험설계사 지위 적부 판단</li>
+                                    <li>은행연합회: 보험설계사 지위 적부 판단</li>
+                                    <li>나이스신용평가정보㈜: 신용상태 조회</li>
+                                    <li>서울보증보험: 보증보험 가입/정리/사고 여부 확인</li>
+                                    <li>보험연수원: 설계사 등록필수교육 안내/집행/관리</li>
+                                    <li>모집종사자 교육협의회: 설계사 등록필수교육 수료 여부 확인</li>
+                                </ul>
+                                <p><strong>제공받는 자의 이용목적:</strong> 보험설계사 지위 적부 판단</p>
+                                <p><strong>보유 및 이용기간:</strong> 수집·이용 동의일로부터 1년</p>
+                                <div class="consent-checkbox">
+                                    <label>
+                                        <input type="checkbox" name="consent-provision" id="consent-provision" required>
+                                        <span>위 개인정보 제공에 동의하십니까? <span class="required">*</span></span>
+                                    </label>
+                                    <div class="checkbox-options">
+                                        <label><input type="radio" name="consent-provision-choice" value="agree" required> 동의하지 않음</label>
+                                        <label><input type="radio" name="consent-provision-choice" value="disagree"> 동의함</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 조회 동의 -->
+                        <div class="consent-section">
+                            <div class="consent-header" onclick="toggleConsent('consent3')">
+                                <h4><i class="fas fa-chevron-right"></i> 3. 조회에 관한 사항</h4>
+                            </div>
+                            <div class="consent-content" id="consent3" style="display: none;">
+                                <p><strong>조회 대상 기관:</strong></p>
+                                <ul>
+                                    <li>생명/손해보험협회, 은행연합회, 나이스신용평가정보㈜, 서울보증보험, 보험연수원, 모집종사자 교육협의회, 보험회사(제손삽과, 공제사업자 포함), 한국인터넷 진흥원</li>
+                                </ul>
+                                <p><strong>조회 목적:</strong></p>
+                                <ul>
+                                    <li>생명/손해보험협회: 보험설계사 지위 적부 판단</li>
+                                    <li>은행연합회: 보험설계사 지위 적부 판단</li>
+                                    <li>나이스신용평가정보㈜: 신용상태 조회</li>
+                                    <li>서울보증보험: 보증보험 가입/정리/사고 여부 확인</li>
+                                    <li>보험연수원: 설계사 등록필수교육 안내/집행/관리</li>
+                                    <li>모집종사자 교육협의회: 설계사 등록필수교육 수료 여부 확인</li>
+                                    <li>보험회사(제손삽과, 공제사업자, 리더결합자): 보험사의 위촉, 계약, 여부 확인</li>
+                                    <li>한국인터넷 진흥원: I-PIN 성명</li>
+                                </ul>
+                                <p><strong>조회 동의 효력기간:</strong> 수집·이용 동의일로부터 1년</p>
+                                <div class="consent-checkbox">
+                                    <label>
+                                        <input type="checkbox" name="consent-inquiry" id="consent-inquiry" required>
+                                        <span>위 개인정보 조회에 동의하십니까? <span class="required">*</span></span>
+                                    </label>
+                                    <div class="checkbox-options">
+                                        <label><input type="radio" name="consent-inquiry-choice" value="agree" required> 동의하지 않음</label>
+                                        <label><input type="radio" name="consent-inquiry-choice" value="disagree"> 동의함</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="consent-note">
+                            <p><i class="fas fa-info-circle"></i> 본인은 「개인정보보호법」 및 「신용정보의 이용 및 보호에 관한 법률」에 따라 위와 같이 본인의 개인정보를 수집·이용하고 개인정보를 제공하며 신용정보를 조회하는 것에 대하여 동의를 거부할 권리가 있으며, 동의를 거부할 경우 GFC 지원에 불이익이 있을 수 있음을 고지받고 이해하였습니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- 제출 버튼 -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-paper-plane"></i> 지원서 제출
+                        </button>
+                    </div>
+
+                    <div class="form-note">
+                        <p><i class="fas fa-info-circle"></i> 지원서 제출 후 영업일 기준 3일 이내에 담당자가 연락드립니다.</p>
+                        <p style="margin-top: 0.5rem;"><i class="fas fa-phone"></i> 문의: 010-5137-2327 | <i class="fas fa-envelope"></i> jb2park@naver.com</p>
+                    </div>
+                </form>
