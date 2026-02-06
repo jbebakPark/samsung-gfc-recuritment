@@ -64,9 +64,6 @@ function isMobile() {
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
 
-// GLOBAL flag to control outside click handler
-window.preventMenuClose = false;
-
 if (mobileMenuToggle && navMenu) {
     // Toggle mobile menu
     mobileMenuToggle.addEventListener('click', (e) => {
@@ -85,24 +82,21 @@ if (mobileMenuToggle && navMenu) {
         
         // Prevent body scroll when menu is open
         document.body.style.overflow = isActive ? 'hidden' : '';
+        
+        console.log('📱 Mobile menu toggled:', isActive ? 'OPEN' : 'CLOSED');
     });
     
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        // Check GLOBAL flag first
-        if (window.preventMenuClose) {
-            console.log('🚫 preventMenuClose flag is set - NOT closing menu');
-            return;
-        }
-        
-        // Check if click is inside nav menu
-        const isInsideNavMenu = navMenu.contains(e.target);
-        const isMenuToggle = mobileMenuToggle.contains(e.target);
-        
-        if (navMenu.classList.contains('active') && 
-            !isInsideNavMenu && 
-            !isMenuToggle) {
-            console.log('❌ Closing mobile menu (outside click)');
+    // REMOVED: Outside click handler (causing the problem!)
+    // Instead, users can:
+    // 1. Click the X button to close
+    // 2. Press Escape key to close
+    // 3. Click a menu item to navigate (menu stays open until X or Escape)
+    
+    console.log('✅ Mobile menu initialized (outside click DISABLED)');
+    
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
             const icon = mobileMenuToggle.querySelector('i');
             if (icon) {
@@ -110,9 +104,12 @@ if (mobileMenuToggle && navMenu) {
                 icon.classList.remove('fa-times');
             }
             mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            mobileMenuToggle.focus();
             document.body.style.overflow = '';
+            console.log('❌ Mobile menu closed (Escape key)');
         }
     });
+}
     
     // Close menu on Escape key
     document.addEventListener('keydown', (e) => {
@@ -151,16 +148,6 @@ navDropdowns.forEach(dropdown => {
     dropdownToggle.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        
-        // SET GLOBAL FLAG to prevent menu from closing
-        window.preventMenuClose = true;
-        console.log('🔒 preventMenuClose set to TRUE');
-        
-        // Reset flag after a short delay
-        setTimeout(() => {
-            window.preventMenuClose = false;
-            console.log('🔓 preventMenuClose reset to FALSE');
-        }, 200);
         
         console.log('🔹 Dropdown toggle clicked:', dropdownToggle.textContent.trim());
         
