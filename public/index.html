@@ -3049,9 +3049,33 @@
         </button>
     </div>
 
-    <script src="js/mobile-complete-v2.js?v=8.0"></script>
-    <script src="js/mobile-interactive.js?v=8.0"></script>
-    <script src="js/form-enhancements.js?v=8.0"></script>
+    <script src="js/mobile-complete.js?v=7.0"></script>
+    <script src="js/mobile-interactive.js?v=7.0"></script>
+    <script src="js/form-enhancements.js?v=7.0"></script>
+    
+    <script>
+        // 사전등록 버튼 기능
+        function scrollToApply() {
+            const applySection = document.getElementById('apply');
+            if (applySection) {
+                const headerHeight = 70;
+                const targetPosition = applySection.offsetTop - headerHeight;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                console.log('사전등록 버튼 클릭 → #apply 섹션으로 이동');
+            }
+        }
+        
+        // 맨 위로 버튼 기능
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 
 </html>
