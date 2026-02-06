@@ -89,36 +89,39 @@ if (mobileMenuToggle && navMenu) {
     
     // Close menu when clicking outside (but not on dropdown toggles)
     document.addEventListener('click', (e) => {
-        // IMPORTANT: Check the flag first!
-        if (dropdownToggleClicked) {
-            console.log('🚫 Dropdown toggle clicked - ignoring outside click handler');
-            dropdownToggleClicked = false; // Reset flag
-            return; // Don't close the menu!
-        }
-        
-        // Check if click is inside nav menu
-        const isInsideNavMenu = navMenu.contains(e.target);
-        const isMenuToggle = mobileMenuToggle.contains(e.target);
-        
-        console.log('🔍 Outside click check:', { 
-            isInsideNavMenu, 
-            isMenuToggle,
-            menuActive: navMenu.classList.contains('active')
-        });
-        
-        if (navMenu.classList.contains('active') && 
-            !isInsideNavMenu && 
-            !isMenuToggle) {
-            console.log('❌ Closing mobile menu (outside click)');
-            navMenu.classList.remove('active');
-            const icon = mobileMenuToggle.querySelector('i');
-            if (icon) {
-                icon.classList.add('fa-bars');
-                icon.classList.remove('fa-times');
+        // DELAY the check to allow dropdown handler to set the flag first!
+        setTimeout(() => {
+            // IMPORTANT: Check the flag first!
+            if (dropdownToggleClicked) {
+                console.log('🚫 Dropdown toggle clicked - ignoring outside click handler');
+                dropdownToggleClicked = false; // Reset flag
+                return; // Don't close the menu!
             }
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
+            
+            // Check if click is inside nav menu
+            const isInsideNavMenu = navMenu.contains(e.target);
+            const isMenuToggle = mobileMenuToggle.contains(e.target);
+            
+            console.log('🔍 Outside click check:', { 
+                isInsideNavMenu, 
+                isMenuToggle,
+                menuActive: navMenu.classList.contains('active')
+            });
+            
+            if (navMenu.classList.contains('active') && 
+                !isInsideNavMenu && 
+                !isMenuToggle) {
+                console.log('❌ Closing mobile menu (outside click)');
+                navMenu.classList.remove('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                }
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        }, 10); // 10ms delay to ensure dropdown handler runs first
     });
     
     // Close menu on Escape key
