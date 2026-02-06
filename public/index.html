@@ -14,6 +14,72 @@
     <link rel="stylesheet" href="css/checkbox-improvements.css?v=1.0">
     <link rel="stylesheet" href="css/performance-optimizations.css?v=1.0">
     <link rel="stylesheet" href="css/mobile-dropdown-enhanced.css?v=2.0">
+    
+    <!-- 🚨 v27.0 인라인 스타일 - 캐시 우회 -->
+    <style>
+        /* 보도자료 카드 텍스트 강제 스타일 */
+        .press-section .press-card .press-title {
+            color: #FFFFFF !important;
+            font-size: 1.3rem !important;
+            font-weight: 700 !important;
+            line-height: 1.5 !important;
+            margin: 1rem 0 !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+        }
+        
+        .press-section .press-card .press-company,
+        .press-section .press-card .press-person,
+        .press-section .press-card .press-type {
+            color: #FFFFFF !important;
+            font-size: 1rem !important;
+            font-weight: 500 !important;
+            margin: 0.5rem 0 !important;
+            opacity: 0.95 !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+        }
+        
+        .press-section .press-card .press-company::before {
+            content: "📰 ";
+        }
+        
+        .press-section .press-card .press-person::before {
+            content: "👤 ";
+        }
+        
+        .press-section .press-card .press-type::before {
+            content: "📝 ";
+        }
+        
+        /* 날짜 - 흰색 배경에 파란색 */
+        .press-section .press-date {
+            background: #FFFFFF !important;
+            color: #034EA2 !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px !important;
+            display: inline-block !important;
+            font-weight: 600 !important;
+            margin-bottom: 1rem !important;
+        }
+        
+        /* 배지 */
+        .press-badge {
+            color: #FFFFFF !important;
+            font-weight: 600 !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 20px !important;
+            display: inline-block !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .press-badge.interview {
+            background: #4CAF50 !important;
+        }
+        
+        .press-badge.news {
+            background: #2196F3 !important;
+        }
+    </style>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
