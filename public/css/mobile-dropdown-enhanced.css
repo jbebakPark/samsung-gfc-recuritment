@@ -1,27 +1,28 @@
 /**
- * Mobile Dropdown Menu Enhanced Styles
- * Version: 1.0
+ * Mobile Dropdown Menu Enhanced Styles - LIGHT THEME
+ * Version: 2.0
  * Date: 2026-02-06
  * 
- * 모바일 메뉴 내 드롭다운 완벽 작동
+ * 밝은 배경 + 드롭다운 완벽 작동
  */
 
 /* ==================== Mobile Menu Dropdown Fix ==================== */
 
 @media (max-width: 1024px) {
-    /* 모바일 메뉴 전체 */
+    /* 모바일 메뉴 전체 - 밝은 배경 */
     .nav-menu {
         position: fixed;
         top: 70px;
         right: -100%;
-        width: 280px;
+        width: 85%;
+        max-width: 320px;
         height: calc(100vh - 70px);
-        background: linear-gradient(180deg, #034EA2 0%, #022a5e 100%);
-        padding: 2rem 0;
+        background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
+        padding: 1.5rem 0;
         overflow-y: auto;
         transition: right 0.3s ease;
         z-index: 999;
-        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
     }
     
     .nav-menu.active {
@@ -33,65 +34,70 @@
         display: block;
         padding: 0;
         margin: 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(3, 78, 162, 0.1);
     }
     
     .nav-menu > li:last-child {
         border-bottom: none;
     }
     
-    /* 메뉴 링크 스타일 */
+    /* 메뉴 링크 스타일 - 어두운 텍스트 */
     .nav-menu > li > a {
         display: block;
         padding: 1rem 1.5rem;
-        color: #FFFFFF;
+        color: #1A1A1A;
         font-size: 1rem;
-        font-weight: 500;
+        font-weight: 600;
         text-decoration: none;
         transition: all 0.3s ease;
     }
     
     .nav-menu > li > a:hover,
     .nav-menu > li > a:active {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(3, 78, 162, 0.08);
+        color: #034EA2;
         padding-left: 2rem;
     }
     
-    /* 드롭다운 토글 버튼 */
+    /* 드롭다운 토글 버튼 - 어두운 텍스트 */
     .nav-dropdown > .dropdown-toggle {
-        display: flex;
+        display: flex !important;
         align-items: center;
         justify-content: space-between;
         width: 100%;
         padding: 1rem 1.5rem;
-        color: #FFFFFF;
+        color: #1A1A1A;
         font-size: 1rem;
-        font-weight: 500;
+        font-weight: 600;
         text-decoration: none;
         cursor: pointer;
         transition: all 0.3s ease;
         background: transparent;
         border: none;
+        text-align: left;
     }
     
     .nav-dropdown > .dropdown-toggle:hover,
     .nav-dropdown > .dropdown-toggle:active {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(3, 78, 162, 0.08);
+        color: #034EA2;
     }
     
-    /* 드롭다운 아이콘 */
+    /* 드롭다운 아이콘 - 파란색 */
     .nav-dropdown .dropdown-toggle .fa-chevron-down {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        color: #034EA2;
         transition: transform 0.3s ease;
-        margin-left: 0.5rem;
+        margin-left: auto;
+        flex-shrink: 0;
     }
     
     /* 드롭다운 메뉴 숨김 상태 */
     .nav-menu .dropdown-menu {
         display: none;
         position: static;
-        background: rgba(0, 0, 0, 0.2);
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        background: #F8F9FA;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
         padding: 0;
         margin: 0;
         border-radius: 0;
@@ -105,7 +111,7 @@
     /* 드롭다운 메뉴 표시 상태 */
     .nav-menu .dropdown-menu.show {
         display: block !important;
-        max-height: 500px !important;
+        max-height: 600px !important;
         opacity: 1 !important;
         padding: 0.5rem 0 !important;
         visibility: visible !important;
@@ -122,7 +128,7 @@
     .nav-menu .dropdown-menu a {
         display: block;
         padding: 0.75rem 1.5rem 0.75rem 2.5rem;
-        color: rgba(255, 255, 255, 0.9);
+        color: #666666;
         font-size: 0.9rem;
         font-weight: 400;
         text-decoration: none;
@@ -136,26 +142,31 @@
         content: '•';
         position: absolute;
         left: 1.5rem;
-        color: rgba(255, 255, 255, 0.5);
+        color: #034EA2;
         font-size: 1.2rem;
         line-height: 1;
+        top: 50%;
+        transform: translateY(-50%);
     }
     
     .nav-menu .dropdown-menu a:hover,
     .nav-menu .dropdown-menu a:active {
-        background: rgba(255, 255, 255, 0.15);
-        color: #FFFFFF;
-        border-left-color: #FFFFFF;
+        background: rgba(3, 78, 162, 0.08);
+        color: #034EA2;
+        border-left-color: #034EA2;
         padding-left: 3rem;
+        font-weight: 500;
     }
     
     .nav-menu .dropdown-menu a:hover::before,
     .nav-menu .dropdown-menu a:active::before {
-        color: #FFFFFF;
+        color: #034EA2;
+        font-weight: bold;
     }
     
     /* 드롭다운 열림 시 아이콘 회전 */
-    .nav-dropdown .dropdown-menu.show ~ .dropdown-toggle .fa-chevron-down {
+    .nav-dropdown .dropdown-menu.show ~ .dropdown-toggle .fa-chevron-down,
+    .nav-dropdown:has(.dropdown-menu.show) .dropdown-toggle .fa-chevron-down {
         transform: rotate(180deg);
     }
     
@@ -164,19 +175,20 @@
         display: block !important;
         margin: 1rem 1.5rem !important;
         padding: 0.75rem 1.5rem !important;
-        background: #FF6B35 !important;
+        background: #034EA2 !important;
         color: #FFFFFF !important;
         text-align: center !important;
         border-radius: 8px !important;
         font-weight: 600 !important;
         transition: all 0.3s ease !important;
+        box-shadow: 0 2px 8px rgba(3, 78, 162, 0.3);
     }
     
     .btn-apply-nav:hover,
     .btn-apply-nav:active {
-        background: #ff5722 !important;
+        background: #022a5e !important;
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+        box-shadow: 0 4px 12px rgba(3, 78, 162, 0.4);
     }
     
     /* 스크롤바 스타일 (Webkit) */
@@ -185,16 +197,16 @@
     }
     
     .nav-menu::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(3, 78, 162, 0.05);
     }
     
     .nav-menu::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(3, 78, 162, 0.3);
         border-radius: 3px;
     }
     
     .nav-menu::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.5);
+        background: rgba(3, 78, 162, 0.5);
     }
 }
 
@@ -206,13 +218,12 @@
     .nav-menu .dropdown-toggle,
     .mobile-menu-toggle {
         min-height: 44px;
-        min-width: 44px;
     }
     
     /* 터치 피드백 */
     .nav-menu a:active,
     .nav-menu .dropdown-toggle:active {
-        background: rgba(255, 255, 255, 0.2) !important;
+        background: rgba(3, 78, 162, 0.15) !important;
     }
     
     /* 터치 하이라이트 제거 */
@@ -238,7 +249,7 @@
             opacity: 0;
         }
         to {
-            max-height: 500px;
+            max-height: 600px;
             opacity: 1;
         }
     }

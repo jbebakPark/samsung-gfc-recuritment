@@ -13,86 +13,10 @@
         display: block !important;
     }
     
-    /* 드롭다운 메뉴 기본 상태 (숨김) */
-    .nav-menu .dropdown-menu {
-        display: none;
-        position: static;
-        background: rgba(255, 255, 255, 0.05);
-        box-shadow: none;
-        padding: 0.5rem 0;
-        margin: 0.5rem 0 0 0;
-        border-radius: 8px;
-        list-style: none;
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
-    }
+    /* 드롭다운 메뉴 - mobile-dropdown-enhanced.css가 우선하도록 주석 처리 */
+    /* 이 블록은 mobile-dropdown-enhanced.css의 밝은 테마가 적용되도록 비활성화됨 */
     
-    /* 드롭다운이 active일 때 메뉴 표시 */
-    .nav-menu .nav-dropdown.active .dropdown-menu,
-    .nav-menu .dropdown-menu.show {
-        display: block;
-        max-height: 1000px;
-        opacity: 1;
-        padding: 0.5rem 0;
-    }
-    
-    /* 강제 표시 (JavaScript에서 추가한 인라인 스타일) */
-    .dropdown-menu[style*="display: block"] {
-        display: block !important;
-        visibility: visible !important;
-        max-height: 1000px !important;
-        opacity: 1 !important;
-    }
-    
-    /* 드롭다운 메뉴 아이템 */
-    .nav-menu .dropdown-menu li {
-        padding: 0;
-        display: block;
-        list-style: none;
-    }
-    
-    .nav-menu .dropdown-menu a {
-        display: block;
-        padding: 0.75rem 1rem 0.75rem 2rem;
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 0.95rem;
-        font-weight: 400;
-        transition: all 0.3s ease;
-        border-left: 3px solid transparent;
-        text-decoration: none;
-    }
-    
-    .nav-menu .dropdown-menu a:hover,
-    .nav-menu .dropdown-menu a:active {
-        background: rgba(255, 255, 255, 0.1);
-        color: #FFFFFF;
-        border-left-color: #FFFFFF;
-        padding-left: 2.5rem;
-    }
-    
-    /* 드롭다운 토글 스타일 */
-    .nav-dropdown .dropdown-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        cursor: pointer;
-    }
-    
-    /* 드롭다운 토글 아이콘 */
-    .nav-dropdown .dropdown-toggle i.fa-chevron-down {
-        transition: transform 0.3s ease;
-        margin-left: auto;
-        font-size: 0.8rem;
-    }
-    
-    /* 드롭다운 열림 상태 아이콘 회전 */
-    .nav-dropdown.active .dropdown-toggle i.fa-chevron-down,
-    .nav-dropdown .dropdown-menu.show + .dropdown-toggle i.fa-chevron-down {
-        transform: rotate(180deg);
-    }
+    /* 드롭다운 토글 및 아이콘 - mobile-dropdown-enhanced.css가 우선하도록 주석 처리 */
 }
 
 /* ============================================
