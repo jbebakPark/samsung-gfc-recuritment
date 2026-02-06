@@ -132,19 +132,52 @@ navDropdowns.forEach(dropdown => {
         e.stopPropagation();
         
         const isVisible = dropdownMenu.classList.contains('show');
+        const isMobileMenuOpen = navMenu && navMenu.classList.contains('active');
         
-        // Close all other dropdowns
-        document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
-            if (menu !== dropdownMenu) {
-                menu.classList.remove('show');
-            }
-        });
+        // In mobile menu: only close other dropdowns in same menu
+        // In desktop: close all dropdowns
+        if (isMobileMenuOpen) {
+            // Mobile: allow multiple dropdowns open, or close others
+            const otherDropdowns = dropdown.parentElement.querySelectorAll('.dropdown-menu.show');
+            otherDropdowns.forEach(menu => {
+                if (menu !== dropdownMenu) {
+                    menu.classList.remove('show');
+                    const otherToggle = menu.previousElementSibling;
+                    if (otherToggle) {
+                        otherToggle.setAttribute('aria-expanded', 'false');
+                        // Rotate chevron back
+                        const chevron = otherToggle.querySelector('.fa-chevron-down');
+                        if (chevron) {
+                            chevron.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                }
+            });
+        } else {
+            // Desktop: close all other dropdowns
+            document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                if (menu !== dropdownMenu) {
+                    menu.classList.remove('show');
+                    const otherToggle = menu.previousElementSibling;
+                    if (otherToggle) {
+                        otherToggle.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+        }
         
         // Toggle current dropdown
         dropdownMenu.classList.toggle('show', !isVisible);
         
         // Update ARIA attributes
         dropdownToggle.setAttribute('aria-expanded', !isVisible);
+        
+        // Rotate chevron icon for visual feedback
+        const chevron = dropdownToggle.querySelector('.fa-chevron-down');
+        if (chevron) {
+            chevron.style.transition = 'transform 0.3s ease';
+            chevron.style.transform = !isVisible ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
     });
     
     // Prevent dropdown menu clicks from closing it

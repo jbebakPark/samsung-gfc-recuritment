@@ -77,46 +77,48 @@
 <body>
     <div class="container">
         <h1>📱 모바일 테스트 - QR 코드</h1>
-        <p style="color: #666; font-size: 1.1rem;">삼성생명 GFC 채용 (최신 버전 v5.0)</p>
-        <p style="color: #d32f2f; font-weight: 600; font-size: 0.95rem;">🔥 모바일 막대 그래프 높이 수정!</p>
+        <p style="color: #666; font-size: 1.1rem;">삼성생명 GFC 채용 (최신 버전 v2.0.0)</p>
+        <p style="color: #d32f2f; font-weight: 600; font-size: 0.95rem;">🔥 전체 버그 수정 및 개선 완료!</p>
         
         <div class="qr-code">
             <img id="qrImage" style="max-width: 100%; height: auto;" alt="QR Code">
         </div>
         
         <div class="url">
-            https://8001-i1lspsjjfhh0wtqjhkhp9-5c13a017.sandbox.novita.ai/index.html?v=5.0&_t=1738851000
+            https://8001-ig1hw6ruruwvm4u22c8u7-0e616f0a.sandbox.novita.ai/index.html?v=6.0&_t=1738853000
         </div>
         
         <div class="instruction">
-            <h3 style="color: #1428A0;">📋 테스트 방법</h3>
+            <h3 style="color: #1428A0;">📋 테스트 항목</h3>
             <ol>
                 <li><strong>QR 코드 스캔</strong> - 스마트폰 카메라로 위 QR 코드 촬영</li>
                 <li><strong>시크릿 모드 권장</strong> - 캐시 없이 최신 버전 확인</li>
-                <li><strong>'수입 성장 추이'</strong> 스크롤 → 막대 그래프 확인</li>
-                <li><strong>막대 크기</strong> - 왼쪽(작음) → 중간 → 오른쪽(큼) 확인</li>
+                <li><strong>드롭다운 메뉴</strong> - 클릭 및 키보드 네비게이션</li>
+                <li><strong>모바일 메뉴</strong> - 햄버거 메뉴 동작 확인</li>
+                <li><strong>폼 입력</strong> - 자동 포맷팅 및 유효성 검사</li>
             </ol>
             
-            <h3 style="color: #1428A0; margin-top: 30px;">✅ 확인사항 (막대 그래프)</h3>
+            <h3 style="color: #1428A0; margin-top: 30px;">✅ 개선사항 (v2.0.0)</h3>
             <ul style="list-style: none; padding: 0;">
-                <li>✓ 1~2년차 막대가 <strong>가장 작나요?</strong> (4,800만)</li>
-                <li>✓ 3~5년차 막대가 <strong>중간</strong>인가요? (1억)</li>
-                <li>✓ 6년차+ 막대가 <strong>가장 큰가요?</strong> (1.44억)</li>
-                <li>✓ 전체 차트가 <strong>높아졌나요?</strong></li>
+                <li>✓ 모바일 UX 대폭 개선</li>
+                <li>✓ 폼 검증 강화 (XSS 방어)</li>
+                <li>✓ 접근성 향상 (키보드 네비게이션)</li>
+                <li>✓ 성능 최적화</li>
+                <li>✓ 브라우저 호환성 개선</li>
             </ul>
             
             <h3 style="color: #1428A0; margin-top: 30px;">🔥 중요!</h3>
             <p style="color: #d32f2f; font-weight: 600;">
-                시크릿 모드로 열어야 최신 버전이 보입니다!
+                시크릿 모드로 열어야 최신 버전(v2.0.0)이 보입니다!
             </p>
         </div>
         
-        <a href="index.html?v=5.0&_t=1738851000" class="btn">🖥️ 컴퓨터에서 열기</a>
+        <a href="index.html?v=6.0&_t=1738853000" class="btn">🖥️ 컴퓨터에서 열기</a>
     </div>
     
     <script>
         // QR 코드 생성 (최신 URL 포함)
-        const url = 'https://8001-i1lspsjjfhh0wtqjhkhp9-5c13a017.sandbox.novita.ai/index.html?v=5.0&_t=1738851000#income';
+        const url = 'https://8001-ig1hw6ruruwvm4u22c8u7-0e616f0a.sandbox.novita.ai/index.html?v=6.0&_t=1738853000';
         const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
         document.getElementById('qrImage').src = qrUrl;
     </script>

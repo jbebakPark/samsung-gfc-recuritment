@@ -1,0 +1,313 @@
+/**
+ * Mobile Dropdown Menu Enhanced Styles
+ * Version: 1.0
+ * Date: 2026-02-06
+ * 
+ * 모바일 메뉴 내 드롭다운 완벽 작동
+ */
+
+/* ==================== Mobile Menu Dropdown Fix ==================== */
+
+@media (max-width: 1024px) {
+    /* 모바일 메뉴 전체 */
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 280px;
+        height: calc(100vh - 70px);
+        background: linear-gradient(180deg, #034EA2 0%, #022a5e 100%);
+        padding: 2rem 0;
+        overflow-y: auto;
+        transition: right 0.3s ease;
+        z-index: 999;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    /* 모바일 메뉴 아이템 */
+    .nav-menu > li {
+        display: block;
+        padding: 0;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-menu > li:last-child {
+        border-bottom: none;
+    }
+    
+    /* 메뉴 링크 스타일 */
+    .nav-menu > li > a {
+        display: block;
+        padding: 1rem 1.5rem;
+        color: #FFFFFF;
+        font-size: 1rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-menu > li > a:hover,
+    .nav-menu > li > a:active {
+        background: rgba(255, 255, 255, 0.1);
+        padding-left: 2rem;
+    }
+    
+    /* 드롭다운 토글 버튼 */
+    .nav-dropdown > .dropdown-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 1rem 1.5rem;
+        color: #FFFFFF;
+        font-size: 1rem;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: transparent;
+        border: none;
+    }
+    
+    .nav-dropdown > .dropdown-toggle:hover,
+    .nav-dropdown > .dropdown-toggle:active {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* 드롭다운 아이콘 */
+    .nav-dropdown .dropdown-toggle .fa-chevron-down {
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+        margin-left: 0.5rem;
+    }
+    
+    /* 드롭다운 메뉴 숨김 상태 */
+    .nav-menu .dropdown-menu {
+        display: none;
+        position: static;
+        background: rgba(0, 0, 0, 0.2);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 0;
+        margin: 0;
+        border-radius: 0;
+        list-style: none;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    }
+    
+    /* 드롭다운 메뉴 표시 상태 */
+    .nav-menu .dropdown-menu.show {
+        display: block !important;
+        max-height: 500px !important;
+        opacity: 1 !important;
+        padding: 0.5rem 0 !important;
+        visibility: visible !important;
+    }
+    
+    /* 드롭다운 메뉴 아이템 */
+    .nav-menu .dropdown-menu li {
+        display: block;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+    
+    .nav-menu .dropdown-menu a {
+        display: block;
+        padding: 0.75rem 1.5rem 0.75rem 2.5rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.9rem;
+        font-weight: 400;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+        position: relative;
+    }
+    
+    /* 드롭다운 링크 아이콘 */
+    .nav-menu .dropdown-menu a::before {
+        content: '•';
+        position: absolute;
+        left: 1.5rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+    
+    .nav-menu .dropdown-menu a:hover,
+    .nav-menu .dropdown-menu a:active {
+        background: rgba(255, 255, 255, 0.15);
+        color: #FFFFFF;
+        border-left-color: #FFFFFF;
+        padding-left: 3rem;
+    }
+    
+    .nav-menu .dropdown-menu a:hover::before,
+    .nav-menu .dropdown-menu a:active::before {
+        color: #FFFFFF;
+    }
+    
+    /* 드롭다운 열림 시 아이콘 회전 */
+    .nav-dropdown .dropdown-menu.show ~ .dropdown-toggle .fa-chevron-down {
+        transform: rotate(180deg);
+    }
+    
+    /* 지원하기 버튼 */
+    .btn-apply-nav {
+        display: block !important;
+        margin: 1rem 1.5rem !important;
+        padding: 0.75rem 1.5rem !important;
+        background: #FF6B35 !important;
+        color: #FFFFFF !important;
+        text-align: center !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .btn-apply-nav:hover,
+    .btn-apply-nav:active {
+        background: #ff5722 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+    }
+    
+    /* 스크롤바 스타일 (Webkit) */
+    .nav-menu::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .nav-menu::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .nav-menu::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+    }
+    
+    .nav-menu::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* ==================== Touch Optimization ==================== */
+
+@media (max-width: 1024px) {
+    /* 터치 타겟 크기 최소 44x44px */
+    .nav-menu a,
+    .nav-menu .dropdown-toggle,
+    .mobile-menu-toggle {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* 터치 피드백 */
+    .nav-menu a:active,
+    .nav-menu .dropdown-toggle:active {
+        background: rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* 터치 하이라이트 제거 */
+    .nav-menu a,
+    .nav-menu .dropdown-toggle,
+    .mobile-menu-toggle {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}
+
+/* ==================== Animation Enhancement ==================== */
+
+@media (max-width: 1024px) {
+    /* 드롭다운 애니메이션 */
+    @keyframes slideDown {
+        from {
+            max-height: 0;
+            opacity: 0;
+        }
+        to {
+            max-height: 500px;
+            opacity: 1;
+        }
+    }
+    
+    .dropdown-menu.show {
+        animation: slideDown 0.4s ease forwards;
+    }
+    
+    /* 메뉴 아이템 순차 애니메이션 */
+    .nav-menu.active > li {
+        opacity: 0;
+        transform: translateX(20px);
+        animation: slideInLeft 0.3s ease forwards;
+    }
+    
+    .nav-menu.active > li:nth-child(1) { animation-delay: 0.05s; }
+    .nav-menu.active > li:nth-child(2) { animation-delay: 0.1s; }
+    .nav-menu.active > li:nth-child(3) { animation-delay: 0.15s; }
+    .nav-menu.active > li:nth-child(4) { animation-delay: 0.2s; }
+    .nav-menu.active > li:nth-child(5) { animation-delay: 0.25s; }
+    .nav-menu.active > li:nth-child(6) { animation-delay: 0.3s; }
+    .nav-menu.active > li:nth-child(7) { animation-delay: 0.35s; }
+    
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+/* ==================== Desktop Dropdown (unchanged) ==================== */
+
+@media (min-width: 1025px) {
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        background: #FFFFFF;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        padding: 0.5rem 0;
+        margin-top: 0.5rem;
+        z-index: 1000;
+    }
+    
+    .dropdown-menu.show {
+        display: block;
+        animation: fadeIn 0.2s ease;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .nav-dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}

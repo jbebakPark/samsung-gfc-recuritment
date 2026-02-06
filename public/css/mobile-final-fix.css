@@ -30,7 +30,8 @@
     }
     
     /* 드롭다운이 active일 때 메뉴 표시 */
-    .nav-menu .nav-dropdown.active .dropdown-menu {
+    .nav-menu .nav-dropdown.active .dropdown-menu,
+    .nav-menu .dropdown-menu.show {
         display: block;
         max-height: 1000px;
         opacity: 1;
@@ -88,7 +89,8 @@
     }
     
     /* 드롭다운 열림 상태 아이콘 회전 */
-    .nav-dropdown.active .dropdown-toggle i.fa-chevron-down {
+    .nav-dropdown.active .dropdown-toggle i.fa-chevron-down,
+    .nav-dropdown .dropdown-menu.show + .dropdown-toggle i.fa-chevron-down {
         transform: rotate(180deg);
     }
 }
