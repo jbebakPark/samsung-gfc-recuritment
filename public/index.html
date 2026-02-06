@@ -3169,6 +3169,58 @@
     <script src="js/form-enhancements.js?v=7.0"></script>
     
     <script>
+        // ============================================
+        // 🚨 긴급 디버깅 코드 v21.0
+        // ============================================
+        console.log('🚨 긴급 디버깅 시작 v21.0');
+        
+        // 페이지 로드 후 실행
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('📄 DOMContentLoaded 이벤트 발생');
+            
+            setTimeout(function() {
+                console.log('⏰ 1초 후 디버깅 실행');
+                
+                const navMenu = document.querySelector('.nav-menu');
+                const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+                
+                console.log('🔍 navMenu:', navMenu);
+                console.log('🔍 navMenu.classList:', navMenu ? Array.from(navMenu.classList) : 'null');
+                console.log('🔍 dropdownToggles 개수:', dropdownToggles.length);
+                
+                if (dropdownToggles.length > 0) {
+                    dropdownToggles.forEach((toggle, i) => {
+                        console.log(`🔍 토글 ${i}:`, toggle.textContent.trim());
+                        console.log(`   - offsetParent:`, toggle.offsetParent); // null이면 숨겨진 것
+                        console.log(`   - offsetWidth:`, toggle.offsetWidth);
+                        console.log(`   - offsetHeight:`, toggle.offsetHeight);
+                        
+                        const computedStyle = window.getComputedStyle(toggle);
+                        console.log(`   - display:`, computedStyle.display);
+                        console.log(`   - visibility:`, computedStyle.visibility);
+                        console.log(`   - pointer-events:`, computedStyle.pointerEvents);
+                        console.log(`   - z-index:`, computedStyle.zIndex);
+                    });
+                    
+                    // 강제로 첫 번째 토글에 클릭 테스트
+                    console.log('🧪 첫 번째 토글에 강제 이벤트 리스너 추가');
+                    const firstToggle = dropdownToggles[0];
+                    
+                    firstToggle.addEventListener('click', function(e) {
+                        console.log('✅✅✅ 강제 리스너 작동! ✅✅✅');
+                        console.log('   클릭된 요소:', this.textContent.trim());
+                        alert('드롭다운 클릭 감지됨: ' + this.textContent.trim());
+                    }, true);
+                    
+                    console.log('✅ 강제 리스너 등록 완료');
+                } else {
+                    console.error('❌ dropdownToggles를 찾을 수 없습니다!');
+                }
+            }, 1000);
+        });
+    </script>
+    
+    <script>
         // 사전등록 버튼 기능
         function scrollToApply() {
             const applySection = document.getElementById('apply');
