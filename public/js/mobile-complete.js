@@ -70,9 +70,9 @@
     });
     
     // ============================================
-    // DROPDOWN TOGGLES
+    // DROPDOWN TOGGLES - 각 카테고리 독립 작동
     // ============================================
-    dropdownToggles.forEach(toggle => {
+    dropdownToggles.forEach((toggle, index) => {
         toggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -81,41 +81,55 @@
             if (window.innerWidth <= 1024) {
                 const dropdown = this.closest('.nav-dropdown');
                 const isActive = dropdown.classList.contains('active');
+                const categoryName = this.textContent.trim();
                 
-                console.log('Dropdown clicked:', {
-                    element: dropdown,
-                    isActive: isActive,
-                    windowWidth: window.innerWidth
+                console.log('📌 드롭다운 클릭:', {
+                    카테고리: categoryName,
+                    인덱스: index,
+                    현재상태: isActive ? '열림' : '닫힘',
+                    화면너비: window.innerWidth
                 });
                 
-                // Close all other dropdowns
-                document.querySelectorAll('.nav-dropdown.active').forEach(item => {
-                    if (item !== dropdown) {
+                // 다른 모든 드롭다운 닫기 (중요: 현재 것만 남김)
+                let closedCount = 0;
+                document.querySelectorAll('.nav-dropdown').forEach((item, i) => {
+                    if (item !== dropdown && item.classList.contains('active')) {
                         item.classList.remove('active');
-                        console.log('Closing other dropdown:', item);
+                        const menu = item.querySelector('.dropdown-menu');
+                        if (menu) {
+                            menu.style.display = 'none';
+                            menu.style.opacity = '0';
+                        }
+                        closedCount++;
+                        console.log('✖️ 다른 드롭다운 닫음:', i);
                     }
                 });
                 
-                // Toggle current dropdown
-                if (isActive) {
-                    dropdown.classList.remove('active');
-                    console.log('Dropdown closed');
-                } else {
-                    dropdown.classList.add('active');
-                    console.log('Dropdown opened');
+                if (closedCount > 0) {
+                    console.log(`✅ ${closedCount}개의 다른 드롭다운을 닫았습니다`);
                 }
                 
-                // Force display the dropdown menu
+                // 현재 드롭다운 토글
                 const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-                if (dropdownMenu) {
-                    if (dropdown.classList.contains('active')) {
+                
+                if (isActive) {
+                    // 닫기
+                    dropdown.classList.remove('active');
+                    if (dropdownMenu) {
+                        dropdownMenu.style.display = 'none';
+                        dropdownMenu.style.opacity = '0';
+                    }
+                    console.log('✖️ 드롭다운 닫음:', categoryName);
+                } else {
+                    // 열기
+                    dropdown.classList.add('active');
+                    if (dropdownMenu) {
                         dropdownMenu.style.display = 'block';
                         dropdownMenu.style.opacity = '1';
-                        console.log('Dropdown menu forced to display');
-                    } else {
-                        dropdownMenu.style.display = 'none';
-                        console.log('Dropdown menu hidden');
+                        dropdownMenu.style.maxHeight = '1000px';
                     }
+                    console.log('✅ 드롭다운 열음:', categoryName);
+                    console.log('   서브메뉴 개수:', dropdownMenu ? dropdownMenu.querySelectorAll('li').length : 0);
                 }
             }
         });
