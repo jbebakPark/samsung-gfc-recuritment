@@ -64,44 +64,10 @@ function isMobile() {
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
 
+// GLOBAL flag to control outside click handler
+window.preventMenuClose = false;
+
 if (mobileMenuToggle && navMenu) {
-    // Flag to temporarily disable outside click handler
-    let outsideClickEnabled = true;
-    
-    // Outside click handler function
-    const handleOutsideClick = (e) => {
-        // Check if outside click is enabled
-        if (!outsideClickEnabled) {
-            console.log('🚫 Outside click handler disabled temporarily');
-            return;
-        }
-        
-        // Check if click is inside nav menu
-        const isInsideNavMenu = navMenu.contains(e.target);
-        const isMenuToggle = mobileMenuToggle.contains(e.target);
-        
-        console.log('🔍 Outside click check:', { 
-            isInsideNavMenu, 
-            isMenuToggle,
-            menuActive: navMenu.classList.contains('active'),
-            target: e.target.className
-        });
-        
-        if (navMenu.classList.contains('active') && 
-            !isInsideNavMenu && 
-            !isMenuToggle) {
-            console.log('❌ Closing mobile menu (outside click)');
-            navMenu.classList.remove('active');
-            const icon = mobileMenuToggle.querySelector('i');
-            if (icon) {
-                icon.classList.add('fa-bars');
-                icon.classList.remove('fa-times');
-            }
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
-    };
-    
     // Toggle mobile menu
     mobileMenuToggle.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -121,8 +87,32 @@ if (mobileMenuToggle && navMenu) {
         document.body.style.overflow = isActive ? 'hidden' : '';
     });
     
-    // Register outside click handler
-    document.addEventListener('click', handleOutsideClick);
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        // Check GLOBAL flag first
+        if (window.preventMenuClose) {
+            console.log('🚫 preventMenuClose flag is set - NOT closing menu');
+            return;
+        }
+        
+        // Check if click is inside nav menu
+        const isInsideNavMenu = navMenu.contains(e.target);
+        const isMenuToggle = mobileMenuToggle.contains(e.target);
+        
+        if (navMenu.classList.contains('active') && 
+            !isInsideNavMenu && 
+            !isMenuToggle) {
+            console.log('❌ Closing mobile menu (outside click)');
+            navMenu.classList.remove('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+    });
     
     // Close menu on Escape key
     document.addEventListener('keydown', (e) => {
@@ -162,17 +152,15 @@ navDropdowns.forEach(dropdown => {
         e.preventDefault();
         e.stopPropagation();
         
-        // DISABLE outside click handler temporarily
-        if (typeof outsideClickEnabled !== 'undefined') {
-            outsideClickEnabled = false;
-            console.log('🔒 Outside click handler disabled');
-            
-            // Re-enable after a short delay
-            setTimeout(() => {
-                outsideClickEnabled = true;
-                console.log('🔓 Outside click handler re-enabled');
-            }, 100);
-        }
+        // SET GLOBAL FLAG to prevent menu from closing
+        window.preventMenuClose = true;
+        console.log('🔒 preventMenuClose set to TRUE');
+        
+        // Reset flag after a short delay
+        setTimeout(() => {
+            window.preventMenuClose = false;
+            console.log('🔓 preventMenuClose reset to FALSE');
+        }, 200);
         
         console.log('🔹 Dropdown toggle clicked:', dropdownToggle.textContent.trim());
         

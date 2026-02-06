@@ -77,49 +77,48 @@
 <body>
     <div class="container">
         <h1>📱 모바일 테스트 - QR 코드</h1>
-        <p style="color: #666; font-size: 1.1rem;">삼성생명 GFC 채용 (최신 버전 v13.0 - 핸들러 비활성화)</p>
-        <p style="color: #d32f2f; font-weight: 600; font-size: 0.95rem;">🔥 외부 클릭 핸들러 일시 비활성화!</p>
+        <p style="color: #666; font-size: 1.1rem;">삼성생명 GFC 채용 (최신 버전 v14.0 - 전역 플래그)</p>
+        <p style="color: #d32f2f; font-weight: 600; font-size: 0.95rem;">🔥 window.preventMenuClose 전역 플래그!</p>
         
         <div class="qr-code">
             <img id="qrImage" style="max-width: 100%; height: auto;" alt="QR Code">
         </div>
         
         <div class="url">
-            https://8001-ig1hw6ruruwvm4u22c8u7-0e616f0a.sandbox.novita.ai/index.html?v=13.0&_t=1738856000
+            https://8001-ig1hw6ruruwvm4u22c8u7-0e616f0a.sandbox.novita.ai/index.html?v=14.0&_t=1738856500
         </div>
         
         <div class="instruction">
             <h3 style="color: #1428A0;">📋 테스트 항목</h3>
             <ol>
                 <li><strong>QR 코드 스캔</strong> - 스마트폰 카메라로 위 QR 코드 촬영</li>
-                <li><strong>시크릿 모드 권장</strong> - 캐시 없이 최신 버전 확인</li>
+                <li><strong>시크릿 모드 필수</strong> - 캐시 없이 최신 버전 확인</li>
                 <li><strong>🔴 드롭다운 메뉴</strong> - GFC 소개 클릭 시 서브메뉴 펼쳐지는지 확인!</li>
                 <li><strong>🔴 팝업 유지</strong> - 드롭다운 클릭해도 모바일 메뉴가 닫히지 않는지 확인!</li>
-                <li><strong>메뉴 가독성</strong> - 배경이 밝은 흰색인지 확인</li>
             </ol>
             
-            <h3 style="color: #1428A0; margin-top: 30px;">✅ 개선사항 (v13.0)</h3>
+            <h3 style="color: #1428A0; margin-top: 30px;">✅ 개선사항 (v14.0)</h3>
             <ul style="list-style: none; padding: 0;">
-                <li>✓ <strong>🔥 핸들러 비활성화 방식</strong>: outsideClickEnabled 플래그</li>
-                <li>✓ <strong>드롭다운 클릭 시</strong>: 외부 클릭 핸들러 일시 비활성화 (100ms)</li>
-                <li>✓ <strong>자동 재활성화</strong>: 100ms 후 외부 클릭 다시 감지</li>
-                <li>✓ 단순한 로직: 조건부 return으로 핸들러 건너뛰기</li>
-                <li>✓ 상세한 로그: 비활성화/재활성화 추적</li>
+                <li>✓ <strong>🔥 window 전역 플래그</strong>: window.preventMenuClose</li>
+                <li>✓ <strong>스코프 문제 해결</strong>: 어디서든 접근 가능</li>
+                <li>✓ <strong>드롭다운 클릭 시</strong>: preventMenuClose = true (200ms)</li>
+                <li>✓ <strong>외부 클릭 핸들러</strong>: 플래그 체크 후 즉시 return</li>
+                <li>✓ 명확한 로그: 플래그 상태 추적</li>
             </ul>
             
             <h3 style="color: #1428A0; margin-top: 30px;">🔥 중요!</h3>
             <p style="color: #d32f2f; font-weight: 600;">
-                시크릿 모드로 열어야 최신 버전(v13.0)이 보입니다!<br>
-                핸들러 비활성화 방식으로 확실하게 해결했습니다!
+                시크릿 모드로 열어야 최신 버전(v14.0)이 보입니다!<br>
+                전역 플래그로 스코프 문제를 완전히 해결했습니다!
             </p>
         </div>
         
-        <a href="index.html?v=13.0&_t=1738856000" class="btn">🖥️ 컴퓨터에서 열기</a>
+        <a href="index.html?v=14.0&_t=1738856500" class="btn">🖥️ 컴퓨터에서 열기</a>
     </div>
     
     <script>
         // QR 코드 생성 (최신 URL 포함)
-        const url = 'https://8001-ig1hw6ruruwvm4u22c8u7-0e616f0a.sandbox.novita.ai/index.html?v=13.0&_t=1738856000';
+        const url = 'https://8001-ig1hw6ruruwvm4u22c8u7-0e616f0a.sandbox.novita.ai/index.html?v=14.0&_t=1738856500';
         const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
         document.getElementById('qrImage').src = qrUrl;
     </script>
