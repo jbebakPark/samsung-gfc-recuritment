@@ -84,11 +84,17 @@ if (mobileMenuToggle && navMenu) {
         document.body.style.overflow = isActive ? 'hidden' : '';
     });
     
-    // Close menu when clicking outside
+    // Close menu when clicking outside (but not on dropdown toggles)
     document.addEventListener('click', (e) => {
+        // Check if click is on a dropdown toggle
+        const isDropdownToggle = e.target.closest('.dropdown-toggle');
+        const isDropdownMenu = e.target.closest('.dropdown-menu');
+        
         if (navMenu.classList.contains('active') && 
             !navMenu.contains(e.target) && 
-            !mobileMenuToggle.contains(e.target)) {
+            !mobileMenuToggle.contains(e.target) &&
+            !isDropdownToggle &&
+            !isDropdownMenu) {
             navMenu.classList.remove('active');
             const icon = mobileMenuToggle.querySelector('i');
             if (icon) {
@@ -133,13 +139,18 @@ navDropdowns.forEach(dropdown => {
     dropdownMenu.style.overflow = 'hidden';
     dropdownMenu.style.transition = 'max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease';
     
-    // Toggle dropdown on click
+    // Toggle dropdown on click (use capture phase for priority)
     dropdownToggle.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation(); // Stop all other handlers on this element
+        
+        console.log('🔹 Dropdown toggle clicked:', dropdownToggle.textContent.trim());
         
         const isVisible = dropdownMenu.classList.contains('show');
         const isMobileMenuOpen = navMenu && navMenu.classList.contains('active');
+        
+        console.log('📊 Current state:', { isVisible, isMobileMenuOpen });
         
         // In mobile menu: only close other dropdowns in same menu
         // In desktop: close all dropdowns
@@ -189,6 +200,7 @@ navDropdowns.forEach(dropdown => {
         // FORCE display with inline styles (override any CSS conflicts)
         if (!isVisible) {
             // Opening dropdown
+            console.log('✅ Opening dropdown');
             dropdownMenu.style.display = 'block';
             dropdownMenu.style.maxHeight = '600px';
             dropdownMenu.style.opacity = '1';
@@ -196,6 +208,7 @@ navDropdowns.forEach(dropdown => {
             dropdownMenu.style.padding = '0.5rem 0';
         } else {
             // Closing dropdown
+            console.log('❌ Closing dropdown');
             dropdownMenu.style.maxHeight = '0';
             dropdownMenu.style.opacity = '0';
             dropdownMenu.style.padding = '0';
@@ -215,7 +228,10 @@ navDropdowns.forEach(dropdown => {
             chevron.style.transition = 'transform 0.3s ease';
             chevron.style.transform = !isVisible ? 'rotate(180deg)' : 'rotate(0deg)';
         }
-    });
+        
+        // IMPORTANT: Return false to prevent any default behavior
+        return false;
+    }, true); // Use capture phase!
     
     // Prevent dropdown menu clicks from closing it
     dropdownMenu.addEventListener('click', function(e) {
