@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>드롭다운 디버그</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .debug-info {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .debug-info h2 {
+            margin-bottom: 10px;
+            color: #1428A0;
+        }
+        
+        .debug-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: #f9f9f9;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        /* 모바일 메뉴 스타일 */
+        .mobile-menu-toggle {
+            background: #1428A0;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .nav-menu {
+            display: none;
+            background: #1428A0;
+            border-radius: 8px;
+            padding: 20px;
+            list-style: none;
+        }
+        
+        .nav-menu.active {
+            display: block;
+        }
+        
+        .nav-dropdown {
+            margin: 10px 0;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .dropdown-toggle:active {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .dropdown-menu {
+            display: none;
+            background: rgba(255,255,255,0.05);
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dropdown.active .dropdown-menu {
+            display: block;
+            max-height: 500px;
+            opacity: 1;
+            padding: 10px 0;
+        }
+        
+        .dropdown-menu li {
+            padding: 0;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 20px 12px 40px;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .dropdown-menu a:active {
+            background: rgba(255,255,255,0.1);
+            border-left-color: white;
+        }
+        
+        .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-dropdown.active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        .log {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .log-item {
+            padding: 5px;
+            margin: 3px 0;
+            font-family: monospace;
+            font-size: 13px;
+            border-left: 3px solid #1428A0;
+            padding-left: 10px;
+        }
+        
+        .log-item.success {
+            border-left-color: #28a745;
+            color: #28a745;
+        }
+        
+        .log-item.error {
+            border-left-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info">
+        <h2>🔍 디버그 정보</h2>
+        <div class="debug-item">화면 너비: <strong id="width">-</strong>px</div>
+        <div class="debug-item">User Agent: <strong id="ua">-</strong></div>
+        <div class="debug-item">터치 지원: <strong id="touch">-</strong></div>
+    </div>
+    
+    <button class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i> 메뉴 열기/닫기
+    </button>
+    
+    <ul class="nav-menu">
+        <li class="nav-dropdown">
+            <a href="#" class="dropdown-toggle">
+                GFC 소개 <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#about">GFC란?</a></li>
+                <li><a href="#why-join">왜 GFC인가</a></li>
+                <li><a href="#target">지원 대상</a></li>
+                <li><a href="#gfc-video">GFC 소개영상</a></li>
+                <li><a href="#gfc-insights">GFC 인사이트</a></li>
+            </ul>
+        </li>
+        
+        <li class="nav-dropdown">
+            <a href="#" class="dropdown-toggle">
+                채용 정보 <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#job-fair">채용설명회</a></li>
+                <li><a href="#training">GTC 교육 일정</a></li>
+                <li><a href="#age-criteria">연령 기준</a></li>
+                <li><a href="#tracks">채용 트랙</a></li>
+                <li><a href="#process">채용 프로세스</a></li>
+            </ul>
+        </li>
+        
+        <li class="nav-dropdown">
+            <a href="#" class="dropdown-toggle">
+                업무 안내 <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#main-duties">주요 업무</a></li>
+                <li><a href="#comprehensive">종합자산관리</a></li>
+                <li><a href="#core-competencies">핵심 역량</a></li>
+            </ul>
+        </li>
+    </ul>
+    
+    <div class="log">
+        <h3 style="margin-bottom: 10px;">📋 이벤트 로그</h3>
+        <div id="logContainer"></div>
+    </div>
+    
+    <script>
+        // 디버그 정보 표시
+        document.getElementById('width').textContent = window.innerWidth;
+        document.getElementById('ua').textContent = navigator.userAgent.substring(0, 50) + '...';
+        document.getElementById('touch').textContent = 'ontouchstart' in window ? 'YES' : 'NO';
+        
+        const logContainer = document.getElementById('logContainer');
+        
+        function log(message, type = 'info') {
+            const item = document.createElement('div');
+            item.className = 'log-item ' + type;
+            item.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            logContainer.insertBefore(item, logContainer.firstChild);
+            console.log(message);
+        }
+        
+        log('페이지 로드 완료', 'success');
+        
+        // 메뉴 토글
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            navMenu.classList.toggle('active');
+            log('메뉴 토글: ' + (navMenu.classList.contains('active') ? '열림' : '닫힘'), 'success');
+        });
+        
+        // 드롭다운 토글
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        
+        log('드롭다운 개수: ' + dropdownToggles.length, 'success');
+        
+        dropdownToggles.forEach((toggle, index) => {
+            const categoryName = toggle.textContent.trim().split('\n')[0].trim();
+            
+            // 클릭 이벤트
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                log('클릭: ' + categoryName, 'success');
+                
+                const dropdown = this.closest('.nav-dropdown');
+                const isActive = dropdown.classList.contains('active');
+                
+                // 다른 드롭다운 닫기
+                document.querySelectorAll('.nav-dropdown').forEach(item => {
+                    if (item !== dropdown) {
+                        item.classList.remove('active');
+                    }
+                });
+                
+                // 현재 드롭다운 토글
+                dropdown.classList.toggle('active');
+                
+                const newState = dropdown.classList.contains('active') ? '열림' : '닫힘';
+                log(categoryName + ' → ' + newState, newState === '열림' ? 'success' : 'info');
+            });
+            
+            // 터치 이벤트
+            toggle.addEventListener('touchstart', function(e) {
+                log('터치 시작: ' + categoryName, 'info');
+            });
+            
+            toggle.addEventListener('touchend', function(e) {
+                log('터치 종료: ' + categoryName, 'info');
+            });
+        });
+        
+        // 서브메뉴 링크
+        document.querySelectorAll('.dropdown-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const text = this.textContent;
+                log('서브메뉴 클릭: ' + text, 'success');
+            });
+        });
+        
+        log('이벤트 리스너 등록 완료', 'success');
+    </script>
+</body>
+</html>
