@@ -82,21 +82,41 @@
                 const dropdown = this.closest('.nav-dropdown');
                 const isActive = dropdown.classList.contains('active');
                 
+                console.log('Dropdown clicked:', {
+                    element: dropdown,
+                    isActive: isActive,
+                    windowWidth: window.innerWidth
+                });
+                
                 // Close all other dropdowns
                 document.querySelectorAll('.nav-dropdown.active').forEach(item => {
                     if (item !== dropdown) {
                         item.classList.remove('active');
+                        console.log('Closing other dropdown:', item);
                     }
                 });
                 
                 // Toggle current dropdown
                 if (isActive) {
                     dropdown.classList.remove('active');
+                    console.log('Dropdown closed');
                 } else {
                     dropdown.classList.add('active');
+                    console.log('Dropdown opened');
                 }
                 
-                console.log('Dropdown toggled:', dropdown);
+                // Force display the dropdown menu
+                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                if (dropdownMenu) {
+                    if (dropdown.classList.contains('active')) {
+                        dropdownMenu.style.display = 'block';
+                        dropdownMenu.style.opacity = '1';
+                        console.log('Dropdown menu forced to display');
+                    } else {
+                        dropdownMenu.style.display = 'none';
+                        console.log('Dropdown menu hidden');
+                    }
+                }
             }
         });
     });
