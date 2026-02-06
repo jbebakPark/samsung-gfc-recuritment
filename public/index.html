@@ -3321,7 +3321,45 @@
                 });
             });
             
-            console.log('✅ v23.0 초기화 완료');
+            // ============================================
+            // 보도자료 필터 기능 v24.0
+            // ============================================
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const pressCards = document.querySelectorAll('.press-card');
+            
+            if (filterButtons.length > 0 && pressCards.length > 0) {
+                console.log('✅ 보도자료 필터 초기화:', filterButtons.length + '개 버튼,', pressCards.length + '개 카드');
+                
+                filterButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const filter = this.getAttribute('data-filter');
+                        console.log('🔍 필터 클릭:', filter);
+                        
+                        // 모든 버튼에서 active 제거
+                        filterButtons.forEach(b => b.classList.remove('active'));
+                        
+                        // 클릭된 버튼에 active 추가
+                        this.classList.add('active');
+                        
+                        // 카드 필터링
+                        let visibleCount = 0;
+                        pressCards.forEach(card => {
+                            const category = card.getAttribute('data-category');
+                            
+                            if (filter === 'all' || category === filter) {
+                                card.style.display = 'block';
+                                visibleCount++;
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                        
+                        console.log('✅ 필터 완료:', visibleCount + '개 카드 표시');
+                    });
+                });
+            }
+            
+            console.log('✅ v24.0 초기화 완료');
         });
     </script>
     

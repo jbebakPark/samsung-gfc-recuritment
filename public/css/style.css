@@ -4675,9 +4675,14 @@ body {
         color: var(--white) !important;
     }
 
-    /* 날짜만 파란색 배경에 파란색 텍스트 */
+    /* 날짜는 흰색 배경에 파란색 텍스트 */
     .press-section .press-date {
+        background: var(--white);
         color: var(--primary-color) !important;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        display: inline-block;
+        font-weight: 600;
     }
 
     /* 버튼 텍스트는 파란색 */
