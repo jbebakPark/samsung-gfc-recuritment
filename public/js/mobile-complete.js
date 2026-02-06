@@ -58,8 +58,10 @@
     }
     
     // ============================================
-    // CLOSE MENU ON BACKDROP CLICK
+    // CLOSE MENU ON BACKDROP CLICK - DISABLED
     // ============================================
+    // DISABLED: This was causing the menu to close when clicking dropdowns
+    /*
     document.addEventListener('click', function(e) {
         if (body.classList.contains('menu-open')) {
             // Check if click is outside menu and toggle button
@@ -68,6 +70,8 @@
             }
         }
     });
+    */
+    console.log('✅ Outside click handler DISABLED (to prevent dropdown issues)');
     
     // ============================================
     // DROPDOWN TOGGLES - 각 카테고리 독립 작동
