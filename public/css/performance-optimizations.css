@@ -1,0 +1,572 @@
+/**
+ * Performance Optimizations & Bug Fixes
+ * Version: 1.0.0
+ * Date: 2026-02-06
+ * 
+ * Contents:
+ * - CSS Performance Improvements
+ * - Mobile Responsive Fixes
+ * - Animation Optimizations
+ * - Cross-browser Compatibility
+ * - Accessibility Enhancements
+ */
+
+/* ==================== Performance Optimizations ==================== */
+
+/* Use CSS containment for better rendering performance */
+.section,
+.card,
+.press-card,
+.faq-item {
+    contain: layout style paint;
+}
+
+/* Optimize animations with will-change */
+.nav-menu.active,
+.dropdown-menu.show,
+.faq-answer {
+    will-change: transform, opacity;
+}
+
+/* Remove will-change after animation completes */
+.nav-menu,
+.dropdown-menu,
+.faq-answer {
+    will-change: auto;
+}
+
+/* Hardware acceleration for smooth transitions */
+.btn,
+.card,
+.nav-menu,
+.dropdown-menu {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Reduce repaints during scroll */
+.header {
+    will-change: box-shadow;
+}
+
+/* ==================== Mobile UX Improvements ==================== */
+
+/* Better touch targets (minimum 44x44px) */
+@media (max-width: 768px) {
+    .btn,
+    .tab-btn,
+    .filter-btn,
+    .faq-question,
+    .nav-menu a,
+    .dropdown-toggle {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 20px;
+    }
+    
+    /* Improve mobile menu usability */
+    .nav-menu {
+        touch-action: pan-y;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Prevent text selection on interactive elements */
+    .btn,
+    .tab-btn,
+    .filter-btn,
+    .faq-question,
+    .mobile-menu-toggle {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Improve dropdown menu on mobile */
+    .dropdown-menu {
+        position: absolute;
+        max-height: 70vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Better mobile form inputs */
+    input,
+    select,
+    textarea {
+        font-size: 16px !important; /* Prevent zoom on iOS */
+        touch-action: manipulation;
+    }
+    
+    /* Mobile-friendly checkboxes and radio buttons */
+    input[type="checkbox"],
+    input[type="radio"] {
+        min-width: 24px;
+        min-height: 24px;
+        cursor: pointer;
+    }
+}
+
+/* ==================== Accessibility Improvements ==================== */
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid var(--primary-color, #034EA2);
+    outline-offset: 2px;
+}
+
+/* Remove default focus outline */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .btn,
+    .card,
+    input,
+    select,
+    textarea {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ==================== Cross-browser Compatibility ==================== */
+
+/* Safari specific fixes */
+.safari .header {
+    -webkit-backface-visibility: hidden;
+}
+
+.safari input,
+.safari select,
+.safari textarea {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Fix Safari button rendering */
+.safari .btn {
+    -webkit-appearance: button;
+}
+
+/* IE/Edge specific fixes */
+@supports (-ms-ime-align: auto) {
+    .container {
+        display: block;
+    }
+}
+
+/* Firefox specific fixes */
+@-moz-document url-prefix() {
+    select {
+        padding-right: 30px;
+    }
+}
+
+/* ==================== Animation Optimizations ==================== */
+
+/* Optimize fade animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Apply optimized animations */
+.dropdown-menu.show {
+    animation: slideDown 0.2s ease-out forwards;
+}
+
+.nav-menu.active {
+    animation: slideDown 0.3s ease-out forwards;
+}
+
+.press-card {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ==================== Form Improvements ==================== */
+
+/* Better error message styling */
+.error-message {
+    display: block;
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Error state for inputs */
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+    border-color: #dc3545 !important;
+    background-color: #fff5f5;
+}
+
+/* Success state for inputs */
+input:valid:not(:placeholder-shown),
+select:valid,
+textarea:valid:not(:placeholder-shown) {
+    border-color: #28a745;
+}
+
+/* Loading state */
+.btn.loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+.btn.loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==================== Mobile Responsive Fixes ==================== */
+
+/* Prevent horizontal scroll */
+body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Better mobile spacing */
+@media (max-width: 768px) {
+    .section {
+        padding: 3rem 1rem;
+    }
+    
+    .container {
+        padding: 0 16px;
+    }
+    
+    /* Mobile typography adjustments */
+    h1 {
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+    }
+    
+    h2 {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+    
+    h3 {
+        font-size: clamp(1.25rem, 3vw, 1.75rem);
+    }
+    
+    p {
+        font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+}
+
+/* ==================== Print Styles ==================== */
+
+@media print {
+    .header,
+    .mobile-menu-toggle,
+    .floating-buttons,
+    #scrollTopBtn,
+    .btn,
+    .nav-menu {
+        display: none !important;
+    }
+    
+    .section {
+        page-break-inside: avoid;
+    }
+    
+    a {
+        text-decoration: underline;
+    }
+    
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+    }
+}
+
+/* ==================== Dark Mode Support (Future) ==================== */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-dark: #E8E8E8;
+        --text-light: #B0B0B0;
+        --bg-light: #1A1A1A;
+        --white: #121212;
+        --border-color: #333333;
+    }
+    
+    body {
+        background-color: #121212;
+        color: var(--text-dark);
+    }
+    
+    .header {
+        background-color: #1A1A1A;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .card,
+    .press-card {
+        background-color: #1E1E1E;
+        border-color: var(--border-color);
+    }
+    
+    input,
+    select,
+    textarea {
+        background-color: #2A2A2A;
+        color: var(--text-dark);
+        border-color: var(--border-color);
+    }
+}
+
+/* ==================== Utility Classes ==================== */
+
+/* Visibility utilities */
+.hidden {
+    display: none !important;
+}
+
+.invisible {
+    visibility: hidden !important;
+}
+
+.show {
+    display: block !important;
+}
+
+/* Text utilities */
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+/* Spacing utilities */
+.mt-1 { margin-top: 0.5rem !important; }
+.mt-2 { margin-top: 1rem !important; }
+.mt-3 { margin-top: 1.5rem !important; }
+.mt-4 { margin-top: 2rem !important; }
+
+.mb-1 { margin-bottom: 0.5rem !important; }
+.mb-2 { margin-bottom: 1rem !important; }
+.mb-3 { margin-bottom: 1.5rem !important; }
+.mb-4 { margin-bottom: 2rem !important; }
+
+.pt-1 { padding-top: 0.5rem !important; }
+.pt-2 { padding-top: 1rem !important; }
+.pt-3 { padding-top: 1.5rem !important; }
+.pt-4 { padding-top: 2rem !important; }
+
+.pb-1 { padding-bottom: 0.5rem !important; }
+.pb-2 { padding-bottom: 1rem !important; }
+.pb-3 { padding-bottom: 1.5rem !important; }
+.pb-4 { padding-bottom: 2rem !important; }
+
+/* ==================== Bug Fixes ==================== */
+
+/* Fix dropdown z-index issues */
+.dropdown-menu {
+    z-index: 1001;
+}
+
+/* Fix mobile menu overlay */
+.nav-menu.active {
+    z-index: 999;
+}
+
+/* Fix floating buttons */
+.floating-buttons {
+    z-index: 998;
+}
+
+/* Fix scroll-to-top button */
+#scrollTopBtn {
+    z-index: 997;
+}
+
+/* Prevent flash of unstyled content */
+.section {
+    min-height: 100px;
+}
+
+/* Fix image loading */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Fix video embeds */
+iframe {
+    max-width: 100%;
+    border: none;
+}
+
+/* Fix table overflow on mobile */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ==================== Smooth Scrolling ==================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ==================== Loading States ==================== */
+
+/* Skeleton loading animation */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 0px,
+        #e0e0e0 40px,
+        #f0f0f0 80px
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* ==================== Responsive Images ==================== */
+
+/* Lazy loading images */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
+}
+
+/* Aspect ratio boxes */
+.aspect-ratio-16-9 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+}
+
+.aspect-ratio-4-3 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%;
+}
+
+.aspect-ratio-1-1 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+}
+
+.aspect-ratio-box > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
