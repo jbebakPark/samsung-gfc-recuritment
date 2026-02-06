@@ -77,14 +77,21 @@
     // ============================================
     // DROPDOWN TOGGLES - 각 카테고리 독립 작동
     // ============================================
+    console.log('🔧 드롭다운 토글 개수:', dropdownToggles.length);
+    
     dropdownToggles.forEach((toggle, index) => {
+        console.log(`🔧 드롭다운 토글 ${index} 등록:`, toggle.textContent.trim());
+        
         toggle.addEventListener('click', function(e) {
+            console.log('🎯 드롭다운 클릭 이벤트 발생!', this.textContent.trim());
             e.preventDefault();
             e.stopPropagation();
             
             // Only work on mobile
             if (window.innerWidth <= 1024) {
+                console.log('✅ 모바일 모드 확인');
                 const dropdown = this.closest('.nav-dropdown');
+                console.log('✅ dropdown 요소:', dropdown);
                 const isActive = dropdown.classList.contains('active');
                 const categoryName = this.textContent.trim();
                 
@@ -116,9 +123,11 @@
                 
                 // 현재 드롭다운 토글
                 const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                console.log('✅ dropdownMenu 요소:', dropdownMenu);
                 
                 if (isActive) {
                     // 닫기
+                    console.log('🔽 드롭다운 닫기 시작');
                     dropdown.classList.remove('active');
                     if (dropdownMenu) {
                         dropdownMenu.style.display = 'none';
@@ -127,15 +136,23 @@
                     console.log('✖️ 드롭다운 닫음:', categoryName);
                 } else {
                     // 열기
+                    console.log('🔼 드롭다운 열기 시작');
                     dropdown.classList.add('active');
                     if (dropdownMenu) {
                         dropdownMenu.style.display = 'block';
                         dropdownMenu.style.opacity = '1';
                         dropdownMenu.style.maxHeight = '1000px';
+                        console.log('✅ 스타일 적용 완료:', {
+                            display: dropdownMenu.style.display,
+                            opacity: dropdownMenu.style.opacity,
+                            maxHeight: dropdownMenu.style.maxHeight
+                        });
                     }
                     console.log('✅ 드롭다운 열음:', categoryName);
                     console.log('   서브메뉴 개수:', dropdownMenu ? dropdownMenu.querySelectorAll('li').length : 0);
                 }
+            } else {
+                console.log('❌ 데스크톱 모드라 실행 안 함');
             }
         });
     });
