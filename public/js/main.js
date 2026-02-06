@@ -64,6 +64,9 @@ function isMobile() {
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
 
+// Flag to track if a dropdown toggle was just clicked
+let dropdownToggleClicked = false;
+
 if (mobileMenuToggle && navMenu) {
     // Toggle mobile menu
     mobileMenuToggle.addEventListener('click', (e) => {
@@ -86,15 +89,27 @@ if (mobileMenuToggle && navMenu) {
     
     // Close menu when clicking outside (but not on dropdown toggles)
     document.addEventListener('click', (e) => {
-        // Check if click is on a dropdown toggle
-        const isDropdownToggle = e.target.closest('.dropdown-toggle');
-        const isDropdownMenu = e.target.closest('.dropdown-menu');
+        // IMPORTANT: Check the flag first!
+        if (dropdownToggleClicked) {
+            console.log('🚫 Dropdown toggle clicked - ignoring outside click handler');
+            dropdownToggleClicked = false; // Reset flag
+            return; // Don't close the menu!
+        }
+        
+        // Check if click is inside nav menu
+        const isInsideNavMenu = navMenu.contains(e.target);
+        const isMenuToggle = mobileMenuToggle.contains(e.target);
+        
+        console.log('🔍 Outside click check:', { 
+            isInsideNavMenu, 
+            isMenuToggle,
+            menuActive: navMenu.classList.contains('active')
+        });
         
         if (navMenu.classList.contains('active') && 
-            !navMenu.contains(e.target) && 
-            !mobileMenuToggle.contains(e.target) &&
-            !isDropdownToggle &&
-            !isDropdownMenu) {
+            !isInsideNavMenu && 
+            !isMenuToggle) {
+            console.log('❌ Closing mobile menu (outside click)');
             navMenu.classList.remove('active');
             const icon = mobileMenuToggle.querySelector('i');
             if (icon) {
@@ -144,6 +159,9 @@ navDropdowns.forEach(dropdown => {
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation(); // Stop all other handlers on this element
+        
+        // SET THE FLAG to prevent outside click handler from closing menu
+        dropdownToggleClicked = true;
         
         console.log('🔹 Dropdown toggle clicked:', dropdownToggle.textContent.trim());
         

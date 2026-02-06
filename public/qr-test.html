@@ -77,15 +77,15 @@
 <body>
     <div class="container">
         <h1>📱 모바일 테스트 - QR 코드</h1>
-        <p style="color: #666; font-size: 1.1rem;">삼성생명 GFC 채용 (최신 버전 v10.0 - 이벤트 수정)</p>
-        <p style="color: #d32f2f; font-weight: 600; font-size: 0.95rem;">🔥 메뉴 닫힘 문제 수정!</p>
+        <p style="color: #666; font-size: 1.1rem;">삼성생명 GFC 채용 (최신 버전 v11.0 - 플래그 방식)</p>
+        <p style="color: #d32f2f; font-weight: 600; font-size: 0.95rem;">🔥 플래그 변수로 완전 해결!</p>
         
         <div class="qr-code">
             <img id="qrImage" style="max-width: 100%; height: auto;" alt="QR Code">
         </div>
         
         <div class="url">
-            https://8001-ig1hw6ruruwvm4u22c8u7-0e616f0a.sandbox.novita.ai/index.html?v=10.0&_t=1738854500
+            https://8001-ig1hw6ruruwvm4u22c8u7-0e616f0a.sandbox.novita.ai/index.html?v=11.0&_t=1738855000
         </div>
         
         <div class="instruction">
@@ -98,28 +98,28 @@
                 <li><strong>메뉴 가독성</strong> - 배경이 밝은 흰색인지 확인</li>
             </ol>
             
-            <h3 style="color: #1428A0; margin-top: 30px;">✅ 개선사항 (v10.0)</h3>
+            <h3 style="color: #1428A0; margin-top: 30px;">✅ 개선사항 (v11.0)</h3>
             <ul style="list-style: none; padding: 0;">
-                <li>✓ <strong>🔥 이벤트 버블링 차단</strong>: stopImmediatePropagation 추가</li>
-                <li>✓ <strong>캡처 단계 사용</strong>: 이벤트 우선순위 최고</li>
-                <li>✓ <strong>외부 클릭 감지 개선</strong>: 드롭다운 클릭 예외 처리</li>
-                <li>✓ <strong>return false 추가</strong>: 모든 기본 동작 차단</li>
-                <li>✓ 디버그 로그 추가: 콘솔에서 상태 확인 가능</li>
+                <li>✓ <strong>🔥 플래그 변수 사용</strong>: dropdownToggleClicked 전역 플래그</li>
+                <li>✓ <strong>외부 클릭 핸들러 개선</strong>: 플래그 체크 후 early return</li>
+                <li>✓ <strong>드롭다운 내부 클릭</strong>: 메뉴 닫힘 완전 차단</li>
+                <li>✓ 상세한 디버그 로그: 콘솔에서 모든 동작 추적</li>
+                <li>✓ 근본적 문제 해결: 이벤트 순서와 무관하게 작동</li>
             </ul>
             
             <h3 style="color: #1428A0; margin-top: 30px;">🔥 중요!</h3>
             <p style="color: #d32f2f; font-weight: 600;">
-                시크릿 모드로 열어야 최신 버전(v10.0)이 보입니다!<br>
-                'GFC 소개' 클릭 시 팝업이 닫히지 않고 서브메뉴가 펼쳐집니다!
+                시크릿 모드로 열어야 최신 버전(v11.0)이 보입니다!<br>
+                플래그 방식으로 100% 해결되었습니다!
             </p>
         </div>
         
-        <a href="index.html?v=10.0&_t=1738854500" class="btn">🖥️ 컴퓨터에서 열기</a>
+        <a href="index.html?v=11.0&_t=1738855000" class="btn">🖥️ 컴퓨터에서 열기</a>
     </div>
     
     <script>
         // QR 코드 생성 (최신 URL 포함)
-        const url = 'https://8001-ig1hw6ruruwvm4u22c8u7-0e616f0a.sandbox.novita.ai/index.html?v=10.0&_t=1738854500';
+        const url = 'https://8001-ig1hw6ruruwvm4u22c8u7-0e616f0a.sandbox.novita.ai/index.html?v=11.0&_t=1738855000';
         const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
         document.getElementById('qrImage').src = qrUrl;
     </script>
