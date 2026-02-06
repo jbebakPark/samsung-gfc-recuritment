@@ -3164,9 +3164,135 @@
         </button>
     </div>
 
-    <script src="js/mobile-complete.js?v=22.0"></script>
+    <!-- mobile-complete.js 비활성화 -->
+    <!-- <script src="js/mobile-complete.js?v=22.0"></script> -->
     <script src="js/mobile-interactive.js?v=7.0"></script>
     <script src="js/form-enhancements.js?v=7.0"></script>
+    
+    <script>
+        // ============================================
+        // 🚨 v23.0 - 완전히 새로운 드롭다운 코드
+        // mobile-complete.js를 대체
+        // ============================================
+        console.log('🚀 v23.0 시작 - 인라인 드롭다운 제어');
+        
+        // 페이지 로드 후 실행
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ DOMContentLoaded');
+            
+            // 모바일 메뉴 토글
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                console.log('✅ 모바일 메뉴 요소 발견');
+                
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const isActive = navMenu.classList.toggle('active');
+                    const icon = this.querySelector('i');
+                    
+                    if (icon) {
+                        icon.classList.toggle('fa-bars', !isActive);
+                        icon.classList.toggle('fa-times', isActive);
+                    }
+                    
+                    document.body.style.overflow = isActive ? 'hidden' : '';
+                    console.log('📱 모바일 메뉴:', isActive ? '열림' : '닫힘');
+                });
+            }
+            
+            // 드롭다운 토글 처리
+            document.addEventListener('click', function(e) {
+                const toggle = e.target.closest('.dropdown-toggle');
+                
+                if (toggle && window.innerWidth <= 1024) {
+                    console.log('====================================');
+                    console.log('🎯 드롭다운 클릭:', toggle.textContent.trim());
+                    
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    
+                    const dropdown = toggle.closest('.nav-dropdown');
+                    if (!dropdown) {
+                        console.error('❌ .nav-dropdown 없음');
+                        return;
+                    }
+                    
+                    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                    if (!dropdownMenu) {
+                        console.error('❌ .dropdown-menu 없음');
+                        return;
+                    }
+                    
+                    const isActive = dropdown.classList.contains('active');
+                    console.log('현재 상태:', isActive ? '열림' : '닫힘');
+                    
+                    // 다른 드롭다운 모두 닫기
+                    document.querySelectorAll('.nav-dropdown.active').forEach(item => {
+                        if (item !== dropdown) {
+                            item.classList.remove('active');
+                            const menu = item.querySelector('.dropdown-menu');
+                            if (menu) {
+                                menu.classList.remove('show');
+                                menu.style.display = 'none';
+                            }
+                        }
+                    });
+                    
+                    // 현재 드롭다운 토글
+                    if (isActive) {
+                        console.log('🔽 닫기');
+                        dropdown.classList.remove('active');
+                        dropdownMenu.classList.remove('show');
+                        dropdownMenu.style.display = 'none';
+                    } else {
+                        console.log('🔼 열기');
+                        dropdown.classList.add('active');
+                        dropdownMenu.classList.add('show');
+                        dropdownMenu.style.display = 'block';
+                        
+                        const count = dropdownMenu.querySelectorAll('li').length;
+                        console.log('✅ 성공! 서브메뉴:', count + '개');
+                    }
+                    
+                    console.log('====================================');
+                    return false;
+                }
+            }, true);
+            
+            // Escape 키로 메뉴 닫기
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times');
+                    }
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // 링크 클릭 시 메뉴 닫기
+            document.querySelectorAll('.nav-menu a:not(.dropdown-toggle)').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1024 && navMenu) {
+                        navMenu.classList.remove('active');
+                        const icon = mobileMenuToggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-times');
+                        }
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+            
+            console.log('✅ v23.0 초기화 완료');
+        });
+    </script>
     
     <script>
         // 사전등록 버튼 기능
