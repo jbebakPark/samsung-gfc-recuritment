@@ -3674,11 +3674,6 @@ body {
         display: none;
     }
 
-    /* 모바일에서 드롭다운 숨김 */
-    .nav-dropdown .dropdown-menu {
-        display: none !important;
-    }
-
     /* Press Archive Filter - Mobile */
     .press-filter {
         overflow-x: auto;

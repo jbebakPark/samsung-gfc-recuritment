@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>드롭다운 테스트</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            background: #1428A0;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .nav-dropdown {
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f5f5f5;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .dropdown-toggle:hover {
+            background: #e0e0e0;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            list-style: none;
+            background: #fafafa;
+        }
+        
+        .nav-dropdown.active .dropdown-menu {
+            display: block;
+        }
+        
+        .dropdown-menu li {
+            border-top: 1px solid #eee;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 15px 12px 30px;
+            color: #666;
+            text-decoration: none;
+        }
+        
+        .dropdown-menu a:hover {
+            background: #1428A0;
+            color: white;
+        }
+        
+        .fa-chevron-down {
+            transition: transform 0.3s;
+        }
+        
+        .nav-dropdown.active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e3f2fd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="test-container">
+        <h2 style="margin-bottom: 20px;">드롭다운 테스트</h2>
+        
+        <div class="nav-dropdown" id="dropdown1">
+            <a href="#" class="dropdown-toggle">
+                GFC 소개 <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#about">GFC란?</a></li>
+                <li><a href="#why-join">왜 GFC인가</a></li>
+                <li><a href="#target">지원 대상</a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-dropdown" id="dropdown2">
+            <a href="#" class="dropdown-toggle">
+                채용 정보 <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#job-fair">채용설명회</a></li>
+                <li><a href="#training">GTC 교육 일정</a></li>
+            </ul>
+        </div>
+        
+        <div class="status" id="status">
+            상태: 대기 중...
+        </div>
+    </div>
+    
+    <script>
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        const status = document.getElementById('status');
+        
+        function log(msg) {
+            console.log(msg);
+            status.textContent = '상태: ' + msg;
+        }
+        
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const dropdown = this.closest('.nav-dropdown');
+                const wasActive = dropdown.classList.contains('active');
+                
+                // Close all dropdowns
+                document.querySelectorAll('.nav-dropdown').forEach(d => {
+                    d.classList.remove('active');
+                });
+                
+                // Toggle current
+                if (!wasActive) {
+                    dropdown.classList.add('active');
+                    log('드롭다운 열림: ' + this.textContent.trim());
+                } else {
+                    log('드롭다운 닫힘');
+                }
+            });
+        });
+        
+        // Submenu click
+        document.querySelectorAll('.dropdown-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                log('클릭됨: ' + this.textContent + ' → ' + this.getAttribute('href'));
+                alert('이동: ' + this.textContent + '\n섹션: ' + this.getAttribute('href'));
+            });
+        });
+        
+        log('테스트 페이지 로드 완료');
+    </script>
+</body>
+</html>
