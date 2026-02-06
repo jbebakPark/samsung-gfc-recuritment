@@ -109,12 +109,48 @@
             if (window.innerWidth <= 1024) {
                 const href = this.getAttribute('href');
                 
-                // If internal link
+                // If internal link (starts with #)
+                if (href && href.startsWith('#')) {
+                    // Don't prevent default for dropdown toggles
+                    if (!this.classList.contains('dropdown-toggle')) {
+                        e.preventDefault();
+                        closeMenu();
+                        
+                        // Smooth scroll to target
+                        const target = document.querySelector(href);
+                        if (target) {
+                            setTimeout(() => {
+                                const headerHeight = 70;
+                                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                                
+                                window.scrollTo({
+                                    top: targetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }, 300);
+                        }
+                    }
+                }
+            }
+        });
+    });
+    
+    // ============================================
+    // HANDLE DROPDOWN SUBMENU LINKS
+    // ============================================
+    document.querySelectorAll('.dropdown-menu a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (window.innerWidth <= 1024) {
+                const href = this.getAttribute('href');
+                
                 if (href && href.startsWith('#')) {
                     e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Close menu immediately
                     closeMenu();
                     
-                    // Smooth scroll to target
+                    // Navigate to section
                     const target = document.querySelector(href);
                     if (target) {
                         setTimeout(() => {
@@ -125,6 +161,8 @@
                                 top: targetPosition,
                                 behavior: 'smooth'
                             });
+                            
+                            console.log('Navigated to:', href);
                         }, 300);
                     }
                 }
