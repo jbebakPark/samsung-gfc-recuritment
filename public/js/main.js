@@ -126,6 +126,13 @@ navDropdowns.forEach(dropdown => {
     
     if (!dropdownToggle || !dropdownMenu) return;
     
+    // Initialize dropdown in closed state with inline styles
+    dropdownMenu.style.display = 'none';
+    dropdownMenu.style.maxHeight = '0';
+    dropdownMenu.style.opacity = '0';
+    dropdownMenu.style.overflow = 'hidden';
+    dropdownMenu.style.transition = 'max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease';
+    
     // Toggle dropdown on click
     dropdownToggle.addEventListener('click', function(e) {
         e.preventDefault();
@@ -142,6 +149,16 @@ navDropdowns.forEach(dropdown => {
             otherDropdowns.forEach(menu => {
                 if (menu !== dropdownMenu) {
                     menu.classList.remove('show');
+                    // Force close with inline styles
+                    menu.style.maxHeight = '0';
+                    menu.style.opacity = '0';
+                    menu.style.padding = '0';
+                    setTimeout(() => {
+                        if (!menu.classList.contains('show')) {
+                            menu.style.display = 'none';
+                        }
+                    }, 400);
+                    
                     const otherToggle = menu.previousElementSibling;
                     if (otherToggle) {
                         otherToggle.setAttribute('aria-expanded', 'false');
@@ -169,6 +186,26 @@ navDropdowns.forEach(dropdown => {
         // Toggle current dropdown
         dropdownMenu.classList.toggle('show', !isVisible);
         
+        // FORCE display with inline styles (override any CSS conflicts)
+        if (!isVisible) {
+            // Opening dropdown
+            dropdownMenu.style.display = 'block';
+            dropdownMenu.style.maxHeight = '600px';
+            dropdownMenu.style.opacity = '1';
+            dropdownMenu.style.visibility = 'visible';
+            dropdownMenu.style.padding = '0.5rem 0';
+        } else {
+            // Closing dropdown
+            dropdownMenu.style.maxHeight = '0';
+            dropdownMenu.style.opacity = '0';
+            dropdownMenu.style.padding = '0';
+            setTimeout(() => {
+                if (!dropdownMenu.classList.contains('show')) {
+                    dropdownMenu.style.display = 'none';
+                }
+            }, 400); // Match CSS transition duration
+        }
+        
         // Update ARIA attributes
         dropdownToggle.setAttribute('aria-expanded', !isVisible);
         
@@ -191,6 +228,13 @@ navDropdowns.forEach(dropdown => {
             setTimeout(() => {
                 dropdownMenu.classList.remove('show');
                 dropdownToggle.setAttribute('aria-expanded', 'false');
+                // Force close with inline styles
+                dropdownMenu.style.maxHeight = '0';
+                dropdownMenu.style.opacity = '0';
+                dropdownMenu.style.padding = '0';
+                setTimeout(() => {
+                    dropdownMenu.style.display = 'none';
+                }, 400);
             }, 100);
         });
     });
