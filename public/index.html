@@ -2723,24 +2723,33 @@
                                 <input type="text" id="name" name="name" required placeholder="홍길동">
                             </div>
                             <div class="form-group">
-                                <label for="birth">생년월일 <span class="required">*</span></label>
-                                <input type="date" id="birth" name="birth" required>
+                                <label for="gender">성별 <span class="required">*</span></label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">선택해주세요</option>
+                                    <option value="male">남성</option>
+                                    <option value="female">여성</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
+                                <label for="birth">생년월일 <span class="required">*</span></label>
+                                <input type="date" id="birth" name="birth" required>
+                                <small class="field-note">나이 자격 요건 자동 확인</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="phone">연락처 <span class="required">*</span></label>
                                 <input type="tel" id="phone" name="phone" required placeholder="010-1234-5678">
                             </div>
+                        </div>
+
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="email">이메일</label>
                                 <input type="email" id="email" name="email" placeholder="example@email.com">
                                 <small class="field-note">선택 항목</small>
                             </div>
-                        </div>
-
-                        <div class="form-group">
                             <label for="region">희망 근무 지역</label>
                             <select id="region" name="region">
                                 <option value="">선택해주세요 (선택)</option>
@@ -2805,24 +2814,33 @@
                                 <input type="text" id="ref-name" name="ref-name" placeholder="홍길동">
                             </div>
                             <div class="form-group">
-                                <label for="ref-birth">생년월일 <span class="required">*</span></label>
-                                <input type="date" id="ref-birth" name="ref-birth">
+                                <label for="ref-gender">성별 <span class="required">*</span></label>
+                                <select id="ref-gender" name="ref-gender">
+                                    <option value="">선택해주세요</option>
+                                    <option value="male">남성</option>
+                                    <option value="female">여성</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
+                                <label for="ref-birth">생년월일 <span class="required">*</span></label>
+                                <input type="date" id="ref-birth" name="ref-birth">
+                                <small class="field-note">나이 자격 요건 자동 확인</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="ref-phone">연락처 <span class="required">*</span></label>
                                 <input type="tel" id="ref-phone" name="ref-phone" placeholder="010-1234-5678">
                             </div>
+                        </div>
+
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="ref-email">이메일</label>
                                 <input type="email" id="ref-email" name="ref-email" placeholder="example@email.com">
                                 <small class="field-note">선택 항목</small>
                             </div>
-                        </div>
-
-                        <div class="form-group">
                             <label for="ref-region">희망 근무 지역</label>
                             <select id="ref-region" name="ref-region">
                                 <option value="">선택해주세요</option>
@@ -2888,12 +2906,21 @@
                                 <input type="text" id="dir-name" name="dir-name" placeholder="홍길동">
                             </div>
                             <div class="form-group">
-                                <label for="dir-birth">생년월일 <span class="required">*</span></label>
-                                <input type="date" id="dir-birth" name="dir-birth">
+                                <label for="dir-gender">성별 <span class="required">*</span></label>
+                                <select id="dir-gender" name="dir-gender">
+                                    <option value="">선택해주세요</option>
+                                    <option value="male">남성</option>
+                                    <option value="female">여성</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-row">
+                            <div class="form-group">
+                                <label for="dir-birth">생년월일 <span class="required">*</span></label>
+                                <input type="date" id="dir-birth" name="dir-birth">
+                                <small class="field-note">나이 자격 요건 자동 확인</small>
+                            </div>
                             <div class="form-group">
                                 <label for="dir-phone">연락처 <span class="required">*</span></label>
                                 <input type="tel" id="dir-phone" name="dir-phone" placeholder="010-1234-5678">
@@ -3458,6 +3485,273 @@
     </script>
     
     <script>
+        // ============================================
+        // 🚨 v29.0 - 나이 제한 체크 기능
+        // ============================================
+        
+        /**
+         * 생년월일로부터 만 나이 계산
+         * @param {string} birthDateStr - YYYY-MM-DD 형식의 생년월일
+         * @returns {number} 만 나이
+         */
+        function calculateAge(birthDateStr) {
+            if (!birthDateStr) return null;
+            
+            const today = new Date();
+            const birthDate = new Date(birthDateStr);
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            return age;
+        }
+        
+        /**
+         * 성별과 나이로 지원 자격 확인
+         * @param {number} age - 만 나이
+         * @param {string} gender - 'male' 또는 'female'
+         * @returns {object} { eligible: boolean, status: string, message: string }
+         */
+        function checkEligibility(age, gender) {
+            if (age === null || age === undefined) {
+                return {
+                    eligible: false,
+                    status: 'error',
+                    message: '생년월일을 입력해주세요.'
+                };
+            }
+            
+            // 남성 기준
+            if (gender === 'male') {
+                if (age >= 35 && age <= 60) {
+                    return {
+                        eligible: true,
+                        status: 'eligible',
+                        message: `✅ 적격 (만 ${age}세 - 남성)`
+                    };
+                } else if ((age >= 30 && age <= 34) || (age >= 61 && age <= 65)) {
+                    return {
+                        eligible: true,
+                        status: 'conditional',
+                        message: `⚠️ 비적격 (만 ${age}세 - 남성)\n※ 지원은 가능하나 위촉 가능 여부는 별도 심사가 필요합니다.`
+                    };
+                } else {
+                    return {
+                        eligible: false,
+                        status: 'ineligible',
+                        message: `❌ 위촉불가 (만 ${age}세 - 남성)\n남성은 만 30-65세만 지원 가능합니다.\n(만 66세 이상 또는 만 29세 이하는 위촉불가)`
+                    };
+                }
+            }
+            
+            // 여성 기준
+            if (gender === 'female') {
+                if (age >= 30 && age <= 55) {
+                    return {
+                        eligible: true,
+                        status: 'eligible',
+                        message: `✅ 적격 (만 ${age}세 - 여성)`
+                    };
+                } else if ((age >= 25 && age <= 29) || (age >= 56 && age <= 65)) {
+                    return {
+                        eligible: true,
+                        status: 'conditional',
+                        message: `⚠️ 비적격 (만 ${age}세 - 여성)\n※ 지원은 가능하나 위촉 가능 여부는 별도 심사가 필요합니다.`
+                    };
+                } else {
+                    return {
+                        eligible: false,
+                        status: 'ineligible',
+                        message: `❌ 위촉불가 (만 ${age}세 - 여성)\n여성은 만 25-65세만 지원 가능합니다.\n(만 66세 이상 또는 만 24세 이하는 위촉불가)`
+                    };
+                }
+            }
+            
+            return {
+                eligible: false,
+                status: 'error',
+                message: '성별을 선택해주세요.'
+            };
+        }
+        
+        /**
+         * 생년월일 입력 필드에 나이 체크 이벤트 추가
+         */
+        function initAgeValidation() {
+            // Job Fair 참가
+            const birthInput = document.getElementById('birth');
+            const genderSelect = document.getElementById('gender');
+            
+            // 추천인 지원
+            const refBirthInput = document.getElementById('ref-birth');
+            const refGenderSelect = document.getElementById('ref-gender');
+            
+            // 직접 지원
+            const dirBirthInput = document.getElementById('dir-birth');
+            const dirGenderSelect = document.getElementById('dir-gender');
+            
+            // Job Fair 나이 체크
+            if (birthInput && genderSelect) {
+                const checkJobFairAge = () => {
+                    const birthDate = birthInput.value;
+                    const gender = genderSelect.value;
+                    
+                    if (birthDate && gender) {
+                        const age = calculateAge(birthDate);
+                        const result = checkEligibility(age, gender);
+                        
+                        // 기존 메시지 제거
+                        const existingMsg = birthInput.parentElement.querySelector('.age-validation-message');
+                        if (existingMsg) existingMsg.remove();
+                        
+                        // 새 메시지 추가
+                        const messageDiv = document.createElement('div');
+                        messageDiv.className = `age-validation-message age-${result.status}`;
+                        messageDiv.style.cssText = `
+                            margin-top: 0.5rem;
+                            padding: 0.75rem 1rem;
+                            border-radius: 8px;
+                            font-size: 0.9rem;
+                            font-weight: 600;
+                            white-space: pre-line;
+                        `;
+                        
+                        if (result.status === 'eligible') {
+                            messageDiv.style.background = '#E8F5E9';
+                            messageDiv.style.color = '#2E7D32';
+                            messageDiv.style.border = '2px solid #4CAF50';
+                        } else if (result.status === 'conditional') {
+                            messageDiv.style.background = '#FFF9E6';
+                            messageDiv.style.color = '#E65100';
+                            messageDiv.style.border = '2px solid #FF9800';
+                        } else {
+                            messageDiv.style.background = '#FFEBEE';
+                            messageDiv.style.color = '#C62828';
+                            messageDiv.style.border = '2px solid #F44336';
+                        }
+                        
+                        messageDiv.textContent = result.message;
+                        birthInput.parentElement.appendChild(messageDiv);
+                        
+                        console.log(`🔍 Job Fair 나이 체크: ${result.message}`);
+                    }
+                };
+                
+                birthInput.addEventListener('change', checkJobFairAge);
+                genderSelect.addEventListener('change', checkJobFairAge);
+            }
+            
+            // 추천인 지원 나이 체크
+            if (refBirthInput && refGenderSelect) {
+                const checkReferralAge = () => {
+                    const birthDate = refBirthInput.value;
+                    const gender = refGenderSelect.value;
+                    
+                    if (birthDate && gender) {
+                        const age = calculateAge(birthDate);
+                        const result = checkEligibility(age, gender);
+                        
+                        const existingMsg = refBirthInput.parentElement.querySelector('.age-validation-message');
+                        if (existingMsg) existingMsg.remove();
+                        
+                        const messageDiv = document.createElement('div');
+                        messageDiv.className = `age-validation-message age-${result.status}`;
+                        messageDiv.style.cssText = `
+                            margin-top: 0.5rem;
+                            padding: 0.75rem 1rem;
+                            border-radius: 8px;
+                            font-size: 0.9rem;
+                            font-weight: 600;
+                            white-space: pre-line;
+                        `;
+                        
+                        if (result.status === 'eligible') {
+                            messageDiv.style.background = '#E8F5E9';
+                            messageDiv.style.color = '#2E7D32';
+                            messageDiv.style.border = '2px solid #4CAF50';
+                        } else if (result.status === 'conditional') {
+                            messageDiv.style.background = '#FFF9E6';
+                            messageDiv.style.color = '#E65100';
+                            messageDiv.style.border = '2px solid #FF9800';
+                        } else {
+                            messageDiv.style.background = '#FFEBEE';
+                            messageDiv.style.color = '#C62828';
+                            messageDiv.style.border = '2px solid #F44336';
+                        }
+                        
+                        messageDiv.textContent = result.message;
+                        refBirthInput.parentElement.appendChild(messageDiv);
+                        
+                        console.log(`🔍 추천인 지원 나이 체크: ${result.message}`);
+                    }
+                };
+                
+                refBirthInput.addEventListener('change', checkReferralAge);
+                refGenderSelect.addEventListener('change', checkReferralAge);
+            }
+            
+            // 직접 지원 나이 체크
+            if (dirBirthInput && dirGenderSelect) {
+                const checkDirectAge = () => {
+                    const birthDate = dirBirthInput.value;
+                    const gender = dirGenderSelect.value;
+                    
+                    if (birthDate && gender) {
+                        const age = calculateAge(birthDate);
+                        const result = checkEligibility(age, gender);
+                        
+                        const existingMsg = dirBirthInput.parentElement.querySelector('.age-validation-message');
+                        if (existingMsg) existingMsg.remove();
+                        
+                        const messageDiv = document.createElement('div');
+                        messageDiv.className = `age-validation-message age-${result.status}`;
+                        messageDiv.style.cssText = `
+                            margin-top: 0.5rem;
+                            padding: 0.75rem 1rem;
+                            border-radius: 8px;
+                            font-size: 0.9rem;
+                            font-weight: 600;
+                            white-space: pre-line;
+                        `;
+                        
+                        if (result.status === 'eligible') {
+                            messageDiv.style.background = '#E8F5E9';
+                            messageDiv.style.color = '#2E7D32';
+                            messageDiv.style.border = '2px solid #4CAF50';
+                        } else if (result.status === 'conditional') {
+                            messageDiv.style.background = '#FFF9E6';
+                            messageDiv.style.color = '#E65100';
+                            messageDiv.style.border = '2px solid #FF9800';
+                        } else {
+                            messageDiv.style.background = '#FFEBEE';
+                            messageDiv.style.color = '#C62828';
+                            messageDiv.style.border = '2px solid #F44336';
+                        }
+                        
+                        messageDiv.textContent = result.message;
+                        dirBirthInput.parentElement.appendChild(messageDiv);
+                        
+                        console.log(`🔍 직접 지원 나이 체크: ${result.message}`);
+                    }
+                };
+                
+                dirBirthInput.addEventListener('change', checkDirectAge);
+                dirGenderSelect.addEventListener('change', checkDirectAge);
+            }
+            
+            console.log('✅ 나이 제한 체크 기능 초기화 완료');
+        }
+        
+        // DOMContentLoaded 후 나이 체크 초기화
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAgeValidation);
+        } else {
+            initAgeValidation();
+        }
+        
         // 사전등록 버튼 기능
         function scrollToApply() {
             const applySection = document.getElementById('apply');
