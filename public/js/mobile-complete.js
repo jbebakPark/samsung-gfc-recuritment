@@ -80,90 +80,97 @@
     console.log('🔧 드롭다운 토글 개수:', dropdownToggles.length);
     console.log('🔧 현재 화면 너비:', window.innerWidth);
     
-    dropdownToggles.forEach((toggle, index) => {
-        console.log(`🔧 드롭다운 토글 ${index} 등록:`, toggle.textContent.trim());
+    // ============================================
+    // EVENT DELEGATION 방식으로 변경
+    // 개별 토글이 아닌 navMenu에 이벤트 등록
+    // ============================================
+    if (navMenu) {
+        console.log('✅ navMenu에 이벤트 위임 방식으로 리스너 등록');
         
-        toggle.addEventListener('click', function(e) {
-            console.log('====================================');
-            console.log('🎯 드롭다운 클릭 이벤트 발생!');
-            console.log('   클릭된 요소:', this.textContent.trim());
-            console.log('   현재 화면 너비:', window.innerWidth);
-            console.log('   모바일 모드 여부:', window.innerWidth <= 1024);
-            console.log('====================================');
+        navMenu.addEventListener('click', function(e) {
+            // 클릭된 요소가 dropdown-toggle인지 확인
+            const toggle = e.target.closest('.dropdown-toggle');
             
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('✅ preventDefault, stopPropagation 실행 완료');
-            
-            // Only work on mobile
-            if (window.innerWidth <= 1024) {
-                console.log('✅ 모바일 모드 확인');
-                const dropdown = this.closest('.nav-dropdown');
-                console.log('✅ dropdown 요소:', dropdown);
-                const isActive = dropdown.classList.contains('active');
-                const categoryName = this.textContent.trim();
+            if (toggle) {
+                console.log('====================================');
+                console.log('🎯 드롭다운 토글 클릭 감지! (이벤트 위임)');
+                console.log('   클릭된 요소:', toggle.textContent.trim());
+                console.log('   현재 화면 너비:', window.innerWidth);
+                console.log('   모바일 모드 여부:', window.innerWidth <= 1024);
+                console.log('====================================');
                 
-                console.log('📌 드롭다운 클릭:', {
-                    카테고리: categoryName,
-                    인덱스: index,
-                    현재상태: isActive ? '열림' : '닫힘',
-                    화면너비: window.innerWidth
-                });
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('✅ preventDefault, stopPropagation 실행 완료');
                 
-                // 다른 모든 드롭다운 닫기 (중요: 현재 것만 남김)
-                let closedCount = 0;
-                document.querySelectorAll('.nav-dropdown').forEach((item, i) => {
-                    if (item !== dropdown && item.classList.contains('active')) {
-                        item.classList.remove('active');
-                        const menu = item.querySelector('.dropdown-menu');
-                        if (menu) {
-                            menu.style.display = 'none';
-                            menu.style.opacity = '0';
+                // Only work on mobile
+                if (window.innerWidth <= 1024) {
+                    console.log('✅ 모바일 모드 확인');
+                    const dropdown = toggle.closest('.nav-dropdown');
+                    console.log('✅ dropdown 요소:', dropdown);
+                    const isActive = dropdown.classList.contains('active');
+                    const categoryName = toggle.textContent.trim();
+                    
+                    console.log('📌 드롭다운 상태:', {
+                        카테고리: categoryName,
+                        현재상태: isActive ? '열림' : '닫힘',
+                        화면너비: window.innerWidth
+                    });
+                    
+                    // 다른 모든 드롭다운 닫기
+                    let closedCount = 0;
+                    document.querySelectorAll('.nav-dropdown').forEach((item) => {
+                        if (item !== dropdown && item.classList.contains('active')) {
+                            item.classList.remove('active');
+                            const menu = item.querySelector('.dropdown-menu');
+                            if (menu) {
+                                menu.style.display = 'none';
+                                menu.style.opacity = '0';
+                            }
+                            closedCount++;
                         }
-                        closedCount++;
-                        console.log('✖️ 다른 드롭다운 닫음:', i);
+                    });
+                    
+                    if (closedCount > 0) {
+                        console.log(`✅ ${closedCount}개의 다른 드롭다운을 닫았습니다`);
                     }
-                });
-                
-                if (closedCount > 0) {
-                    console.log(`✅ ${closedCount}개의 다른 드롭다운을 닫았습니다`);
-                }
-                
-                // 현재 드롭다운 토글
-                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-                console.log('✅ dropdownMenu 요소:', dropdownMenu);
-                
-                if (isActive) {
-                    // 닫기
-                    console.log('🔽 드롭다운 닫기 시작');
-                    dropdown.classList.remove('active');
-                    if (dropdownMenu) {
-                        dropdownMenu.style.display = 'none';
-                        dropdownMenu.style.opacity = '0';
+                    
+                    // 현재 드롭다운 토글
+                    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                    console.log('✅ dropdownMenu 요소:', dropdownMenu);
+                    
+                    if (isActive) {
+                        // 닫기
+                        console.log('🔽 드롭다운 닫기 시작');
+                        dropdown.classList.remove('active');
+                        if (dropdownMenu) {
+                            dropdownMenu.style.display = 'none';
+                            dropdownMenu.style.opacity = '0';
+                        }
+                        console.log('✖️ 드롭다운 닫음:', categoryName);
+                    } else {
+                        // 열기
+                        console.log('🔼 드롭다운 열기 시작');
+                        dropdown.classList.add('active');
+                        if (dropdownMenu) {
+                            dropdownMenu.style.display = 'block';
+                            dropdownMenu.style.opacity = '1';
+                            dropdownMenu.style.maxHeight = '1000px';
+                            console.log('✅ 스타일 적용 완료:', {
+                                display: dropdownMenu.style.display,
+                                opacity: dropdownMenu.style.opacity,
+                                maxHeight: dropdownMenu.style.maxHeight
+                            });
+                        }
+                        console.log('✅ 드롭다운 열음:', categoryName);
+                        console.log('   서브메뉴 개수:', dropdownMenu ? dropdownMenu.querySelectorAll('li').length : 0);
                     }
-                    console.log('✖️ 드롭다운 닫음:', categoryName);
                 } else {
-                    // 열기
-                    console.log('🔼 드롭다운 열기 시작');
-                    dropdown.classList.add('active');
-                    if (dropdownMenu) {
-                        dropdownMenu.style.display = 'block';
-                        dropdownMenu.style.opacity = '1';
-                        dropdownMenu.style.maxHeight = '1000px';
-                        console.log('✅ 스타일 적용 완료:', {
-                            display: dropdownMenu.style.display,
-                            opacity: dropdownMenu.style.opacity,
-                            maxHeight: dropdownMenu.style.maxHeight
-                        });
-                    }
-                    console.log('✅ 드롭다운 열음:', categoryName);
-                    console.log('   서브메뉴 개수:', dropdownMenu ? dropdownMenu.querySelectorAll('li').length : 0);
+                    console.log('❌ 데스크톱 모드라 실행 안 함');
                 }
-            } else {
-                console.log('❌ 데스크톱 모드라 실행 안 함');
             }
-        });
-    });
+        }, true); // 캡처 단계에서 실행
+    }
     
     // ============================================
     // CLOSE MENU ON LINK CLICK
