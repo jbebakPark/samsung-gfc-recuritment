@@ -78,14 +78,22 @@
     // DROPDOWN TOGGLES - 각 카테고리 독립 작동
     // ============================================
     console.log('🔧 드롭다운 토글 개수:', dropdownToggles.length);
+    console.log('🔧 현재 화면 너비:', window.innerWidth);
     
     dropdownToggles.forEach((toggle, index) => {
         console.log(`🔧 드롭다운 토글 ${index} 등록:`, toggle.textContent.trim());
         
         toggle.addEventListener('click', function(e) {
-            console.log('🎯 드롭다운 클릭 이벤트 발생!', this.textContent.trim());
+            console.log('====================================');
+            console.log('🎯 드롭다운 클릭 이벤트 발생!');
+            console.log('   클릭된 요소:', this.textContent.trim());
+            console.log('   현재 화면 너비:', window.innerWidth);
+            console.log('   모바일 모드 여부:', window.innerWidth <= 1024);
+            console.log('====================================');
+            
             e.preventDefault();
             e.stopPropagation();
+            console.log('✅ preventDefault, stopPropagation 실행 완료');
             
             // Only work on mobile
             if (window.innerWidth <= 1024) {
