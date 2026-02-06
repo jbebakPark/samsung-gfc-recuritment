@@ -75,102 +75,90 @@
     console.log('✅ Outside click handler DISABLED (to prevent dropdown issues)');
     
     // ============================================
-    // DROPDOWN TOGGLES - 각 카테고리 독립 작동
+    // DROPDOWN TOGGLES - 완전히 새로운 방식 v22.0
     // ============================================
     console.log('🔧 드롭다운 토글 개수:', dropdownToggles.length);
     console.log('🔧 현재 화면 너비:', window.innerWidth);
     
-    // ============================================
-    // EVENT DELEGATION 방식으로 변경
-    // 개별 토글이 아닌 navMenu에 이벤트 등록
-    // ============================================
-    if (navMenu) {
-        console.log('✅ navMenu에 이벤트 위임 방식으로 리스너 등록');
+    // document 전체에 이벤트 리스너 등록 (최상위 레벨)
+    document.addEventListener('click', function(e) {
+        // .dropdown-toggle 클릭 감지
+        const toggle = e.target.closest('.dropdown-toggle');
         
-        navMenu.addEventListener('click', function(e) {
-            // 클릭된 요소가 dropdown-toggle인지 확인
-            const toggle = e.target.closest('.dropdown-toggle');
-            
-            if (toggle) {
-                console.log('====================================');
-                console.log('🎯 드롭다운 토글 클릭 감지! (이벤트 위임)');
-                console.log('   클릭된 요소:', toggle.textContent.trim());
-                console.log('   현재 화면 너비:', window.innerWidth);
-                console.log('   모바일 모드 여부:', window.innerWidth <= 1024);
-                console.log('====================================');
-                
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('✅ preventDefault, stopPropagation 실행 완료');
-                
-                // Only work on mobile
-                if (window.innerWidth <= 1024) {
-                    console.log('✅ 모바일 모드 확인');
-                    const dropdown = toggle.closest('.nav-dropdown');
-                    console.log('✅ dropdown 요소:', dropdown);
-                    const isActive = dropdown.classList.contains('active');
-                    const categoryName = toggle.textContent.trim();
-                    
-                    console.log('📌 드롭다운 상태:', {
-                        카테고리: categoryName,
-                        현재상태: isActive ? '열림' : '닫힘',
-                        화면너비: window.innerWidth
-                    });
-                    
-                    // 다른 모든 드롭다운 닫기
-                    let closedCount = 0;
-                    document.querySelectorAll('.nav-dropdown').forEach((item) => {
-                        if (item !== dropdown && item.classList.contains('active')) {
-                            item.classList.remove('active');
-                            const menu = item.querySelector('.dropdown-menu');
-                            if (menu) {
-                                menu.style.display = 'none';
-                                menu.style.opacity = '0';
-                            }
-                            closedCount++;
-                        }
-                    });
-                    
-                    if (closedCount > 0) {
-                        console.log(`✅ ${closedCount}개의 다른 드롭다운을 닫았습니다`);
-                    }
-                    
-                    // 현재 드롭다운 토글
-                    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-                    console.log('✅ dropdownMenu 요소:', dropdownMenu);
-                    
-                    if (isActive) {
-                        // 닫기
-                        console.log('🔽 드롭다운 닫기 시작');
-                        dropdown.classList.remove('active');
-                        if (dropdownMenu) {
-                            dropdownMenu.style.display = 'none';
-                            dropdownMenu.style.opacity = '0';
-                        }
-                        console.log('✖️ 드롭다운 닫음:', categoryName);
-                    } else {
-                        // 열기
-                        console.log('🔼 드롭다운 열기 시작');
-                        dropdown.classList.add('active');
-                        if (dropdownMenu) {
-                            dropdownMenu.style.display = 'block';
-                            dropdownMenu.style.opacity = '1';
-                            dropdownMenu.style.maxHeight = '1000px';
-                            console.log('✅ 스타일 적용 완료:', {
-                                display: dropdownMenu.style.display,
-                                opacity: dropdownMenu.style.opacity,
-                                maxHeight: dropdownMenu.style.maxHeight
-                            });
-                        }
-                        console.log('✅ 드롭다운 열음:', categoryName);
-                        console.log('   서브메뉴 개수:', dropdownMenu ? dropdownMenu.querySelectorAll('li').length : 0);
-                    }
-                } else {
-                    console.log('❌ 데스크톱 모드라 실행 안 함');
+        if (!toggle) return; // 드롭다운 토글이 아니면 무시
+        
+        console.log('====================================');
+        console.log('🎯 드롭다운 토글 클릭 감지!');
+        console.log('   클릭된 요소:', toggle.textContent.trim());
+        console.log('   현재 화면 너비:', window.innerWidth);
+        console.log('====================================');
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // 모바일 모드에서만 작동
+        if (window.innerWidth > 1024) {
+            console.log('❌ 데스크톱 모드라 실행 안 함');
+            return;
+        }
+        
+        console.log('✅ 모바일 모드 확인');
+        
+        const dropdown = toggle.closest('.nav-dropdown');
+        if (!dropdown) {
+            console.error('❌ .nav-dropdown을 찾을 수 없습니다!');
+            return;
+        }
+        
+        const isActive = dropdown.classList.contains('active');
+        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+        
+        console.log('📌 현재 상태:', isActive ? '열림' : '닫힘');
+        
+        // 다른 드롭다운 모두 닫기
+        document.querySelectorAll('.nav-dropdown.active').forEach(item => {
+            if (item !== dropdown) {
+                item.classList.remove('active');
+                const menu = item.querySelector('.dropdown-menu');
+                if (menu) {
+                    menu.classList.remove('show');
+                    menu.style.display = 'none';
+                    menu.style.opacity = '0';
+                    menu.style.maxHeight = '0';
                 }
             }
-        }, true); // 캡처 단계에서 실행
-    }
+        });
+        
+        // 현재 드롭다운 토글
+        if (isActive) {
+            // 닫기
+            console.log('🔽 드롭다운 닫기');
+            dropdown.classList.remove('active');
+            if (dropdownMenu) {
+                dropdownMenu.classList.remove('show');
+                dropdownMenu.style.display = 'none';
+                dropdownMenu.style.opacity = '0';
+                dropdownMenu.style.maxHeight = '0';
+            }
+        } else {
+            // 열기
+            console.log('🔼 드롭다운 열기');
+            dropdown.classList.add('active');
+            if (dropdownMenu) {
+                dropdownMenu.classList.add('show');
+                dropdownMenu.style.display = 'block';
+                dropdownMenu.style.opacity = '1';
+                dropdownMenu.style.maxHeight = '1000px';
+                
+                const itemCount = dropdownMenu.querySelectorAll('li').length;
+                console.log('✅ 드롭다운 열림! 서브메뉴:', itemCount + '개');
+            }
+        }
+        
+        console.log('====================================');
+    }, true); // 캡처 단계에서 실행
+    
+    console.log('✅ document에 드롭다운 리스너 등록 완료');
     
     // ============================================
     // CLOSE MENU ON LINK CLICK
