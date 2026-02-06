@@ -16,7 +16,7 @@
 
 ### 새 링크 (적용 완료)
 ```
-✅ https://open.kakao.com/o/sleUSUei (5개 위치)
+✅ https://open.kakao.com/o/sHw2Wgci (5개 위치)
 ```
 
 ---
@@ -25,7 +25,7 @@
 
 ### 1. **Hero 섹션** (라인 101)
 ```html
-<a href="https://open.kakao.com/o/sleUSUei" target="_blank" class="btn btn-secondary">
+<a href="https://open.kakao.com/o/sHw2Wgci" target="_blank" class="btn btn-secondary">
     <i class="fas fa-comment"></i> 카카오 오픈챗
 </a>
 ```
@@ -37,7 +37,7 @@
 
 ### 2. **Apply 섹션** (라인 2344)
 ```html
-<a href="https://open.kakao.com/o/sleUSUei" target="_blank" class="btn btn-outline">
+<a href="https://open.kakao.com/o/sHw2Wgci" target="_blank" class="btn btn-outline">
     카카오톡 문의
 </a>
 ```
@@ -49,7 +49,7 @@
 
 ### 3. **Contact 섹션** (라인 2902)
 ```html
-<a href="https://open.kakao.com/o/sleUSUei" target="_blank" class="btn btn-outline">
+<a href="https://open.kakao.com/o/sHw2Wgci" target="_blank" class="btn btn-outline">
     오픈챗 열기
 </a>
 ```
@@ -61,7 +61,7 @@
 
 ### 4. **Footer - Social Media** (라인 2954)
 ```html
-<a href="https://open.kakao.com/o/sleUSUei" target="_blank" title="카카오톡">
+<a href="https://open.kakao.com/o/sHw2Wgci" target="_blank" title="카카오톡">
     <i class="fab fa-kickstarter-k"></i>
 </a>
 ```
@@ -73,7 +73,7 @@
 
 ### 5. **Floating Action Button (FAB)** (라인 2973)
 ```html
-<a href="https://open.kakao.com/o/sleUSUei" target="_blank" 
+<a href="https://open.kakao.com/o/sHw2Wgci" target="_blank" 
    class="fab-btn fab-kakao" title="카카오톡 상담">
     <i class="fas fa-comment-dots"></i>
 </a>
@@ -104,7 +104,7 @@ alert(`신청 기능을 준비 중입니다.
 
 연락처:
 📞 010-5137-2327
-💬 카카오톡: https://open.kakao.com/o/sleUSUei`);
+💬 카카오톡: https://open.kakao.com/o/sHw2Wgci`);
 ```
 
 **동작:** 신청 버튼 클릭 시 연락처 정보 표시
@@ -122,7 +122,7 @@ alert(`신청 기능을 준비 중입니다.
 
 **변경 후:**
 ```markdown
-- **카카오톡:** [삼성생명 GFC 채용 오픈챗](https://open.kakao.com/o/sleUSUei)
+- **카카오톡:** [삼성생명 GFC 채용 오픈챗](https://open.kakao.com/o/sHw2Wgci)
 ```
 
 ---
@@ -136,11 +136,11 @@ grep -n "open.kakao.com" index.html
 
 **결과:**
 ```
-101:  https://open.kakao.com/o/sleUSUei ✅
-2344: https://open.kakao.com/o/sleUSUei ✅
-2902: https://open.kakao.com/o/sleUSUei ✅
-2954: https://open.kakao.com/o/sleUSUei ✅
-2973: https://open.kakao.com/o/sleUSUei ✅
+101:  https://open.kakao.com/o/sHw2Wgci ✅
+2344: https://open.kakao.com/o/sHw2Wgci ✅
+2902: https://open.kakao.com/o/sHw2Wgci ✅
+2954: https://open.kakao.com/o/sHw2Wgci ✅
+2973: https://open.kakao.com/o/sHw2Wgci ✅
 ```
 
 **✅ 모든 링크가 새 URL로 변경됨**
@@ -154,7 +154,7 @@ grep "open.kakao.com" mobile-interactive.js
 
 **결과:**
 ```javascript
-💬 카카오톡: https://open.kakao.com/o/sleUSUei ✅
+💬 카카오톡: https://open.kakao.com/o/sHw2Wgci ✅
 ```
 
 **✅ Alert 메시지의 링크 변경 완료**
@@ -168,7 +168,7 @@ grep "open.kakao.com" README.md
 
 **결과:**
 ```markdown
-[삼성생명 GFC 채용 오픈챗](https://open.kakao.com/o/sleUSUei) ✅
+[삼성생명 GFC 채용 오픈챗](https://open.kakao.com/o/sHw2Wgci) ✅
 ```
 
 **✅ README 문서 링크 변경 완료**
@@ -191,7 +191,7 @@ grep "open.kakao.com" README.md
 ```diff
 - https://open.kakao.com/o/sHw2Wgci (1개)
 - https://open.kakao.com/o/s15lHyCh (4개)
-+ https://open.kakao.com/o/sleUSUei (7개)
++ https://open.kakao.com/o/sHw2Wgci (7개)
 
 삭제: 5개 이전 링크
 추가: 7개 새 링크
@@ -308,7 +308,7 @@ URL: https://github.com/jbebakPark/samsung-gfc-recuritment
 ### 테스트 서버
 ```
 메인 URL: https://8001-i1lspsjjfhh0wtqjhkhp9-5c13a017.sandbox.novita.ai/index.html
-카카오톡 링크: https://open.kakao.com/o/sleUSUei
+카카오톡 링크: https://open.kakao.com/o/sHw2Wgci
 ```
 
 ---
@@ -365,7 +365,7 @@ Z-index: 900
 ### 통합 연락처
 ```
 📞 전화: 010-5137-2327
-💬 카카오톡: https://open.kakao.com/o/sleUSUei
+💬 카카오톡: https://open.kakao.com/o/sHw2Wgci
 📧 이메일: jb2park@naver.com
 🐙 GitHub: https://github.com/jbebakPark/samsung-gfc-recuritment
 ```
@@ -430,7 +430,7 @@ git push origin main
 **카카오톡 링크 업데이트 완료!**
 
 ### 새 카카오톡 오픈챗 링크
-👉 **https://open.kakao.com/o/sleUSUei**
+👉 **https://open.kakao.com/o/sHw2Wgci**
 
 ### 테스트 페이지
 👉 **https://8001-i1lspsjjfhh0wtqjhkhp9-5c13a017.sandbox.novita.ai/index.html**

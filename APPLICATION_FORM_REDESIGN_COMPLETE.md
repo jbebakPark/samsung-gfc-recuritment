@@ -553,7 +553,7 @@ function updateHiddenInput() {
 ### 문의 및 지원
 - **이메일**: jb2park@naver.com
 - **전화**: 010-5137-2327
-- **카카오톡**: https://open.kakao.com/o/sleUSUei
+- **카카오톡**: https://open.kakao.com/o/sHw2Wgci
 - **GitHub**: https://github.com/jbebakPark/samsung-gfc-recuritment
 
 ### 기술 지원

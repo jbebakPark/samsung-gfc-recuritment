@@ -319,7 +319,7 @@ ab5eb38 - fix: Update all application forms with 3 tabs and optional fields
 
 ### 모든 페이지에서 일관된 연락처
 - **전화**: 010-5137-2327
-- **카카오톡**: https://open.kakao.com/o/sleUSUei
+- **카카오톡**: https://open.kakao.com/o/sHw2Wgci
 - **이메일**: jb2park@naver.com
 
 ### 전화 버튼 위치

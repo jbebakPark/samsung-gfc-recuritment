@@ -302,7 +302,7 @@ URL 끝에 `?v=4.0` 추가로 캐시 무시
 ## 📞 연락처
 
 - **전화**: 010-5137-2327
-- **카카오톡**: https://open.kakao.com/o/sleUSUei
+- **카카오톡**: https://open.kakao.com/o/sHw2Wgci
 - **이메일**: jb2park@naver.com
 - **GitHub**: https://github.com/jbebakPark/samsung-gfc-recuritment
 

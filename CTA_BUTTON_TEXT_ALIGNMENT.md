@@ -369,7 +369,7 @@ https://8001-i1lspsjjfhh0wtqjhkhp9-5c13a017.sandbox.novita.ai/index.html
 
 ```
 📞 전화: 010-5137-2327
-💬 카카오톡: https://open.kakao.com/o/sleUSUei
+💬 카카오톡: https://open.kakao.com/o/sHw2Wgci
 📧 이메일: jb2park@naver.com
 🐙 GitHub: https://github.com/jbebakPark/samsung-gfc-recuritment
 ```

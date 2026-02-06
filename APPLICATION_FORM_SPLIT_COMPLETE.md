@@ -327,7 +327,7 @@ d6641cf - fix: Remove duplicate code in form-enhancements.js
 ### 개발 문의
 - **이메일**: jb2park@naver.com
 - **전화**: 010-5137-2327
-- **카카오톡**: https://open.kakao.com/o/sleUSUei
+- **카카오톡**: https://open.kakao.com/o/sHw2Wgci
 
 ### GitHub
 - **저장소**: https://github.com/jbebakPark/samsung-gfc-recuritment

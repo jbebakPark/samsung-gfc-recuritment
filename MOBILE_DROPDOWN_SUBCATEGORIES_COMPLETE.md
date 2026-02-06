@@ -393,7 +393,7 @@ document.querySelector('.nav-dropdown').classList.contains('active')  // true
 
 ### 개발 문의
 - **전화**: 010-5137-2327
-- **카카오톡**: https://open.kakao.com/o/sleUSUei
+- **카카오톡**: https://open.kakao.com/o/sHw2Wgci
 - **이메일**: jb2park@naver.com
 
 ### GitHub
