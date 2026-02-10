@@ -236,6 +236,12 @@ body {
     cursor: pointer;
     position: relative;
     z-index: 1001;
+    padding: 0.5rem;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu-toggle:active {
+    transform: scale(0.95);
 }
 
 /* Hero Section */
@@ -3781,6 +3787,8 @@ body {
         font-size: 1rem;
         touch-action: manipulation;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+        justify-content: center;
+        text-align: center;
     }
     
     .btn-large {
@@ -3832,6 +3840,12 @@ body {
 
     .navbar {
         padding: 0.75rem 0;
+    }
+    
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .mobile-menu-toggle {
