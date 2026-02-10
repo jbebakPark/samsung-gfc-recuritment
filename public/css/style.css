@@ -3731,6 +3731,23 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* 모바일 컨테이너 여백 조정 */
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    /* 모바일 섹션 여백 조정 */
+    section {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    /* Hero 섹션 여백 */
+    .hero {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
     /* 모바일 로고 최적화 */
     .nav-brand {
         gap: 10px;
@@ -3867,6 +3884,7 @@ body {
 
     .application-form {
         padding: 2rem 1.5rem;
+        margin: 0 -0.5rem;
     }
 
     /* Press Archive - Mobile */
