@@ -234,6 +234,8 @@ body {
     font-size: 1.5rem;
     color: var(--primary-color);
     cursor: pointer;
+    position: relative;
+    z-index: 1001;
 }
 
 /* Hero Section */
@@ -298,12 +300,16 @@ body {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     gap: 0.5rem;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
     border: none;
     cursor: pointer;
     font-size: 1rem;
+    text-align: center;
 }
 
 .btn-primary {
@@ -3911,7 +3917,13 @@ body {
 
     .hero-cta {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .hero-cta .btn {
+        width: 100%;
+        max-width: 300px;
     }
 
     .hero-stats {
