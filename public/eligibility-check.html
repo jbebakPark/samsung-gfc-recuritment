@@ -40,7 +40,7 @@
                         <div class="radio-group">
                             <label>
                                 <input type="radio" name="sanction_history" value="yes" required>
-                                <span class="radio-label danger">예 (지원 불가)</span>
+                                <span class="radio-label danger">예</span>
                             </label>
                             <label>
                                 <input type="radio" name="sanction_history" value="no" required>
@@ -57,7 +57,7 @@
                         <div class="radio-group">
                             <label>
                                 <input type="radio" name="license_suspension" value="yes" required>
-                                <span class="radio-label danger">예 (지원 불가)</span>
+                                <span class="radio-label danger">예</span>
                             </label>
                             <label>
                                 <input type="radio" name="license_suspension" value="no" required>
@@ -71,7 +71,7 @@
                         <div class="radio-group">
                             <label>
                                 <input type="radio" name="termination_history" value="yes" required>
-                                <span class="radio-label danger">예 (지원 불가)</span>
+                                <span class="radio-label danger">예</span>
                             </label>
                             <label>
                                 <input type="radio" name="termination_history" value="no" required>
@@ -473,37 +473,7 @@
             return;
         }
 
-        // 지원 불가 조건 체크
-        const disqualifiers = [];
-
-        // 1. 개인정보 동의
-        if (!formData.get('privacy_consent')) {
-            disqualifiers.push('개인정보 처리 동의 필수');
-        }
-
-        // 2. 제재 이력
-        if (formData.get('sanction_history') === 'yes') {
-            disqualifiers.push('보험업법 위반 제재 이력');
-        }
-
-        if (formData.get('license_suspension') === 'yes') {
-            disqualifiers.push('보험설계사 자격 정지/취소 이력');
-        }
-
-        if (formData.get('termination_history') === 'yes') {
-            disqualifiers.push('최근 1년 이내 타사 해촉 이력');
-        }
-
-        // 3. 범죄 이력
-        if (!formData.get('criminal_record')) {
-            disqualifiers.push('금융 관련 범죄 이력 확인 필요');
-        }
-
-        if (!formData.get('bankruptcy')) {
-            disqualifiers.push('파산/회생절차 확인 필요');
-        }
-
-        // 경고 사항
+        // 경고 사항 (검토 필요 항목만 표시)
         const warnings = [];
 
         if (formData.get('education_level') === 'no') {
@@ -518,26 +488,7 @@
         const resultDiv = document.getElementById('eligibilityResult');
         resultDiv.style.display = 'block';
 
-        if (disqualifiers.length > 0) {
-            // 지원 불가
-            resultDiv.className = 'eligibility-result error';
-            resultDiv.innerHTML = `
-            <h4><i class="fas fa-times-circle"></i> 지원이 제한됩니다</h4>
-            <p>다음 사유로 인해 현재 지원이 어렵습니다:</p>
-            <ul>
-                ${disqualifiers.map(item => `<li>${item}</li>`).join('')}
-            </ul>
-            <p style="margin-top: 1rem;">
-                <strong>문의:</strong> GFC 채용팀 02-1234-5678
-            </p>
-        `;
-
-            // 제출 버튼 비활성화
-            document.querySelector('.btn-primary').textContent = '지원 불가';
-            document.querySelector('.btn-primary').disabled = true;
-            document.querySelector('.btn-primary').style.background = '#ccc';
-
-        } else if (warnings.length > 0) {
+        if (warnings.length > 0) {
             // 검토 필요
             resultDiv.className = 'eligibility-result warning';
             resultDiv.innerHTML = `
