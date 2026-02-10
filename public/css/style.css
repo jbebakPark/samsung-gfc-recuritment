@@ -2688,14 +2688,15 @@ body {
 }
 
 .press-section .press-type {
-    color: var(--text-light);
+    color: #333333;
     font-size: 0.85rem;
     font-style: italic;
     margin-bottom: 1.5rem;
     padding: 0.5rem;
-    background: var(--bg-light);
+    background: #f0f0f0;
     border-radius: 6px;
     text-align: center;
+    font-weight: 500;
 }
 
 .press-section .btn-press {
@@ -4594,10 +4595,20 @@ body {
 }
 
 .press-section .press-company,
-.press-section .press-person,
-.press-section .press-type {
+.press-section .press-person {
     color: var(--white) !important;
     font-weight: 500;
+}
+
+.press-section .press-type {
+    color: var(--primary-color) !important;
+    background: var(--white) !important;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+    display: inline-block;
+    font-size: 0.9rem;
 }
 
 /* 날짜 박스 강화 - 흰색 배경 + 파란색 텍스트 */
@@ -4757,13 +4768,23 @@ body {
 
     /* 회사명, 인물, 타입 */
     .press-section .press-company,
-    .press-section .press-person,
-    .press-section .press-type {
+    .press-section .press-person {
         font-size: 1rem !important;
         font-weight: 500 !important;
         color: rgba(255, 255, 255, 0.95) !important;
         margin: 0.5rem 0 !important;
         line-height: 1.6;
+    }
+    
+    .press-section .press-type {
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        color: var(--primary-color) !important;
+        background: var(--white) !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 8px !important;
+        margin: 0.5rem 0 !important;
+        display: inline-block !important;
     }
 
     /* 기사 보기 버튼 - 크고 명확하게 */
@@ -4794,6 +4815,15 @@ body {
         color: var(--white) !important;
     }
     
+    /* press-type은 제외 - 흰색 배경에 파란색 텍스트 */
+    .press-section .press-card .press-type {
+        color: var(--primary-color) !important;
+        background: var(--white) !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+    
     /* 제목 - 흰색, 크고 굵게 */
     .press-section .press-card .press-title {
         color: var(--white) !important;
@@ -4803,10 +4833,9 @@ body {
         margin: 1rem 0 !important;
     }
     
-    /* 회사명, 인물명, 타입 - 흰색, 불투명도 90% */
+    /* 회사명, 인물명 - 흰색, 불투명도 90% */
     .press-section .press-card .press-company,
-    .press-section .press-card .press-person,
-    .press-section .press-card .press-type {
+    .press-section .press-card .press-person {
         color: rgba(255, 255, 255, 0.95) !important;
         font-size: 0.95rem !important;
         margin: 0.5rem 0 !important;
