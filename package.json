@@ -1,0 +1,13 @@
+{
+  "name": "samsung-gfc-recruitment",
+  "version": "1.0.0",
+  "description": "Samsung Life GFC Recruitment Website",
+  "scripts": {
+    "deploy": "firebase deploy --only hosting",
+    "preview": "firebase hosting:channel:deploy preview",
+    "serve": "firebase serve --only hosting"
+  },
+  "devDependencies": {
+    "firebase-tools": "^15.5.1"
+  }
+}

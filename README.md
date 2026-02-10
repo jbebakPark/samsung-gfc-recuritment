@@ -158,6 +158,49 @@
 └── .gitignore                      # Git 제외 파일 목록
 ```
 
+## 배포 방법
+
+### 🚀 Firebase Hosting (권장)
+
+이 프로젝트는 Firebase Hosting을 사용하여 배포됩니다.
+
+#### 자동 배포 (GitHub Actions)
+
+`main` 브랜치에 push하면 자동으로 배포됩니다:
+
+```bash
+git add .
+git commit -m "배포 준비"
+git push origin main
+```
+
+배포 상태는 [GitHub Actions](https://github.com/jbebakPark/samsung-gfc-recuritment/actions) 탭에서 확인할 수 있습니다.
+
+#### 수동 배포 (로컬)
+
+```bash
+# Firebase CLI 설치 (최초 1회)
+npm install -g firebase-tools
+
+# Firebase 로그인
+firebase login
+
+# 배포
+npm run deploy
+
+# 또는 직접 명령어
+firebase deploy --only hosting
+```
+
+#### 배포 URL
+
+- **Production**: https://samsung-gfc.web.app
+- **Firebase Console**: https://console.firebase.google.com/project/samsung-gfc
+
+상세한 배포 가이드는 [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)를 참조하세요.
+
+---
+
 ## 배포 방법 (GitHub Pages)
 
 ### 1단계: GitHub 저장소 생성
