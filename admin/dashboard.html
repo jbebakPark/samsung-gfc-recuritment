@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GFC 지원자 관리 - 삼성생명</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .admin-dashboard {
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 2rem 0;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.blue { background: #e3f2fd; color: #1976d2; }
+        .stat-icon.green { background: #e8f5e9; color: #388e3c; }
+        .stat-icon.orange { background: #fff3e0; color: #f57c00; }
+        .stat-icon.purple { background: #f3e5f5; color: #7b1fa2; }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .filters-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .applicants-table {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-dark);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-submitted { background: #e3f2fd; color: #1976d2; }
+        .status-reviewing { background: #fff3e0; color: #f57c00; }
+        .status-interview { background: #f3e5f5; color: #7b1fa2; }
+        .status-accepted { background: #e8f5e9; color: #388e3c; }
+        .status-rejected { background: #ffebee; color: #d32f2f; }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-action {
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .btn-action:hover {
+            color: var(--primary-color);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .pagination button {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pagination button.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-actions {
+                flex-direction: column;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <div class="dashboard-container">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <h1><i class="fas fa-users-cog"></i> GFC 지원자 관리 시스템</h1>
+                <p>실시간 지원자 현황 및 관리</p>
+            </div>
+
+            <!-- Statistics -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="totalApplications">-</div>
+                    <div class="stat-label">전체 지원자</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="pendingReview">-</div>
+                    <div class="stat-label">심사 대기</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="interviewScheduled">-</div>
+                    <div class="stat-label">면접 예정</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-icon green">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="accepted">-</div>
+                    <div class="stat-label">합격자</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-section">
+                <h3 style="margin-bottom: 1rem;">
+                    <i class="fas fa-filter"></i> 필터
+                </h3>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label>지원 구분</label>
+                        <select id="filterApplicationType">
+                            <option value="">전체</option>
+                            <option value="jobfair">채용설명회</option>
+                            <option value="referral">추천인</option>
+                            <option value="direct">직접지원</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>접수 방법</label>
+                        <select id="filterSubmissionMethod">
+                            <option value="">전체</option>
+                            <option value="online">전자접수</option>
+                            <option value="visit">직접방문</option>
+                            <option value="fax">팩스</option>
+                            <option value="email">이메일</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>진행 상태</label>
+                        <select id="filterStatus">
+                            <option value="">전체</option>
+                            <option value="submitted">접수완료</option>
+                            <option value="reviewing">심사중</option>
+                            <option value="interview_scheduled">면접통보</option>
+                            <option value="interview_completed">면접완료</option>
+                            <option value="accepted">합격</option>
+                            <option value="rejected">불합격</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>검색</label>
+                        <input type="text" id="searchQuery" placeholder="이름, 이메일, 전화번호">
+                    </div>
+                </div>
+
+                <div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
+                    <button class="btn btn-outline" onclick="resetFilters()">
+                        <i class="fas fa-redo"></i> 초기화
+                    </button>
+                    <button class="btn btn-primary" onclick="applyFilters()" style="margin-left: 1rem;">
+                        <i class="fas fa-search"></i> 검색
+                    </button>
+                </div>
+            </div>
+
+            <!-- Applicants Table -->
+            <div class="applicants-table">
+                <div class="table-header">
+                    <h3><i class="fas fa-list"></i> 지원자 목록</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-outline" onclick="exportData()">
+                            <i class="fas fa-file-export"></i> 엑셀 다운로드
+                        </button>
+                        <button class="btn btn-primary" onclick="sendBulkNotifications()">
+                            <i class="fas fa-paper-plane"></i> 일괄 알림
+                        </button>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll"></th>
+                            <th>접수일</th>
+                            <th>이름</th>
+                            <th>연락처</th>
+                            <th>지원구분</th>
+                            <th>접수방법</th>
+                            <th>상태</th>
+                            <th>작업</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicantsTableBody">
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 3rem;">
+                                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #ccc;"></i>
+                                <p style="color: #999; margin-top: 1rem;">데이터를 불러오는 중...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>
