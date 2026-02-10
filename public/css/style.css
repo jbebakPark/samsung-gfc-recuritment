@@ -235,9 +235,10 @@ body {
     color: var(--primary-color);
     cursor: pointer;
     position: relative;
-    z-index: 1001;
+    z-index: 1002;
     padding: 0.5rem;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    pointer-events: auto;
 }
 
 .mobile-menu-toggle:active {
@@ -252,6 +253,7 @@ body {
     align-items: center;
     background: linear-gradient(135deg, #034EA2 0%, #1D74C6 50%, #2E8BD6 100%);
     padding-top: 80px;
+    padding-bottom: 40px;
 }
 
 .hero-overlay {
@@ -3849,13 +3851,25 @@ body {
     }
 
     .mobile-menu-toggle {
-        display: block;
-        padding: 0.5rem;
-        min-width: 44px;
-        min-height: 44px;
+        display: block !important;
+        padding: 0.75rem;
+        min-width: 48px;
+        min-height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+        z-index: 1002;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        pointer-events: auto;
+        -webkit-tap-highlight-color: rgba(3, 78, 162, 0.2);
+    }
+    
+    .mobile-menu-toggle i {
+        font-size: 1.5rem;
+        pointer-events: none;
     }
 
     .nav-menu {
@@ -3921,28 +3935,56 @@ body {
         flex-shrink: 0;
     }
 
+    /* Hero 모바일 최적화 - 높이 줄이기 */
+    .hero {
+        min-height: auto;
+        padding-top: 100px;
+        padding-bottom: 60px;
+    }
+
     .hero-title {
         font-size: 2rem;
+        margin-bottom: 1rem;
     }
 
     .hero-subtitle {
         font-size: 1rem;
+        margin-bottom: 1.5rem;
     }
 
     .hero-cta {
         flex-direction: column;
         align-items: center;
         gap: 1rem;
+        margin-bottom: 2rem;
     }
     
     .hero-cta .btn {
         width: 100%;
         max-width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 
     .hero-stats {
-        flex-direction: column;
-        gap: 1.5rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    
+    .stat-item {
+        padding: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .stat-label {
+        font-size: 0.85rem;
     }
 
     .section-title {
@@ -4096,7 +4138,7 @@ body {
     }
 
     .section {
-        padding: 3rem 0;
+        padding: 2.5rem 0;
     }
 
     .btn {
@@ -5532,7 +5574,7 @@ body {
 
     /* 섹션 여백 조정 */
     .section {
-        padding: 3rem 0;
+        padding: 2.5rem 0;
     }
 
     .section-header {
