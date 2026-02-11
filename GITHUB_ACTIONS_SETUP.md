@@ -60,20 +60,56 @@ Example: firebase deploy --token "$FIREBASE_TOKEN"
 
 ---
 
-### **3단계: 워크플로우 파일 Push**
+### **3단계: 워크플로우 파일 생성**
+
+로컬 컴퓨터에서:
 
 ```bash
-# 로컬 컴퓨터에서 저장소 클론 (아직 안 했다면)
+# 저장소 클론 (아직 안 했다면)
 git clone https://github.com/jbebakPark/samsung-gfc-recuritment.git
 cd samsung-gfc-recuritment
 
-# 최신 변경사항 pull
-git pull origin main
+# workflows 디렉토리 생성
+mkdir -p .github/workflows
 
-# GitHub Actions 파일이 있는지 확인
-ls .github/workflows/
+# 워크플로우 파일 생성
+cat > .github/workflows/firebase-deploy.yml << 'EOF'
+name: Deploy to Firebase Hosting
 
-# 있으면 OK! 없으면 다시 pull 또는 파일 생성
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Deploy to Firebase
+        run: |
+          npm install -g firebase-tools
+          firebase deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}" --non-interactive
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+EOF
+
+# 커밋 & Push
+git add .github/workflows/firebase-deploy.yml
+git commit -m "ci: Add GitHub Actions auto-deploy workflow"
+git push origin main
 ```
 
 ---
