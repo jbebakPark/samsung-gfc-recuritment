@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인터뷰 관리 - 삼성생명 GFC</title>
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #034EA2;
+            --secondary-color: #1D74C6;
+            --accent-color: #FF6B35;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --bg-light: #F8F9FA;
+            --white: #FFFFFF;
+            --border-color: #E0E0E0;
+            --success-color: #28A745;
+            --warning-color: #FFC107;
+            --gradient-primary: linear-gradient(135deg, #034EA2 0%, #1D74C6 100%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+
+        .admin-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .admin-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-light);
+            border: 2px solid transparent;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-tab:hover {
+            background: #e8f1fb;
+            border-color: var(--primary-color);
+        }
+
+        .filter-tab.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-tab .count {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+
+        .filter-tab.active .count {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-add {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+
+        .stats-info {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .stats-info strong {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .interviews-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .interviews-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .interview-card {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .interview-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+
+        .interview-card.media-press {
+            border-left-color: #e74c3c;
+        }
+
+        .interview-card.media-portal {
+            border-left-color: #3498db;
+        }
+
+        .interview-card.media-youtube {
+            border-left-color: #e67e22;
+        }
+
+        .interview-card.media-blog {
+            border-left-color: #9b59b6;
+        }
+
+        .interview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .interview-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .interview-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .category-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-press {
+            background: #fee;
+            color: #c33;
+        }
+
+        .badge-portal {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .badge-youtube {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .badge-blog {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        .interview-content {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .interview-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+
+        .btn-view {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-edit {
+            background: var(--warning-color);
+            color: var(--text-dark);
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 768px) {
+            .admin-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .filter-tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .filter-tab {
+                flex-shrink: 0;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .interview-header {
+                flex-direction: column;
+            }
+
+            .interview-actions {
+                width: 100%;
+            }
+
+            .btn-small {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Header -->
+        <div class="admin-header">
+            <div>
+                <h1><i class="fas fa-microphone-alt"></i> 인터뷰 관리</h1>
+                <p>삼성생명 GFC 관련 인터뷰 및 미디어 자료 관리</p>
+            </div>
+            <nav class="admin-nav" style="display: flex; gap: 1rem;">
+                <a href="index.html"
+                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.3s;"><i
+                        class="fas fa-tachometer-alt"></i> 대시보드</a>
+                <a href="applications.html"
+                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.3s;">지원자
+                    관리</a>
+                <a href="interviews.html" class="active"
+                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255, 255, 255, 0.3);">인터뷰
+                    관리</a>
+                <a href="../index.html"
+                    style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.3s;"><i
+                        class="fas fa-home"></i> 메인</a>
+            </nav>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-tabs" id="categoryTabs">
+                <button class="filter-tab active" data-category="all">
+                    <i class="fas fa-th-large"></i>
+                    전체
+                    <span class="count" id="count-all">0</span>
+                </button>
+                <button class="filter-tab" data-category="press">
+                    <i class="fas fa-newspaper"></i>
+                    언론사
+                    <span class="count" id="count-press">0</span>
+                </button>
+                <button class="filter-tab" data-category="portal">
+                    <i class="fas fa-globe"></i>
+                    포털/웹
+                    <span class="count" id="count-portal">0</span>
+                </button>
+                <button class="filter-tab" data-category="youtube">
+                    <i class="fab fa-youtube"></i>
+                    유튜브
+                    <span class="count" id="count-youtube">0</span>
+                </button>
+                <button class="filter-tab" data-category="blog">
+                    <i class="fas fa-blog"></i>
+                    블로그
+                    <span class="count" id="count-blog">0</span>
+                </button>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="제목, 매체명, 인터뷰어 이름으로 검색...">
+                <button class="btn btn-primary" onclick="applyFilters()">
+                    <i class="fas fa-search"></i> 검색
+                </button>
+                <button class="btn btn-add" onclick="addInterview()">
+                    <i class="fas fa-plus"></i> 인터뷰 추가
+                </button>
+            </div>
+
+            <div class="stats-row">
+                <div class="stats-info">
+                    <span id="filterResultText">전체 인터뷰: <strong id="totalCount">0</strong>개</span>
+                </div>
+                <div>
+                    <select id="sortSelect" onchange="applyFilters()"
+                        style="padding: 0.5rem; border: 2px solid var(--border-color); border-radius: 6px;">
+                        <option value="date-desc">최신순</option>
+                        <option value="date-asc">오래된순</option>
+                        <option value="title-asc">제목순 (ㄱ-ㅎ)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interviews List -->
+        <div class="interviews-section">
+            <div class="interviews-grid" id="interviewsContainer">
+                <!-- 인터뷰 카드가 여기에 동적으로 생성됩니다 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 인터뷰 데이터 (실제로는 데이터베이스에서 가져옴)
+        let interviews = [];
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function () {
+            loadInterviews();
+            setupEventListeners();
+        });
+
+        // 이벤트 리스너 설정
+        function setupEventListeners() {
+            // 카테고리 탭 클릭
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.getAttribute('data-category');
+                    applyFilters();
+                });
+            });
+
+            // 검색 입력 엔터키
+            document.getElementById('searchInput').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    applyFilters();
+                }
+            });
+        }
+
+        // 인터뷰 데이터 로드
+        function loadInterviews() {
+            // 임시 샘플 데이터 (실제로는 서버/데이터베이스에서 가져옴)
+            interviews = [
+                {
+                    id: 1,
+                    title: '삼성생명 GFC, 정년 없는 전문직으로 제2의 인생 설계',
+                    category: 'press',
+                    source: '매일경제',
+                    interviewer: '김철수 기자',
+                    date: '2024-12-15',
+                    url: 'https://example.com/interview1',
+                    content: '삼성생명 GFC는 기업재무컨설턴트로서 정년 없이 평생 일할 수 있는 전문직입니다. 중소기업 대상 재무컨설팅을 제공하며...',
+                    views: 1250
+                },
+                {
+                    id: 2,
+                    title: 'GFC 현직자가 말하는 실제 연봉과 업무 환경',
+                    category: 'youtube',
+                    source: '재무 컨설턴트 TV',
+                    interviewer: '박영희',
+                    date: '2024-12-10',
+                    url: 'https://youtube.com/watch?v=example',
+                    content: 'GFC로 일한 지 3년차가 된 박영희씨가 실제 연봉 구조, 업무 루틴, 그리고 GFC가 되기 위한 준비 과정을 상세히...',
+                    views: 3420
+                },
+                {
+                    id: 3,
+                    title: '[인터뷰] 삼성생명 GFC 지점장이 말하는 성공 비결',
+                    category: 'portal',
+                    source: '네이버 비즈니스',
+                    interviewer: '이준호',
+                    date: '2024-12-05',
+                    url: 'https://naver.com/business/interview',
+                    content: '10년차 GFC 지점장 이준호님과의 인터뷰. 초기 어려움을 극복하고 성공적인 커리어를 쌓은 비결을 공유합니다...',
+                    views: 2100
+                },
+                {
+                    id: 4,
+                    title: '전직 CEO가 GFC로 전환한 이유',
+                    category: 'blog',
+                    source: '커리어 스토리 블로그',
+                    interviewer: '최민수',
+                    date: '2024-11-28',
+                    url: 'https://blog.example.com/gfc-story',
+                    content: '중소기업 CEO를 20년간 하다가 GFC로 전환한 최민수님의 솔직한 이야기. 왜 GFC를 선택했는지...',
+                    views: 890
+                },
+                {
+                    id: 5,
+                    title: '삼성생명, GFC 채용 확대... 300명 모집',
+                    category: 'press',
+                    source: '한국경제',
+                    interviewer: '정수진 기자',
+                    date: '2024-11-20',
+                    url: 'https://example.com/interview5',
+                    content: '삼성생명이 2025년 상반기 GFC 300명 규모 대규모 채용을 진행한다고 밝혔다. 정년 없는 전문직으로...',
+                    views: 4500
+                },
+                {
+                    id: 6,
+                    title: 'GFC 교육 프로그램 A to Z',
+                    category: 'youtube',
+                    source: '금융교육 채널',
+                    interviewer: '교육팀',
+                    date: '2024-11-15',
+                    url: 'https://youtube.com/watch?v=example2',
+                    content: 'GFC가 되기 위한 교육 프로그램을 상세히 소개합니다. 1개월 합숙 교육부터 실무 OJT까지...',
+                    views: 2800
+                },
+                {
+                    id: 7,
+                    title: '50대 퇴직 후 GFC로 성공한 스토리',
+                    category: 'blog',
+                    source: '인생 2막 블로그',
+                    interviewer: '홍길동',
+                    date: '2024-11-10',
+                    url: 'https://blog.example.com/50s-gfc',
+                    content: '대기업에서 퇴직 후 GFC로 제2의 커리어를 시작한 50대의 성공 스토리. 도전과 성취의 과정...',
+                    views: 1650
+                },
+                {
+                    id: 8,
+                    title: 'GFC 실무 가이드: 고객 발굴부터 계약까지',
+                    category: 'portal',
+                    source: '다음 뉴스',
+                    interviewer: '실무팀',
+                    date: '2024-11-05',
+                    url: 'https://daum.net/news/gfc-guide',
+                    content: 'GFC의 실무를 단계별로 안내합니다. 고객 발굴 방법, 제안서 작성, 계약 체결까지의 전 과정...',
+                    views: 1920
+                }
+            ];
+
+            updateCounts();
+            applyFilters();
+        }
+
+        // 카운트 업데이트
+        function updateCounts() {
+            const counts = {
+                all: interviews.length,
+                press: interviews.filter(i => i.category === 'press').length,
+                portal: interviews.filter(i => i.category === 'portal').length,
+                youtube: interviews.filter(i => i.category === 'youtube').length,
+                blog: interviews.filter(i => i.category === 'blog').length
+            };
+
+            document.getElementById('count-all').textContent = counts.all;
+            document.getElementById('count-press').textContent = counts.press;
+            document.getElementById('count-portal').textContent = counts.portal;
+            document.getElementById('count-youtube').textContent = counts.youtube;
+            document.getElementById('count-blog').textContent = counts.blog;
+        }
+
+        // 필터 적용
+        function applyFilters() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const sortBy = document.getElementById('sortSelect').value;
+
+            // 필터링
+            let filtered = interviews.filter(interview => {
+                const categoryMatch = currentCategory === 'all' || interview.category === currentCategory;
+                const searchMatch = searchQuery === '' ||
+                    interview.title.toLowerCase().includes(searchQuery) ||
+                    interview.source.toLowerCase().includes(searchQuery) ||
+                    interview.interviewer.toLowerCase().includes(searchQuery);
+
+                return categoryMatch && searchMatch;
+            });
+
+            // 정렬
+            filtered.sort((a, b) => {
+                if (sortBy === 'date-desc') {
+                    return new Date(b.date) - new Date(a.date);
+                } else if (sortBy === 'date-asc') {
+                    return new Date(a.date) - new Date(b.date);
+                } else if (sortBy === 'title-asc') {
+                    return a.title.localeCompare(b.title, 'ko');
+                }
+            });
+
+            renderInterviews(filtered);
+            updateFilterResultText(filtered.length);
+        }
+
+        // 결과 텍스트 업데이트
+        function updateFilterResultText(count) {
+            const categoryNames = {
+                all: '전체 인터뷰',
+                press: '언론사 인터뷰',
+                portal: '포털/웹 인터뷰',
+                youtube: '유튜브 인터뷰',
+                blog: '블로그 인터뷰'
+            };
+
+            const text = searchQuery
+                ? `"${searchQuery}" 검색 결과: <strong id="totalCount">${count}</strong>개`
+                : `${categoryNames[currentCategory]}: <strong id="totalCount">${count}</strong>개`;
+
+            document.getElementById('filterResultText').innerHTML = text;
+        }
+
+        // 인터뷰 렌더링
+        function renderInterviews(filtered) {
+            const container = document.getElementById('interviewsContainer');
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h3>인터뷰를 찾을 수 없습니다</h3>
+                        <p>다른 카테고리를 선택하거나 검색어를 변경해보세요.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(interview => {
+                const categoryInfo = getCategoryInfo(interview.category);
+                return `
+                    <div class="interview-card media-${interview.category}">
+                        <div class="interview-header">
+                            <div style="flex: 1;">
+                                <h3 class="interview-title">${interview.title}</h3>
+                                <span class="category-badge badge-${interview.category}">${categoryInfo.label}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="interview-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-building"></i>
+                                <span>${interview.source}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span>${interview.interviewer}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>${formatDate(interview.date)}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-eye"></i>
+                                <span>${interview.views.toLocaleString()} 조회</span>
+                            </div>
+                        </div>
+                        
+                        <div class="interview-content">
+                            ${interview.content}
+                        </div>
+                        
+                        <div class="interview-actions">
+                            <button class="btn btn-small btn-view" onclick="viewInterview(${interview.id})">
+                                <i class="fas fa-external-link-alt"></i> 보기
+                            </button>
+                            <button class="btn btn-small btn-edit" onclick="editInterview(${interview.id})">
+                                <i class="fas fa-edit"></i> 수정
+                            </button>
+                            <button class="btn btn-small btn-delete" onclick="deleteInterview(${interview.id})">
+                                <i class="fas fa-trash"></i> 삭제
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 카테고리 정보
+        function getCategoryInfo(category) {
+            const info = {
+                press: { label: '언론사', icon: 'newspaper' },
+                portal: { label: '포털/웹', icon: 'globe' },
+                youtube: { label: '유튜브', icon: 'youtube' },
+                blog: { label: '블로그', icon: 'blog' }
+            };
+            return info[category] || { label: '기타', icon: 'file' };
+        }
+
+        // 날짜 포맷팅
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // 인터뷰 보기
+        function viewInterview(id) {
+            const interview = interviews.find(i => i.id === id);
+            if (interview && interview.url) {
+                window.open(interview.url, '_blank');
+            }
+        }
+
+        // 인터뷰 추가
+        function addInterview() {
+            alert('인터뷰 추가 기능은 Phase 2에서 구현됩니다.\n\n현재는 샘플 데이터로 작동합니다.');
+        }
+
+        // 인터뷰 수정
+        function editInterview(id) {
+            alert(`인터뷰 ID ${id} 수정 기능은 Phase 2에서 구현됩니다.`);
+        }
+
+        // 인터뷰 삭제
+        function deleteInterview(id) {
+            if (confirm('정말 이 인터뷰를 삭제하시겠습니까?')) {
+                interviews = interviews.filter(i => i.id !== id);
+                updateCounts();
+                applyFilters();
+                alert('삭제되었습니다. (실제 데이터베이스 반영은 Phase 2)');
+            }
+        }
+    </script>
+</body>
+
+</html>
