@@ -253,7 +253,7 @@
     // ========================================
     // 4. 개인정보 동의서 토글
     // ========================================
-    const toggleButtons = document.querySelectorAll('.privacy-toggle');
+    const toggleButtons = document.querySelectorAll('.consent-header');
     toggleButtons.forEach(button => {
         button.addEventListener('click', function() {
             const content = this.nextElementSibling;
@@ -304,12 +304,18 @@
 
         const age = calculateAge(birthDate);
         const birthYear = new Date(birthDate).getFullYear();
+        
+        // 나이 필드에 자동 입력
+        const ageInput = document.getElementById('age');
+        if (ageInput) {
+            ageInput.value = age;
+        }
 
         let status = '';
         let message = '';
         let className = '';
 
-        if (gender === '남성') {
+        if (gender === 'male') {
             if (age >= 35 && age <= 60) {
                 status = '✅ 적격';
                 message = `만 ${age}세 (${birthYear}년생) - 남성 적격 연령입니다.`;
@@ -323,7 +329,7 @@
                 message = `만 ${age}세 (${birthYear}년생) - 남성 연령 제한에 해당합니다.`;
                 className = 'ineligible';
             }
-        } else if (gender === '여성') {
+        } else if (gender === 'female') {
             if (age >= 30 && age <= 55) {
                 status = '✅ 적격';
                 message = `만 ${age}세 (${birthYear}년생) - 여성 적격 연령입니다.`;
@@ -341,6 +347,7 @@
 
         ageCheckResult.className = `age-check-result ${className}`;
         ageCheckResult.innerHTML = `<strong>${status}</strong> ${message}`;
+        ageCheckResult.style.display = 'block';
 
         console.log(`🔍 나이 체크: ${message}`);
     }
@@ -362,9 +369,9 @@
             console.log('📝 폼 제출 시도');
 
             // 개인정보 동의 체크
-            const consent1 = document.getElementById('privacyConsent1');
-            const consent2 = document.getElementById('privacyConsent2');
-            const consent3 = document.getElementById('privacyConsent3');
+            const consent1 = document.getElementById('consent-collection');
+            const consent2 = document.getElementById('consent-provision');
+            const consent3 = document.getElementById('consent-inquiry');
 
             if (!consent1 || !consent1.checked) {
                 alert('개인정보 수집 및 이용에 동의해주세요.');
@@ -393,17 +400,148 @@
             // 모든 검증 통과
             console.log('✅ 폼 검증 통과');
 
-            // TODO: 실제 제출 로직 (Supabase, EmailJS, Google Sheets 등)
-            alert('지원서가 성공적으로 제출되었습니다!\n\n영업일 기준 3일 이내에 담당자가 연락드리겠습니다.');
-
-            // 폼 초기화 (옵션)
-            // applicationForm.reset();
-            // ageCheckResult.innerHTML = '';
+            // 폼 데이터 수집
+            const formData = collectFormData();
+            
+            // Firebase에 저장
+            submitToFirebase(formData);
         });
     }
 
     // ========================================
-    // 7. 초기화 완료
+    // 7. 폼 데이터 수집 함수
+    // ========================================
+    function collectFormData() {
+        const formData = {
+            // 기본 정보
+            name: document.getElementById('name')?.value || '',
+            gender: document.getElementById('gender')?.value || '',
+            birth: document.getElementById('birth')?.value || '',
+            age: parseInt(document.getElementById('age')?.value) || 0,
+            address: document.getElementById('address')?.value || '',
+            homePhone: document.getElementById('home-phone')?.value || '',
+            mobilePhone: document.getElementById('mobile-phone')?.value || '',
+            email: document.getElementById('email')?.value || '',
+            
+            // 추가 정보
+            financialInvestment: document.querySelector('input[name="financial-investment"]:checked')?.value || '',
+            marriageStatus: document.querySelector('input[name="marriage-status"]:checked')?.value || '',
+            insuranceExperience: document.querySelector('input[name="insurance-experience"]:checked')?.value || '',
+            insuranceCompany: document.getElementById('insurance-company')?.value || '',
+            insuranceCareerMonths: parseInt(document.getElementById('insurance-career-months')?.value) || 0,
+            insuranceSalary: parseInt(document.getElementById('insurance-salary')?.value) || 0,
+            
+            // 학력 (동적)
+            education: [],
+            
+            // 경력 (동적)
+            career: [],
+            
+            // 참고사항
+            notes: document.getElementById('notes')?.value || '',
+            
+            // 개인정보 동의
+            consentCollection: document.getElementById('consent-collection')?.checked || false,
+            consentProvision: document.getElementById('consent-provision')?.checked || false,
+            consentInquiry: document.getElementById('consent-inquiry')?.checked || false,
+            
+            // 메타 정보
+            submittedAt: new Date().toISOString(),
+            status: 'pending'
+        };
+        
+        // 학력 데이터 수집
+        const educationItems = document.querySelectorAll('.education-item');
+        educationItems.forEach((item, index) => {
+            const eduIndex = index + 1;
+            const education = {
+                school: document.getElementById(`education-${eduIndex}-school`)?.value || '',
+                major: document.getElementById(`education-${eduIndex}-major`)?.value || '',
+                location: document.getElementById(`education-${eduIndex}-location`)?.value || '',
+                status: document.getElementById(`education-${eduIndex}-status`)?.value || '',
+                graduation: document.getElementById(`education-${eduIndex}-graduation`)?.value || ''
+            };
+            if (education.school) {
+                formData.education.push(education);
+            }
+        });
+        
+        // 경력 데이터 수집
+        const careerItems = document.querySelectorAll('.career-item');
+        careerItems.forEach((item, index) => {
+            const carIndex = index + 1;
+            const career = {
+                company: document.getElementById(`career-${carIndex}-company`)?.value || '',
+                position: document.getElementById(`career-${carIndex}-position`)?.value || '',
+                start: document.getElementById(`career-${carIndex}-start`)?.value || '',
+                end: document.getElementById(`career-${carIndex}-end`)?.value || '',
+                industry: document.getElementById(`career-${carIndex}-industry`)?.value || '',
+                duties: document.getElementById(`career-${carIndex}-duties`)?.value || ''
+            };
+            if (career.company) {
+                formData.career.push(career);
+            }
+        });
+        
+        return formData;
+    }
+
+    // ========================================
+    // 8. Firebase 제출 함수
+    // ========================================
+    async function submitToFirebase(formData) {
+        try {
+            // 로딩 표시
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 제출 중...';
+            
+            console.log('🔥 Firebase에 데이터 저장 중...', formData);
+            
+            // Firestore에 저장
+            const docRef = await db.collection('applications').add(formData);
+            
+            console.log('✅ Firebase 저장 완료:', docRef.id);
+            
+            // 성공 메시지
+            alert('🎉 지원서가 성공적으로 제출되었습니다!\n\n' +
+                  '📧 제출하신 이메일로 확인 메일이 발송됩니다.\n' +
+                  '📞 영업일 기준 3일 이내에 담당자가 연락드리겠습니다.\n\n' +
+                  '문의: 010-5137-2327');
+            
+            // 폼 초기화
+            document.getElementById('applicationForm').reset();
+            const ageCheckResult = document.getElementById('ageCheckResult');
+            if (ageCheckResult) {
+                ageCheckResult.innerHTML = '';
+            }
+            
+            // 버튼 복원
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+            
+            // 페이지 상단으로 스크롤
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+        } catch (error) {
+            console.error('❌ Firebase 저장 실패:', error);
+            
+            // 에러 메시지
+            alert('❌ 지원서 제출 중 오류가 발생했습니다.\n\n' +
+                  '잠시 후 다시 시도해주시거나,\n' +
+                  '010-5137-2327로 직접 연락해주시기 바랍니다.\n\n' +
+                  '오류 내용: ' + error.message);
+            
+            // 버튼 복원
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 지원서 제출';
+        }
+    }
+
+    // ========================================
+    // 9. 초기화 완료
     // ========================================
     console.log('✅ v31.0 공식 폼 JavaScript 초기화 완료');
     console.log(`   - 학력: ${educationCount}/${MAX_EDUCATION}`);
