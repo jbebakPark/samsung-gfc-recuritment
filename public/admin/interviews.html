@@ -344,39 +344,132 @@
             color: var(--text-dark);
         }
 
+        /* =========================
+           모바일 최적화 (768px 이하)
+           ========================= */
         @media (max-width: 768px) {
+            .admin-container {
+                padding: 1rem 10px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                padding: 1.5rem 1rem;
+            }
+
             .admin-header h1 {
                 font-size: 1.5rem;
+            }
+
+            .admin-nav {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .admin-nav a {
+                text-align: center;
+                padding: 0.75rem;
             }
 
             .filter-tabs {
                 overflow-x: auto;
                 flex-wrap: nowrap;
                 -webkit-overflow-scrolling: touch;
+                gap: 0.5rem;
             }
 
             .filter-tab {
                 flex-shrink: 0;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
             }
 
             .search-bar {
                 flex-direction: column;
+                gap: 0.75rem;
             }
 
-            .search-input {
+            .search-input,
+            .search-bar .btn {
                 width: 100%;
+            }
+
+            .interview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .interview-card {
+                padding: 1rem;
             }
 
             .interview-header {
                 flex-direction: column;
+                gap: 0.75rem;
             }
 
             .interview-actions {
                 width: 100%;
+                flex-direction: column;
             }
 
             .btn-small {
                 flex: 1;
+                width: 100%;
+            }
+
+            .interview-details {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+
+        /* =========================
+           작은 모바일 (480px 이하)
+           ========================= */
+        @media (max-width: 480px) {
+            .admin-container {
+                padding: 0.75rem 8px;
+            }
+
+            .admin-header {
+                padding: 1rem;
+            }
+
+            .admin-header h1 {
+                font-size: 1.25rem;
+            }
+
+            .filter-tab {
+                font-size: 0.85rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .interview-card {
+                padding: 0.875rem;
+            }
+
+            .btn-small {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* =========================
+           터치 친화적 인터랙션
+           ========================= */
+        @media (hover: none) and (pointer: coarse) {
+            .btn,
+            .admin-nav a,
+            .filter-tab {
+                min-height: 44px;
+            }
+
+            .interview-card {
+                transition: transform 0.2s;
+            }
+
+            .interview-card:active {
+                transform: scale(0.98);
             }
         }
     </style>
