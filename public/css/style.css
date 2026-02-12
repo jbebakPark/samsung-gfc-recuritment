@@ -6135,7 +6135,7 @@ body {
     
     /* 네비게이션 메뉴 스크롤 가능하도록 개선 */
     .nav-menu {
-        display: none !important;
+        display: none;
         position: fixed;
         top: 70px;
         left: 0;
@@ -6143,11 +6143,10 @@ body {
         bottom: 0;
         background: #ffffff;
         padding: 1.5rem;
-        overflow-y: auto !important;
+        overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         z-index: 9999;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        transform: translateX(-100%);
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
@@ -6155,7 +6154,6 @@ body {
         display: flex !important;
         flex-direction: column;
         gap: 0.5rem;
-        transform: translateX(0);
     }
     
     /* 모바일 메뉴 항목 스타일 */
