@@ -6230,6 +6230,8 @@ body {
         transition: max-height 0.3s ease, padding 0.3s ease;
     }
     
+    /* 모바일 메뉴가 열렸을 때 모든 드롭다운 서브메뉴를 자동으로 표시 */
+    .nav-menu.active .dropdown-menu,
     .nav-dropdown.active .dropdown-menu,
     .dropdown-menu.show {
         display: block !important;
