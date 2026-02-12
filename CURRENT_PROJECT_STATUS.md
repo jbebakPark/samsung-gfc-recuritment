@@ -2,7 +2,7 @@
 
 작성일: 2026-02-12
 프로젝트: Samsung Life GFC Recruitment Website
-작업자: Claude AI Assistant + 박종범 (jbebakPark)
+작업자: Claude AI Assistant + 박재박 (jbebakPark)
 
 ---
 
@@ -704,7 +704,7 @@ git push origin main
 ## 👥 연락처
 
 ### 프로젝트 담당자
-- **이름**: 박종범
+- **이름**: 박재박
 - **이메일**: jb2park@naver.com
 - **전화**: 010-5137-2327
 - **카카오톡**: https://open.kakao.com/o/svmDyNUg
@@ -822,4 +822,4 @@ git push origin main
 
 **문서 작성 완료일**: 2026-02-12  
 **작성자**: Claude AI Assistant  
-**검토자**: 박종범 (jbebakPark)
+**검토자**: 박재박 (jbebakPark)
