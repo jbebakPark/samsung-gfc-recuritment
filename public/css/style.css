@@ -6053,3 +6053,461 @@ body {
         page-break-inside: avoid;
     }
 }
+
+/* ========================================
+   🔧 UI FIX v32.0 - 2026-02-12
+   ======================================== */
+
+/* 1️⃣ 체크박스 스타일링 개선 (지원 전 꼭 확인하세요 섹션) */
+.self-check {
+    margin: 1.5rem 0;
+}
+
+.check-intro {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(3, 78, 162, 0.05) 0%, rgba(29, 116, 198, 0.05) 100%);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 0 8px 8px 0;
+}
+
+.check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    background: var(--white);
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.check-item:hover {
+    border-color: var(--primary-color);
+    background: rgba(3, 78, 162, 0.02);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(3, 78, 162, 0.1);
+}
+
+.check-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    border: 2px solid #bbb;
+    border-radius: 6px;
+    background: var(--white);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.check-item input[type="checkbox"]:hover {
+    border-color: var(--primary-color);
+    background: rgba(3, 78, 162, 0.05);
+}
+
+.check-item input[type="checkbox"]:checked {
+    background: var(--gradient-primary);
+    border-color: var(--primary-color);
+}
+
+.check-item input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.check-text {
+    flex: 1;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.check-item:has(input:checked) {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(3, 78, 162, 0.05) 0%, rgba(29, 116, 198, 0.05) 100%);
+}
+
+.check-item:has(input:checked) .check-text {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* 2️⃣ 로고/브랜드 텍스트 가독성 개선 */
+.nav-brand {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(3, 78, 162, 0.1);
+}
+
+.nav-brand:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 12px rgba(3, 78, 162, 0.15);
+    border-color: rgba(3, 78, 162, 0.2);
+}
+
+.brand-text {
+    text-shadow: none;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* 3️⃣ 모바일 메뉴 스크롤 문제 해결 */
+@media (max-width: 1024px) {
+    /* 모바일 메뉴 활성화 시 body 스크롤 방지 해제 */
+    body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+    
+    /* 네비게이션 메뉴 스크롤 가능하도록 개선 */
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--white);
+        padding: 1.5rem;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        z-index: 1001;
+        box-shadow: var(--shadow-lg);
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .nav-menu.active {
+        display: flex !important;
+        flex-direction: column;
+        gap: 0.5rem;
+        transform: translateX(0);
+    }
+    
+    /* 드롭다운 메뉴 가시성 개선 */
+    .nav-dropdown {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .dropdown-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 1rem;
+        background: rgba(3, 78, 162, 0.05);
+        border-radius: 8px;
+        font-weight: 600;
+        color: var(--text-dark);
+        transition: all 0.3s ease;
+    }
+    
+    .dropdown-toggle:hover,
+    .nav-dropdown.active .dropdown-toggle {
+        background: var(--primary-color);
+        color: var(--white);
+    }
+    
+    .dropdown-toggle i {
+        transition: transform 0.3s ease;
+    }
+    
+    .nav-dropdown.active .dropdown-toggle i {
+        transform: rotate(180deg);
+    }
+    
+    .dropdown-menu {
+        position: static;
+        display: none;
+        background: rgba(3, 78, 162, 0.03);
+        padding: 0.75rem;
+        margin-top: 0.5rem;
+        border-radius: 8px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    
+    .nav-dropdown.active .dropdown-menu,
+    .dropdown-menu.show {
+        display: block !important;
+        max-height: 500px;
+        padding: 0.75rem;
+    }
+    
+    .dropdown-menu li {
+        margin: 0;
+    }
+    
+    .dropdown-menu a {
+        display: block;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.25rem;
+        background: var(--white);
+        border-radius: 6px;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .dropdown-menu a:hover,
+    .dropdown-menu a:active {
+        background: var(--primary-color);
+        color: var(--white);
+        transform: translateX(4px);
+    }
+    
+    /* 로고 박스 모바일 최적화 */
+    .nav-brand {
+        padding: 0.4rem 0.8rem;
+        background: rgba(255, 255, 255, 0.98);
+    }
+    
+    .logo {
+        height: 38px;
+    }
+    
+    .brand-text {
+        font-size: 1rem;
+    }
+    
+    /* 체크박스 모바일 최적화 */
+    .check-item {
+        padding: 0.9rem 1rem;
+    }
+    
+    .check-item input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        min-height: 22px;
+    }
+    
+    .check-text {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .check-intro {
+        font-size: 1rem;
+        padding: 0.9rem;
+    }
+}
+
+/* ========================================
+   🎨 UI FIX v32.1 - 2026-02-12 (추가 개선)
+   채용 트랙 카드 및 FAQ 가독성/간격/정렬 개선
+   ======================================== */
+
+/* 4️⃣ 채용 트랙 카드 - 백그라운드와 글자 색상 개선 */
+.track-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #e0e0e0;
+    text-align: center;
+}
+
+.track-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 1.5rem 0;
+    line-height: 1.4;
+}
+
+/* 아이콘 중앙 정렬 및 개선 */
+.track-icon {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, rgba(3, 78, 162, 0.1) 0%, rgba(29, 116, 198, 0.1) 100%);
+    border: 3px solid var(--primary-color);
+    margin: 1.5rem auto;
+    font-size: 2.2rem;
+    box-shadow: 0 4px 12px rgba(3, 78, 162, 0.15);
+}
+
+/* 5️⃣ 간격(Spacing) 개선 */
+.track-benefits {
+    margin: 2rem 0;
+    padding: 0 1rem;
+}
+
+.track-benefits li {
+    padding: 1rem 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    text-align: left;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(3, 78, 162, 0.1);
+}
+
+.track-benefits li:last-child {
+    border-bottom: none;
+}
+
+.track-benefits i {
+    font-size: 1.1rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+/* 지원 요건 박스 개선 */
+.track-requirements {
+    background: linear-gradient(135deg, rgba(3, 78, 162, 0.05) 0%, rgba(29, 116, 198, 0.05) 100%);
+    border: 2px solid rgba(3, 78, 162, 0.2);
+    padding: 1.5rem;
+    margin: 2rem 0 2rem 0;
+    text-align: center;
+}
+
+.track-requirements h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--primary-color);
+}
+
+.track-requirements p {
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 6️⃣ 버튼 정렬 및 스타일 개선 */
+.track-card .btn {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    display: block;
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.track-card .btn-outline {
+    border-width: 2px;
+}
+
+.track-card .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(3, 78, 162, 0.25);
+}
+
+/* FAQ 섹션 간격 개선 */
+.faq-item {
+    margin-bottom: 1.25rem;
+    border: 1px solid #e0e0e0;
+}
+
+.faq-question {
+    padding: 1.75rem 1.5rem;
+    gap: 1rem;
+    font-size: 1.15rem;
+}
+
+.faq-question span {
+    flex: 1;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.faq-answer {
+    padding: 0;
+}
+
+.faq-answer p {
+    padding: 0 1.5rem 1.75rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* 트랙 배지 개선 */
+.track-badge {
+    top: -10px;
+    right: 20px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(3, 78, 162, 0.3);
+}
+
+/* 호버 효과 강화 */
+.track-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(3, 78, 162, 0.2);
+    border-color: var(--primary-color);
+}
+
+/* 모바일 최적화 */
+@media (max-width: 1024px) {
+    .track-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .track-card h3 {
+        font-size: 1.3rem;
+        margin: 1.2rem 0;
+    }
+    
+    .track-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+        margin: 1.2rem auto;
+    }
+    
+    .track-benefits {
+        padding: 0 0.5rem;
+        margin: 1.5rem 0;
+    }
+    
+    .track-benefits li {
+        padding: 0.9rem 0;
+        font-size: 1rem;
+    }
+    
+    .track-requirements {
+        padding: 1.2rem;
+        margin: 1.5rem 0;
+    }
+    
+    .track-card .btn {
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .faq-question {
+        padding: 1.5rem 1.2rem;
+        font-size: 1.05rem;
+    }
+    
+    .faq-answer p {
+        padding: 0 1.2rem 1.5rem;
+        font-size: 1rem;
+    }
+}
