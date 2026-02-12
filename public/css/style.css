@@ -3852,11 +3852,7 @@ body {
         position: relative;
     }
     
-    /* PC 메뉴 숨기기 */
-    .nav-menu {
-        display: none !important;
-    }
-
+    /* 모바일 메뉴 토글 버튼 */
     .mobile-menu-toggle {
         display: flex !important;
         padding: 0.75rem;
@@ -3879,57 +3875,6 @@ body {
     .mobile-menu-toggle i {
         font-size: 1.5rem;
         pointer-events: none;
-    }
-
-    /* PC 메뉴 숨기고 모바일 메뉴로 대체 */
-    .nav-menu {
-        display: none !important;
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--white);
-        padding: 2rem;
-        overflow-y: auto;
-        z-index: 1001;
-        box-shadow: var(--shadow-lg);
-    }
-    
-    .nav-menu.active {
-        display: flex !important;
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .nav-menu li {
-        width: 100%;
-        border-bottom: 1px solid var(--border-color);
-    }
-    
-    .nav-menu a {
-        display: block;
-        padding: 1rem 0;
-        font-size: 1.1rem;
-        color: var(--text-dark);
-        min-height: 48px;
-    }
-    
-    .nav-dropdown {
-        width: 100%;
-    }
-    
-    .dropdown-menu {
-        position: static;
-        display: none;
-        background: var(--bg-light);
-        padding: 0.5rem 0 0.5rem 1rem;
-        margin-top: 0.5rem;
-        border-radius: 8px;
-    }
-    
-    .nav-dropdown.active .dropdown-menu {
-        display: block;
     }
 
     /* Press Archive Filter - Mobile */
@@ -6185,6 +6130,7 @@ body {
     
     /* 네비게이션 메뉴 스크롤 가능하도록 개선 */
     .nav-menu {
+        display: none !important;
         position: fixed;
         top: 70px;
         left: 0;
