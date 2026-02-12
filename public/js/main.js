@@ -744,55 +744,92 @@ if (header) {
 
 // ==================== Press Archive Filter ====================
 
-const pressFilterButtons = document.querySelectorAll('.press-filter .filter-btn');
-const pressCards = document.querySelectorAll('.press-card[data-category]');
+// DOMContentLoaded 후 또는 즉시 실행
+function initPressFilter() {
+    const pressFilterButtons = document.querySelectorAll('.press-filter .filter-btn');
+    const pressCards = document.querySelectorAll('.press-card[data-category]');
 
-if (pressFilterButtons.length > 0 && pressCards.length > 0) {
-    // Initialize - show all cards on page load
-    pressCards.forEach(card => {
-        card.style.display = 'block';
-        card.style.opacity = '1';
+    console.log('🗞️ Press Filter 초기화:', {
+        buttons: pressFilterButtons.length,
+        cards: pressCards.length
     });
-    
-    pressFilterButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const filter = this.getAttribute('data-filter');
-            
-            // Update active button
-            pressFilterButtons.forEach(b => {
-                b.classList.remove('active');
-                b.setAttribute('aria-pressed', 'false');
+
+    if (pressFilterButtons.length > 0 && pressCards.length > 0) {
+        // Initialize - show all cards on page load
+        pressCards.forEach(card => {
+            card.style.display = 'block';
+            card.style.opacity = '1';
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        });
+        
+        pressFilterButtons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const filter = this.getAttribute('data-filter');
+                console.log('🔍 필터 클릭:', filter);
+                
+                // Update active button
+                pressFilterButtons.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
+                this.classList.add('active');
+                this.setAttribute('aria-pressed', 'true');
+                
+                // Filter cards with improved animation
+                let visibleCount = 0;
+                pressCards.forEach((card, index) => {
+                    const category = card.getAttribute('data-category');
+                    const shouldShow = filter === 'all' || category === filter;
+                    
+                    if (shouldShow) {
+                        visibleCount++;
+                        // Show card
+                        card.style.display = 'block';
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        
+                        // Staggered fade in
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 50);
+                    } else {
+                        // Hide card
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(-20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+                
+                console.log('✅ 필터 적용 완료:', visibleCount + '개 카드 표시');
             });
-            this.classList.add('active');
-            this.setAttribute('aria-pressed', 'true');
             
-            // Filter cards with animation
-            pressCards.forEach(card => {
-                if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                    card.style.display = 'block';
-                    // Fade in animation
-                    card.style.opacity = '0';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transition = 'opacity 0.3s ease';
-                    }, 10);
-                } else {
-                    card.style.opacity = '0';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
+            // Keyboard support
+            btn.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
                 }
             });
         });
         
-        // Keyboard support
-        btn.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.click();
-            }
-        });
-    });
+        console.log('✅ Press Filter 이벤트 리스너 등록 완료');
+    } else {
+        console.warn('⚠️ Press Filter 요소를 찾을 수 없습니다');
+    }
+}
+
+// 즉시 실행 시도
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPressFilter);
+} else {
+    // DOM이 이미 로드된 경우 즉시 실행
+    initPressFilter();
 }
 
 // ==================== Performance Monitoring ====================
