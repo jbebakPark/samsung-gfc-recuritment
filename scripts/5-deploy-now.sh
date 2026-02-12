@@ -31,19 +31,20 @@ echo -e "${GREEN}✅ Firebase 프로젝트 확인됨${NC}"
 
 # 2. Firebase CLI 확인
 echo -e "\n${YELLOW}[2/6] Firebase CLI 확인...${NC}"
-if ! command -v firebase &> /dev/null; then
+if ! command -v firebase &> /dev/null && ! npx firebase --version &> /dev/null; then
     echo -e "${RED}❌ Firebase CLI가 설치되지 않았습니다${NC}"
-    echo "설치: npm install -g firebase-tools"
-    exit 1
+    echo "설치 중..."
+    npm install firebase-tools --save-dev
 fi
-FIREBASE_VERSION=$(firebase --version)
+FIREBASE_VERSION=$(npx firebase --version 2>/dev/null || firebase --version)
 echo -e "${GREEN}✅ Firebase CLI ${FIREBASE_VERSION}${NC}"
 
 # 3. Firebase 로그인 확인
 echo -e "\n${YELLOW}[3/6] Firebase 로그인 확인...${NC}"
-if ! firebase projects:list &> /dev/null; then
+if ! npx firebase projects:list &> /dev/null && ! firebase projects:list &> /dev/null; then
     echo -e "${YELLOW}⚠️  Firebase 로그인이 필요합니다${NC}"
-    firebase login
+    echo -e "${CYAN}브라우저가 열리면 Google 계정으로 로그인하세요${NC}"
+    npx firebase login || firebase login
 fi
 echo -e "${GREEN}✅ 로그인 완료${NC}"
 
@@ -67,7 +68,7 @@ echo -e "\n${YELLOW}[5/6] Firebase 배포 실행 중...${NC}"
 echo -e "${BLUE}이 작업은 1-2분 소요됩니다...${NC}"
 echo ""
 
-if firebase deploy --only hosting; then
+if npx firebase deploy --only hosting 2>/dev/null || firebase deploy --only hosting; then
     echo ""
     echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "${GREEN}✅ 배포 완료!${NC}"

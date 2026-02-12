@@ -1,0 +1,43 @@
+#!/bin/bash
+echo "🚀 삼성생명 GFC - 빠른 시작 가이드"
+echo "=================================="
+echo ""
+echo "현재 상태:"
+echo "  ✅ GitHub Push 완료"
+echo "  ✅ 자동화 스크립트 준비됨"
+echo "  ⏳ Firebase 배포 대기 중"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "지금 해야 할 일:"
+echo ""
+echo "1️⃣  Firebase 배포 (1-2분)"
+echo "    ./scripts/5-deploy-now.sh"
+echo ""
+echo "2️⃣  배포 확인"
+echo "    https://samsung-gfc.web.app"
+echo ""
+echo "3️⃣  (선택) GitHub Actions 자동 배포 설정 (10분)"
+echo "    ./scripts/2-auto-deploy-firebase.sh"
+echo ""
+echo "4️⃣  (선택) Phase 3-A 작업 시작 (1-2시간)"
+echo "    - 카카오톡 알림 활성화 (5분)"
+echo "    - Firebase 보안 강화 (30분)"
+echo "    - 에러 핸들링 개선 (1시간)"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "💡 팁: 배포 후 브라우저에서 Ctrl+Shift+R로 강제 새로고침하세요!"
+echo ""
+read -p "지금 배포를 시작하시겠습니까? (y/N): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo ""
+    echo "🚀 배포 시작..."
+    ./scripts/5-deploy-now.sh
+else
+    echo ""
+    echo "나중에 실행하려면:"
+    echo "  cd /home/user/webapp"
+    echo "  ./scripts/5-deploy-now.sh"
+fi
