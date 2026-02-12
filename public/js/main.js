@@ -104,25 +104,9 @@ if (mobileMenuToggle && navMenu) {
                 icon.classList.remove('fa-times');
             }
             mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            mobileMenuToggle.focus();
-            document.body.style.overflow = '';
-            console.log('❌ Mobile menu closed (Escape key)');
-        }
-    });
-}
-    
-    // Close menu on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-            const icon = mobileMenuToggle.querySelector('i');
-            if (icon) {
-                icon.classList.add('fa-bars');
-                icon.classList.remove('fa-times');
-            }
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
             mobileMenuToggle.focus(); // Return focus to toggle button
             document.body.style.overflow = '';
+            console.log('❌ Mobile menu closed (Escape key)');
         }
     });
 }
