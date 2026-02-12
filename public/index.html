@@ -3448,7 +3448,15 @@
                         icon.classList.toggle('fa-times', isActive);
                     }
                     
-                    document.body.style.overflow = isActive ? 'hidden' : '';
+                    // 모바일 메뉴 열림/닫힘 시 body 클래스 제어 (v32.0 개선)
+                    if (isActive) {
+                        document.body.classList.add('menu-open');
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.classList.remove('menu-open');
+                        document.body.style.overflow = '';
+                    }
+                    
                     console.log('📱 모바일 메뉴:', isActive ? '열림' : '닫힘');
                 });
             }
@@ -3517,12 +3525,13 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    document.body.style.overflow = '';
                     const icon = mobileMenuToggle.querySelector('i');
                     if (icon) {
                         icon.classList.add('fa-bars');
                         icon.classList.remove('fa-times');
                     }
-                    document.body.style.overflow = '';
                 }
             });
             
@@ -3540,12 +3549,13 @@
                         // 메뉴 닫기
                         if (window.innerWidth <= 1024 && navMenu) {
                             navMenu.classList.remove('active');
+                            document.body.classList.remove('menu-open');
+                            document.body.style.overflow = '';
                             const icon = mobileMenuToggle.querySelector('i');
                             if (icon) {
                                 icon.classList.add('fa-bars');
                                 icon.classList.remove('fa-times');
                             }
-                            document.body.style.overflow = '';
                         }
                         
                         // 타겟 섹션으로 스크롤
