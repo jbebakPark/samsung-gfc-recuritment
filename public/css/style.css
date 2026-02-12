@@ -6511,3 +6511,154 @@ body {
         font-size: 1rem;
     }
 }
+
+/* ========================================
+   🎨 LOGO REDESIGN v33.0 - 2026-02-12
+   이미지 로고 → 텍스트 로고 변환
+   ======================================== */
+
+/* 텍스트 로고 공통 스타일 */
+.logo-text-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* 삼성생명 텍스트 */
+.logo-samsung {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    background: linear-gradient(135deg, #034EA2 0%, #1D74C6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 구분선 */
+.logo-divider {
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: rgba(3, 78, 162, 0.4);
+}
+
+/* GFC 채용 텍스트 */
+.logo-gfc {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* 네비게이션 로고 박스 개선 */
+.nav-brand {
+    background: rgba(255, 255, 255, 0.98);
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(3, 78, 162, 0.12);
+    border: 2px solid rgba(3, 78, 162, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-brand:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 16px rgba(3, 78, 162, 0.2);
+    border-color: rgba(3, 78, 162, 0.3);
+    transform: translateY(-2px);
+}
+
+/* 푸터 로고 스타일 */
+.footer-brand .logo-samsung {
+    color: var(--white);
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.6rem;
+}
+
+.footer-brand .logo-divider {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.4rem;
+}
+
+.footer-brand .logo-gfc {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.4rem;
+}
+
+/* 푸터 로고 컨테이너 */
+.footer-logo a {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.footer-logo a:hover {
+    transform: scale(1.05);
+}
+
+.footer-logo a:hover .logo-samsung {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 1024px) {
+    .logo-text-brand {
+        gap: 0.5rem;
+    }
+    
+    .logo-samsung {
+        font-size: 1.3rem;
+    }
+    
+    .logo-divider {
+        font-size: 1.1rem;
+    }
+    
+    .logo-gfc {
+        font-size: 1.1rem;
+    }
+    
+    .nav-brand {
+        padding: 0.5rem 1rem;
+    }
+    
+    .footer-brand .logo-samsung {
+        font-size: 1.4rem;
+    }
+    
+    .footer-brand .logo-divider {
+        font-size: 1.2rem;
+    }
+    
+    .footer-brand .logo-gfc {
+        font-size: 1.2rem;
+    }
+}
+
+/* 초소형 모바일 (360px 이하) */
+@media (max-width: 360px) {
+    .logo-text-brand {
+        gap: 0.4rem;
+    }
+    
+    .logo-samsung {
+        font-size: 1.1rem;
+    }
+    
+    .logo-divider {
+        font-size: 1rem;
+    }
+    
+    .logo-gfc {
+        font-size: 1rem;
+    }
+    
+    .nav-brand {
+        padding: 0.4rem 0.8rem;
+    }
+}
