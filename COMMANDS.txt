@@ -1,0 +1,66 @@
+===============================================================================
+                         QUICK COMMANDS
+===============================================================================
+
+DEPLOYMENT (Choose One):
+--------------------------------------------------------------------------------
+
+1. Easiest (One-Click):
+   ./now-execute.sh
+
+2. Quick Deploy:
+   ./scripts/5-deploy-now.sh
+
+3. Direct:
+   npx firebase deploy --only hosting
+
+
+AFTER DEPLOYMENT:
+--------------------------------------------------------------------------------
+
+Check Site:     https://samsung-gfc.web.app
+Admin Panel:    https://samsung-gfc.web.app/admin/
+Firebase:       https://console.firebase.google.com/project/samsung-gfc
+
+
+TROUBLESHOOTING:
+--------------------------------------------------------------------------------
+
+Permission Error:
+   chmod +x now-execute.sh
+   chmod +x scripts/*.sh
+
+Firebase Login:
+   npx firebase login
+
+Project Select:
+   npx firebase use samsung-gfc
+
+
+FILES:
+--------------------------------------------------------------------------------
+
+English Guides:
+   * EXECUTE_NOW.txt           - This file
+   * now-execute.sh            - One-click deployment
+   * DEPLOYMENT_COMPARISON_AND_GUIDE.md
+
+Korean Guides (may show encoding issues in terminal):
+   * README_실행방법.txt
+   * 실행방법_QUICKSTART.md
+   * 실행하는방법.md
+   * 최종완료보고서_및_실행가이드.md
+
+
+CONTACT:
+--------------------------------------------------------------------------------
+
+Email:      jb2park@naver.com
+Phone:      010-5137-2327
+KakaoTalk:  https://open.kakao.com/o/svmDyNUg
+GitHub:     https://github.com/jbebakPark/samsung-gfc-recuritment
+
+
+===============================================================================
+                 EXECUTE NOW: ./now-execute.sh
+===============================================================================
