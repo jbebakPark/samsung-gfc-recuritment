@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Menu Test</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; }
+        
+        .header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 70px; 
+            background: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .navbar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            height: 100%; 
+            padding: 0 1rem;
+        }
+        
+        .nav-brand { 
+            font-weight: bold; 
+            font-size: 1.2rem; 
+            color: #034EA2;
+        }
+        
+        /* 모바일 메뉴 */
+        .nav-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ffffff;
+            padding: 1.5rem;
+            overflow-y: auto;
+            z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-menu.active {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .mobile-menu-toggle {
+            display: flex;
+            padding: 0.75rem;
+            min-width: 48px;
+            min-height: 48px;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #034EA2;
+        }
+        
+        .nav-menu > li {
+            list-style: none;
+            width: 100%;
+        }
+        
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(3, 78, 162, 0.08);
+            border-radius: 8px;
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-dropdown.active .dropdown-menu {
+            display: block !important;
+        }
+        
+        .dropdown-menu li {
+            list-style: none;
+            margin: 0.25rem 0;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            background: white;
+            border-radius: 6px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .hero {
+            margin-top: 70px;
+            padding: 2rem;
+            background: #034EA2;
+            color: white;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">삼성생명 | GFC 채용</div>
+            <ul class="nav-menu">
+                <li class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle">
+                        GFC 소개 <span>▼</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#about">GFC란?</a></li>
+                        <li><a href="#why-join">왜 GFC인가</a></li>
+                        <li><a href="#target">지원 대상</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle">
+                        채용 정보 <span>▼</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#job-fair">채용설명회</a></li>
+                        <li><a href="#training">GTC 교육 일정</a></li>
+                        <li><a href="#age-criteria">연령 기준</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <button class="mobile-menu-toggle" onclick="toggleMenu()">
+                ☰
+            </button>
+        </nav>
+    </header>
+    
+    <div class="hero">
+        <h1>정년 없는 전문직,<br>삼성생명 GFC와 함께<br>새로운 인생 2막을 시작하세요</h1>
+    </div>
+    
+    <script>
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        function toggleMenu() {
+            const isActive = navMenu.classList.toggle('active');
+            mobileMenuToggle.textContent = isActive ? '✕' : '☰';
+            console.log('메뉴 상태:', isActive ? '열림' : '닫힘');
+        }
+        
+        // 드롭다운 토글
+        document.addEventListener('click', function(e) {
+            const toggle = e.target.closest('.dropdown-toggle');
+            if (toggle) {
+                e.preventDefault();
+                const dropdown = toggle.closest('.nav-dropdown');
+                dropdown.classList.toggle('active');
+                console.log('드롭다운 토글:', dropdown.classList.contains('active'));
+            }
+        });
+    </script>
+</body>
+</html>
