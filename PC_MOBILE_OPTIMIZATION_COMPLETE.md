@@ -461,7 +461,7 @@ public/
 
 ## 📞 문의
 
-**담당자**: 박종범 (jb2park@naver.com)  
+**담당자**: 박재박 (jb2park@naver.com)  
 **전화**: 010-5137-2327  
 **카카오톡**: https://open.kakao.com/o/svmDyNUg
 
