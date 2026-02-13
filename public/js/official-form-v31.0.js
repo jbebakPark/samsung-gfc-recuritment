@@ -8,12 +8,66 @@
  * 4. 개인정보 동의서 토글
  * 5. 나이 자동 계산 및 검증
  * 6. 폼 검증
+ * 7. 카카오톡 알림 (자동화 스크립트로 추가됨)
  */
 
 (function() {
     'use strict';
 
     console.log('🚀 v31.0 공식 폼 JavaScript 로드 시작');
+    
+    // ========================================
+    // 카카오톡 알림 설정 (자동화 스크립트로 추가됨)
+    // ========================================
+    const KAKAO_WEBHOOK_URL = 'YOUR_WEBHOOK_URL_HERE'; // 실제 Webhook URL로 변경 필요
+    
+    /**
+     * 카카오톡 알림 전송 함수
+     */
+    async function sendKakaoNotification(formData) {
+        if (!KAKAO_WEBHOOK_URL || KAKAO_WEBHOOK_URL === 'YOUR_WEBHOOK_URL_HERE') {
+            console.warn('⚠️  Webhook URL이 설정되지 않았습니다. 알림을 건너뜁니다.');
+            return;
+        }
+        
+        const message = `
+🔔 새로운 지원서가 접수되었습니다!
+
+👤 이름: ${formData.name}
+📞 연락처: ${formData.mobilePhone}
+📧 이메일: ${formData.email}
+🎂 나이: 만 ${formData.age}세
+📍 주소: ${formData.address}
+💼 보험사 경력: ${formData.insuranceExperience === 'yes' ? 'O' : 'X'}
+📅 제출 시간: ${new Date().toLocaleString('ko-KR')}
+
+▶ 관리자 페이지에서 확인하세요:
+https://samsung-gfc.web.app/admin/applications.html
+        `.trim();
+
+        try {
+            const response = await fetch(KAKAO_WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    text: message
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Webhook 전송 실패: ${response.status}`);
+            }
+
+            console.log('✅ 카카오톡 알림 전송 성공');
+            return await response.json();
+            
+        } catch (error) {
+            console.error('⚠️  카카오톡 알림 전송 실패:', error);
+            throw error;
+        }
+    }
 
     // ========================================
     // 1. 학력 동적 추가/삭제 (최대 3개)
@@ -503,6 +557,15 @@
             const docRef = await db.collection('applications').add(formData);
             
             console.log('✅ Firebase 저장 완료:', docRef.id);
+            
+            // 카카오톡 알림 전송 (활성화)
+            try {
+                await sendKakaoNotification(formData);
+                console.log('✅ 카카오톡 알림 전송 성공');
+            } catch (error) {
+                console.warn('⚠️  카카오톡 알림 전송 실패 (저장은 완료됨):', error);
+                // 알림 실패해도 지원서는 저장되도록 함
+            }
             
             // 성공 메시지
             alert('🎉 지원서가 성공적으로 제출되었습니다!\n\n' +
