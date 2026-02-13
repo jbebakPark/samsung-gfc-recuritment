@@ -541,15 +541,23 @@ https://samsung-gfc.web.app/admin/applications.html
     }
 
     // ========================================
-    // 8. Firebase 제출 함수
+    // 8. Firebase 제출 함수 (ErrorHandler 통합)
     // ========================================
     async function submitToFirebase(formData) {
+        const submitBtn = document.querySelector('button[type="submit"]');
+        const originalText = submitBtn?.innerHTML || '';
+        
         try {
-            // 로딩 표시
-            const submitBtn = document.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 제출 중...';
+            // ErrorHandler로 로딩 표시
+            if (window.ErrorHandler) {
+                window.ErrorHandler.showLoading('지원서를 제출하는 중입니다...');
+            }
+            
+            // 버튼 비활성화
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 제출 중...';
+            }
             
             console.log('🔥 Firebase에 데이터 저장 중...', formData);
             
@@ -567,22 +575,29 @@ https://samsung-gfc.web.app/admin/applications.html
                 // 알림 실패해도 지원서는 저장되도록 함
             }
             
-            // 성공 메시지
-            alert('🎉 지원서가 성공적으로 제출되었습니다!\n\n' +
-                  '📧 제출하신 이메일로 확인 메일이 발송됩니다.\n' +
-                  '📞 영업일 기준 3일 이내에 담당자가 연락드리겠습니다.\n\n' +
-                  '문의: 010-5137-2327');
+            // ErrorHandler로 성공 Toast 표시
+            if (window.ErrorHandler) {
+                window.ErrorHandler.showToast('지원서가 성공적으로 제출되었습니다!', 'success');
+            } else {
+                // Fallback: 기존 alert
+                alert('🎉 지원서가 성공적으로 제출되었습니다!\n\n' +
+                      '📧 제출하신 이메일로 확인 메일이 발송됩니다.\n' +
+                      '📞 영업일 기준 3일 이내에 담당자가 연락드리겠습니다.\n\n' +
+                      '문의: 010-5137-2327');
+            }
             
             // 폼 초기화
-            document.getElementById('applicationForm').reset();
+            document.getElementById('applicationForm')?.reset();
             const ageCheckResult = document.getElementById('ageCheckResult');
             if (ageCheckResult) {
                 ageCheckResult.innerHTML = '';
             }
             
             // 버튼 복원
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
             
             // 페이지 상단으로 스크롤
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -590,16 +605,27 @@ https://samsung-gfc.web.app/admin/applications.html
         } catch (error) {
             console.error('❌ Firebase 저장 실패:', error);
             
-            // 에러 메시지
-            alert('❌ 지원서 제출 중 오류가 발생했습니다.\n\n' +
-                  '잠시 후 다시 시도해주시거나,\n' +
-                  '010-5137-2327로 직접 연락해주시기 바랍니다.\n\n' +
-                  '오류 내용: ' + error.message);
+            // ErrorHandler로 에러 표시
+            if (window.ErrorHandler) {
+                window.ErrorHandler.showError(error, '지원서 제출');
+            } else {
+                // Fallback: 기존 alert
+                alert('❌ 지원서 제출 중 오류가 발생했습니다.\n\n' +
+                      '잠시 후 다시 시도해주시거나,\n' +
+                      '010-5137-2327로 직접 연락해주시기 바랍니다.\n\n' +
+                      '오류 내용: ' + error.message);
+            }
             
             // 버튼 복원
-            const submitBtn = document.querySelector('button[type="submit"]');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 지원서 제출';
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText || '<i class="fas fa-paper-plane"></i> 지원서 제출';
+            }
+        } finally {
+            // ErrorHandler로 로딩 숨김
+            if (window.ErrorHandler) {
+                window.ErrorHandler.hideLoading();
+            }
         }
     }
 

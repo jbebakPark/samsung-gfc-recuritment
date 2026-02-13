@@ -111,6 +111,22 @@
     
     <!-- 성능 최적화 CSS -->
     <link rel="stylesheet" href="css/performance.css?v=1.0">
+    
+    <!-- 에러 핸들러 CSS (Phase 3-A) -->
+    <link rel="stylesheet" href="css/error-handler.css?v=1.0">
+    
+    <!-- Firebase SDK (v9 compat mode) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- 환경 변수 로더 (Phase 3-A) -->
+    <script src="js/env-loader.js?v=1.0"></script>
+    
+    <!-- Firebase 설정 (Phase 3-A) -->
+    <script src="js/firebase-config.js?v=1.0"></script>
+    
+    <!-- 에러 핸들러 (Phase 3-A) -->
+    <script src="js/error-handler.js?v=1.0"></script>
 </head>
 
 <body>
@@ -3335,29 +3351,6 @@
             <i class="fas fa-arrow-up"></i>
         </button>
     </div>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    
-    <!-- Firebase Configuration -->
-    <script>
-        // Firebase 설정
-        const firebaseConfig = {
-            apiKey: "AIzaSyBXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx",
-            authDomain: "samsung-gfc.firebaseapp.com",
-            projectId: "samsung-gfc",
-            storageBucket: "samsung-gfc.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef1234567890abcdef"
-        };
-        
-        // Firebase 초기화
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        
-        console.log('🔥 Firebase 초기화 완료');
-    </script>
 
     <!-- mobile-complete.js 비활성화 -->
     <!-- <script src="js/mobile-complete.js?v=22.0"></script> -->
