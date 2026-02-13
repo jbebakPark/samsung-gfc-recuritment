@@ -288,23 +288,29 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth'
             });
 
-            // Close mobile menu if open
+            // Close mobile menu if open - DELAYED to allow user to see scroll
             if (navMenu && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                if (mobileMenuToggle) {
-                    const icon = mobileMenuToggle.querySelector('i');
-                    if (icon) {
-                        icon.classList.add('fa-bars');
-                        icon.classList.remove('fa-times');
+                // Wait for smooth scroll to complete (approx 800ms)
+                setTimeout(() => {
+                    navMenu.classList.remove('active');
+                    if (mobileMenuToggle) {
+                        const icon = mobileMenuToggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-times');
+                        }
+                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
                     }
-                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                }
-                document.body.style.overflow = '';
+                    document.body.style.overflow = '';
+                    console.log('📱 Mobile menu closed after scroll');
+                }, 800);
             }
             
             // Set focus to target for accessibility
-            target.setAttribute('tabindex', '-1');
-            target.focus();
+            setTimeout(() => {
+                target.setAttribute('tabindex', '-1');
+                target.focus();
+            }, 850);
         }
     });
 });
