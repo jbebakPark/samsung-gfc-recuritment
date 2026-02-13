@@ -1,0 +1,27 @@
+/**
+ * 환경 변수 로더
+ * 개발: .env 파일에서 로드 (수동 설정)
+ * 프로덕션: 하드코딩된 값 사용
+ */
+
+// 개발 환경 감지
+const isDevelopment = window.location.hostname === 'localhost' || 
+                      window.location.hostname === '127.0.0.1';
+
+// 환경 변수 객체
+window.ENV = {
+    // Firebase 설정 (프로덕션 값으로 업데이트 필요)
+    FIREBASE_API_KEY: 'AIzaSyC...',
+    FIREBASE_AUTH_DOMAIN: 'samsung-gfc.firebaseapp.com',
+    FIREBASE_PROJECT_ID: 'samsung-gfc',
+    FIREBASE_STORAGE_BUCKET: 'samsung-gfc.appspot.com',
+    FIREBASE_MESSAGING_SENDER_ID: '123456789',
+    FIREBASE_APP_ID: '1:123456789:web:abcdef',
+    
+    // Kakao Webhook
+    KAKAO_WEBHOOK_URL: isDevelopment ?
+        'https://talk-bridge.kakao.com/webhooks/dev' :
+        'https://talk-bridge.kakao.com/webhooks/prod'
+};
+
+console.log('✅ 환경 변수 로드 완료', isDevelopment ? '(개발)' : '(프로덕션)');
