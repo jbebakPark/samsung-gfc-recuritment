@@ -7,6 +7,8 @@
     <title>지원자 관리 - 삼성생명 GFC</title>
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         :root {
             --primary-color: #034EA2;
@@ -391,6 +393,75 @@
         }
 
         /* =========================
+           Dashboard Charts Styles
+           ========================= */
+        .dashboard-charts {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .chart-card {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .chart-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .chart-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .chart-header h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chart-header h3 i {
+            color: var(--primary-color);
+        }
+
+        .chart-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .chart-container canvas {
+            max-height: 100%;
+        }
+
+        /* =========================
            모바일 최적화 (768px 이하)
            ========================= */
         @media (max-width: 768px) {
@@ -429,6 +500,16 @@
 
             .stat-card-value {
                 font-size: 1.5rem;
+            }
+
+            /* Charts Mobile */
+            .chart-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .chart-container {
+                height: 250px;
             }
 
             .section-header {
@@ -567,6 +648,24 @@
                 font-size: 1.25rem;
             }
 
+            /* Charts Small Mobile */
+            .chart-card {
+                padding: 1rem;
+            }
+
+            .chart-header h3 {
+                font-size: 1rem;
+            }
+
+            .chart-subtitle {
+                font-size: 0.8rem;
+            }
+
+            .chart-container {
+                height: 220px;
+                padding: 0.5rem;
+            }
+
             .modal-content {
                 padding: 1rem;
             }
@@ -661,6 +760,51 @@
                 <div class="stat-card-change">신규 지원</div>
             </div>
         </div>
+
+        <!-- Dashboard Charts Section -->
+        <section class="dashboard-charts">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-chart-line"></i> 통계 차트</h2>
+            </div>
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-calendar-alt"></i> 일별 지원자 수</h3>
+                        <span class="chart-subtitle">최근 30일 추이</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="dailyChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-route"></i> 트랙별 분포</h3>
+                        <span class="chart-subtitle">지원 경로 분석</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="trackChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-map-marker-alt"></i> 지역별 분포</h3>
+                        <span class="chart-subtitle">상위 10개 지역</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="regionChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-user-friends"></i> 연령대별 분포</h3>
+                        <span class="chart-subtitle">20-60대 분석</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="ageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Applications List -->
         <div class="applications-section">

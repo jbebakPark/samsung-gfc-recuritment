@@ -50,6 +50,9 @@ async function loadApplications() {
         // 통계 업데이트
         updateStatistics();
         
+        // 차트 초기화
+        initializeCharts();
+        
         // 테이블 렌더링
         renderApplicationsTable();
         
@@ -65,6 +68,9 @@ async function loadApplications() {
         
         // 통계 업데이트
         updateStatistics();
+        
+        // 차트 초기화
+        initializeCharts();
         
         // 테이블 렌더링
         renderApplicationsTable();
@@ -362,6 +368,10 @@ function applyFilters() {
     });
     
     console.log(`Filtered: ${filteredApplications.length} / ${allApplications.length}`);
+    
+    // 차트 업데이트
+    initializeCharts();
+    
     renderApplicationsTable();
 }
 
@@ -615,4 +625,438 @@ function getStatusBadge(status) {
         'interviewed': '<span class="status-badge status-interviewed">면접 완료</span>'
     };
     return badges[status] || status;
+}
+
+// ========================================
+// 차트 관련 함수
+// ========================================
+
+let dailyChartInstance = null;
+let trackChartInstance = null;
+let regionChartInstance = null;
+let ageChartInstance = null;
+
+// 차트 초기화
+function initializeCharts() {
+    console.log('Initializing charts...');
+    
+    // 기존 차트 파괴
+    if (dailyChartInstance) dailyChartInstance.destroy();
+    if (trackChartInstance) trackChartInstance.destroy();
+    if (regionChartInstance) regionChartInstance.destroy();
+    if (ageChartInstance) ageChartInstance.destroy();
+    
+    // 데이터 집계 (필터된 데이터 사용)
+    const dataSource = filteredApplications.length > 0 ? filteredApplications : allApplications;
+    const dailyData = aggregateDailyData(dataSource);
+    const trackData = aggregateTrackData(dataSource);
+    const regionData = aggregateRegionData(dataSource);
+    const ageData = aggregateAgeData(dataSource);
+    
+    // 차트 렌더링
+    renderDailyChart(dailyData);
+    renderTrackChart(trackData);
+    renderRegionChart(regionData);
+    renderAgeChart(ageData);
+}
+
+// 일별 데이터 집계 (최근 30일)
+function aggregateDailyData(applications = allApplications) {
+    const dailyCount = {};
+    const today = new Date();
+    
+    // 최근 30일 초기화
+    for (let i = 29; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toISOString().split('T')[0];
+        dailyCount[dateStr] = 0;
+    }
+    
+    // 지원자 데이터 집계
+    applications.forEach(app => {
+        if (app.submitted_at) {
+            const dateStr = app.submitted_at.split('T')[0];
+            if (dailyCount.hasOwnProperty(dateStr)) {
+                dailyCount[dateStr]++;
+            }
+        }
+    });
+    
+    return {
+        labels: Object.keys(dailyCount).map(date => {
+            const d = new Date(date);
+            return `${d.getMonth() + 1}/${d.getDate()}`;
+        }),
+        data: Object.values(dailyCount)
+    };
+}
+
+// 트랙별 데이터 집계
+function aggregateTrackData(applications = allApplications) {
+    const trackCount = {
+        'jobfair': 0,
+        'referral': 0,
+        'direct': 0
+    };
+    
+    applications.forEach(app => {
+        const track = app.application_type || 'direct';
+        if (trackCount.hasOwnProperty(track)) {
+            trackCount[track]++;
+        }
+    });
+    
+    return {
+        labels: ['채용설명회', '추천인 경로', '직접 지원'],
+        data: [trackCount.jobfair, trackCount.referral, trackCount.direct],
+        colors: ['#1976d2', '#f57c00', '#388e3c']
+    };
+}
+
+// 지역별 데이터 집계 (상위 10개)
+function aggregateRegionData(applications = allApplications) {
+    const regionCount = {};
+    
+    applications.forEach(app => {
+        if (app.address) {
+            // 주소에서 시/도 추출
+            const parts = app.address.split(' ');
+            const region = parts[0] || '기타';
+            regionCount[region] = (regionCount[region] || 0) + 1;
+        }
+    });
+    
+    // 상위 10개 지역 정렬
+    const sorted = Object.entries(regionCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+    
+    return {
+        labels: sorted.map(item => item[0]),
+        data: sorted.map(item => item[1])
+    };
+}
+
+// 연령대별 데이터 집계
+function aggregateAgeData(applications = allApplications) {
+    const ageGroups = {
+        '20대': 0,
+        '30대': 0,
+        '40대': 0,
+        '50대': 0,
+        '60대 이상': 0
+    };
+    
+    applications.forEach(app => {
+        if (app.birth_date) {
+            const birthYear = new Date(app.birth_date).getFullYear();
+            const age = new Date().getFullYear() - birthYear;
+            
+            if (age >= 20 && age < 30) ageGroups['20대']++;
+            else if (age >= 30 && age < 40) ageGroups['30대']++;
+            else if (age >= 40 && age < 50) ageGroups['40대']++;
+            else if (age >= 50 && age < 60) ageGroups['50대']++;
+            else if (age >= 60) ageGroups['60대 이상']++;
+        }
+    });
+    
+    return {
+        labels: Object.keys(ageGroups),
+        data: Object.values(ageGroups)
+    };
+}
+
+// 일별 지원자 수 차트 렌더링 (Line Chart)
+function renderDailyChart(data) {
+    const ctx = document.getElementById('dailyChart');
+    if (!ctx) return;
+    
+    dailyChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.labels,
+            datasets: [{
+                label: '지원자 수',
+                data: data.data,
+                borderColor: '#034EA2',
+                backgroundColor: 'rgba(3, 78, 162, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: '#034EA2',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointHoverRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 12,
+                            family: "'Noto Sans KR', sans-serif"
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: {
+                        size: 13,
+                        family: "'Noto Sans KR', sans-serif"
+                    },
+                    bodyFont: {
+                        size: 12,
+                        family: "'Noto Sans KR', sans-serif"
+                    },
+                    callbacks: {
+                        label: function(context) {
+                            return `지원자: ${context.parsed.y}명`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1,
+                        font: {
+                            size: 11,
+                            family: "'Noto Sans KR', sans-serif"
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 10,
+                            family: "'Noto Sans KR', sans-serif"
+                        },
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+// 트랙별 분포 차트 렌더링 (Doughnut Chart)
+function renderTrackChart(data) {
+    const ctx = document.getElementById('trackChart');
+    if (!ctx) return;
+    
+    trackChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: data.labels,
+            datasets: [{
+                data: data.data,
+                backgroundColor: data.colors,
+                borderWidth: 2,
+                borderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        padding: 15,
+                        font: {
+                            size: 12,
+                            family: "'Noto Sans KR', sans-serif"
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: {
+                        size: 13,
+                        family: "'Noto Sans KR', sans-serif"
+                    },
+                    bodyFont: {
+                        size: 12,
+                        family: "'Noto Sans KR', sans-serif"
+                    },
+                    callbacks: {
+                        label: function(context) {
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((context.parsed / total) * 100).toFixed(1);
+                            return `${context.label}: ${context.parsed}명 (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// 지역별 분포 차트 렌더링 (Bar Chart)
+function renderRegionChart(data) {
+    const ctx = document.getElementById('regionChart');
+    if (!ctx) return;
+    
+    regionChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data.labels,
+            datasets: [{
+                label: '지원자 수',
+                data: data.data,
+                backgroundColor: '#1D74C6',
+                borderColor: '#034EA2',
+                borderWidth: 1,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: {
+                        size: 13,
+                        family: "'Noto Sans KR', sans-serif"
+                    },
+                    bodyFont: {
+                        size: 12,
+                        family: "'Noto Sans KR', sans-serif"
+                    },
+                    callbacks: {
+                        label: function(context) {
+                            return `지원자: ${context.parsed.y}명`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1,
+                        font: {
+                            size: 11,
+                            family: "'Noto Sans KR', sans-serif"
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 11,
+                            family: "'Noto Sans KR', sans-serif"
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+// 연령대별 분포 차트 렌더링 (Bar Chart)
+function renderAgeChart(data) {
+    const ctx = document.getElementById('ageChart');
+    if (!ctx) return;
+    
+    ageChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data.labels,
+            datasets: [{
+                label: '지원자 수',
+                data: data.data,
+                backgroundColor: [
+                    '#FF6B35',
+                    '#F7931E',
+                    '#FDC830',
+                    '#4ECDC4',
+                    '#45B7D1'
+                ],
+                borderWidth: 1,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: {
+                        size: 13,
+                        family: "'Noto Sans KR', sans-serif"
+                    },
+                    bodyFont: {
+                        size: 12,
+                        family: "'Noto Sans KR', sans-serif"
+                    },
+                    callbacks: {
+                        label: function(context) {
+                            return `지원자: ${context.parsed.y}명`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1,
+                        font: {
+                            size: 11,
+                            family: "'Noto Sans KR', sans-serif"
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 11,
+                            family: "'Noto Sans KR', sans-serif"
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
 }
