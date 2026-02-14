@@ -5,17 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="삼성생명 GFC 기업재무컨설턴트 채용 - 정년 없는 전문직, 새로운 인생 2막을 시작하세요">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>삼성생명 GFC 채용 | 기업재무컨설턴트 모집</title>
-    <link rel="stylesheet" href="css/style.css?v=13.0">
-    <link rel="stylesheet" href="css/samsung-premium.css?v=11.0">
-    <link rel="stylesheet" href="css/mobile-complete.css?v=11.0">
-    <link rel="stylesheet" href="css/mobile-final-fix.css?v=11.0">
-    <link rel="stylesheet" href="css/premium-income.css?v=5.0">
-    <link rel="stylesheet" href="css/checkbox-improvements.css?v=1.0">
-    <link rel="stylesheet" href="css/performance-optimizations.css?v=1.0">
-    <link rel="stylesheet" href="css/mobile-dropdown-enhanced.css?v=2.0">
-    <link rel="stylesheet" href="css/official-form-v31.0.css?v=1.0">
-    <link rel="stylesheet" href="css/official-form-v31.0.css?v=1.0">
+    <link rel="stylesheet" href="css/style.css?v=16.0">
+    <link rel="stylesheet" href="css/mobile-final-fix.css?v=2.2">
     
     <!-- 🚨 v27.0 인라인 스타일 - 캐시 우회 -->
     <style>
@@ -108,6 +103,33 @@
             font-weight: 700 !important;
             box-shadow: 0 4px 16px rgba(3, 78, 162, 0.4) !important;
         }
+        
+        /* 🚨 햄버거 메뉴 버튼 강제 표시 */
+        @media (max-width: 1024px) {
+            .mobile-menu-toggle {
+                display: flex !important;
+                position: relative !important;
+                z-index: 10001 !important;
+                background: white !important;
+                border: 2px solid #034EA2 !important;
+                border-radius: 8px !important;
+                padding: 0.5rem !important;
+                width: 48px !important;
+                height: 48px !important;
+                align-items: center !important;
+                justify-content: center !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+            
+            .mobile-menu-toggle i {
+                display: block !important;
+                font-size: 1.8rem !important;
+                color: #034EA2 !important;
+                visibility: visible !important;
+            }
+        }
     </style>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,6 +137,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- 성능 최적화 CSS -->
+    <link rel="stylesheet" href="css/performance.css?v=1.0">
 </head>
 
 <body>
@@ -123,8 +148,9 @@
         <nav class="navbar">
             <div class="container">
                 <a href="#hero" class="nav-brand" aria-label="홈으로 이동">
-                    <img src="images/samsung-life-logo.webp" alt="삼성생명 로고" class="logo-img">
                     <div class="logo-text-brand">
+                        <span class="logo-samsung">삼성생명</span>
+                        <span class="logo-divider">|</span>
                         <span class="logo-gfc">GFC 채용</span>
                     </div>
                 </a>
@@ -175,10 +201,25 @@
                     </li>
                     <li><a href="#press-archive">보도자료</a></li>
                     <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#apply" class="btn-apply-nav">지원하기</a></li>
+                    <li><a href="apply.html" class="btn-apply-nav">지원하기</a></li>
                 </ul>
-                <button class="mobile-menu-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
-                    <i class="fas fa-bars" aria-hidden="true"></i>
+                <button class="mobile-menu-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu" 
+                    style="display: flex !important; 
+                           align-items: center !important; 
+                           justify-content: center !important;
+                           position: fixed !important;
+                           right: 15px !important;
+                           top: 11px !important;
+                           z-index: 99999 !important;
+                           width: 48px !important;
+                           height: 48px !important;
+                           background: white !important;
+                           border: 3px solid #034EA2 !important;
+                           border-radius: 8px !important;
+                           cursor: pointer !important;
+                           visibility: visible !important;
+                           opacity: 1 !important;">
+                    <i class="fas fa-bars" aria-hidden="true" style="font-size: 24px !important; color: #034EA2 !important; display: block !important;"></i>
                 </button>
             </div>
         </nav>
@@ -187,6 +228,12 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-overlay"></div>
+        
+        <!-- 페이지 식별 마커 -->
+        <div style="position: fixed; top: 0; left: 0; background: red; color: white; padding: 10px; z-index: 99999; font-size: 20px; font-weight: bold;">
+            ✅ 삼성생명 GFC 채용 페이지 (올바른 페이지입니다!)
+        </div>
+        
         <div class="container hero-content">
             <h1 class="hero-title">
                 정년 없는 전문직,<br>
@@ -573,47 +620,15 @@
                         </div>
                     </div>
                     <div class="criteria-body">
-                        <!-- 적격 -->
+                        <!-- 지원 가능 연령 -->
                         <div class="age-group eligible">
                             <div class="group-label">
                                 <i class="fas fa-check-circle"></i>
-                                <span>적격</span>
+                                <span>지원 가능</span>
                             </div>
                             <div class="age-range">
-                                <p class="age-text">만 35-60세</p>
-                                <p class="birth-year">(1966 ~ 1991년생)</p>
-                            </div>
-                        </div>
-
-                        <!-- 비적격 -->
-                        <div class="age-group conditional">
-                            <div class="group-label">
-                                <i class="fas fa-info-circle"></i>
-                                <span>비적격</span>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 30-34세</p>
-                                <p class="birth-year">(1992 ~ 1996년생)</p>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 61-65세</p>
-                                <p class="birth-year">(1961 ~ 1965년생)</p>
-                            </div>
-                        </div>
-
-                        <!-- 위촉불가 -->
-                        <div class="age-group ineligible">
-                            <div class="group-label">
-                                <i class="fas fa-times-circle"></i>
-                                <span>위촉불가</span>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 66세 이상</p>
-                                <p class="birth-year">(1960년생 이전)</p>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 29세 이하</p>
-                                <p class="birth-year">(1997년생 이후)</p>
+                                <p class="age-text">만 30~65세</p>
+                                <p class="birth-year">(1961 ~ 1996년생)</p>
                             </div>
                         </div>
                     </div>
@@ -628,47 +643,15 @@
                         </div>
                     </div>
                     <div class="criteria-body">
-                        <!-- 적격 -->
+                        <!-- 지원 가능 연령 -->
                         <div class="age-group eligible">
                             <div class="group-label">
                                 <i class="fas fa-check-circle"></i>
-                                <span>적격</span>
+                                <span>지원 가능</span>
                             </div>
                             <div class="age-range">
-                                <p class="age-text">만 30-55세</p>
-                                <p class="birth-year">(1971 ~ 1996년생)</p>
-                            </div>
-                        </div>
-
-                        <!-- 비적격 -->
-                        <div class="age-group conditional">
-                            <div class="group-label">
-                                <i class="fas fa-info-circle"></i>
-                                <span>비적격</span>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 25-29세</p>
-                                <p class="birth-year">(1997 ~ 2001년생)</p>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 56-65세</p>
-                                <p class="birth-year">(1961 ~ 1970년생)</p>
-                            </div>
-                        </div>
-
-                        <!-- 위촉불가 -->
-                        <div class="age-group ineligible">
-                            <div class="group-label">
-                                <i class="fas fa-times-circle"></i>
-                                <span>위촉불가</span>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 66세 이상</p>
-                                <p class="birth-year">(1960년생 이전)</p>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 24세 이하</p>
-                                <p class="birth-year">(2002년생 이후)</p>
+                                <p class="age-text">만 25~65세</p>
+                                <p class="birth-year">(1961 ~ 2001년생)</p>
                             </div>
                         </div>
                     </div>
@@ -938,7 +921,7 @@
 
             <div class="stories-cta">
                 <p><i class="fas fa-lightbulb"></i> <strong>당신도 GFC 성공스토리의 주인공이 될 수 있습니다!</strong></p>
-                <a href="#apply" class="btn btn-primary">지금 바로 지원하기</a>
+                <a href="apply.html" class="btn btn-primary">지금 바로 지원하기</a>
             </div>
         </div>
     </section>
@@ -1250,7 +1233,7 @@
             <!-- CTA -->
             <div class="wealth-cta">
                 <p><i class="fas fa-lightbulb"></i> <strong>GFC가 되어 고객에게 최고의 종합자산관리 서비스를 제공하세요!</strong></p>
-                <a href="#apply" class="btn btn-primary btn-large">지금 바로 지원하기</a>
+                <a href="apply.html" class="btn btn-primary btn-large">지금 바로 지원하기</a>
             </div>
         </div>
     </section>
@@ -1769,8 +1752,8 @@
             <div class="video-cta">
                 <p><i class="fas fa-info-circle"></i> 더 많은 정보가 필요하신가요?</p>
                 <div class="video-cta-buttons">
-                    <a href="#apply" class="btn btn-primary" data-track="jobfair">Job Fair 지원</a>
-                    <a href="#apply" class="btn btn-secondary" data-track="direct">일반 지원</a>
+                    <a href="apply.html?type=jobfair" class="btn btn-primary" data-track="jobfair">Job Fair 지원</a>
+                    <a href="apply.html?type=direct" class="btn btn-secondary" data-track="direct">일반 지원</a>
                 </div>
             </div>
         </div>
@@ -2062,7 +2045,7 @@
             <!-- CTA -->
             <div class="insights-cta">
                 <p><i class="fas fa-rocket"></i> <strong>지금 바로 GFC로 새로운 인생 2막을 시작하세요!</strong></p>
-                <a href="#apply" class="btn btn-primary btn-large">지원하기</a>
+                <a href="apply.html" class="btn btn-primary btn-large">지원하기</a>
             </div>
         </div>
     </section>
@@ -2552,7 +2535,7 @@
                     <h3>더 자세한 정보가 필요하신가요?</h3>
                     <p>채용설명회(Job Fair)에 참석하시거나, 아래 연락처로 문의주세요.</p>
                     <div class="cta-buttons">
-                        <a href="#apply" class="btn btn-primary" data-track="jobfair">지원하기</a>
+                        <a href="apply.html?type=jobfair" class="btn btn-primary" data-track="jobfair">지원하기</a>
                         <a href="tel:010-5137-2327" class="btn btn-outline">전화 상담</a>
                         <a href="https://open.kakao.com/o/sHw2Wgci" target="_blank" class="btn btn-outline">카카오톡 문의</a>
                     </div>
@@ -2696,7 +2679,7 @@
                     <h3>더 많은 소식이 궁금하신가요?</h3>
                     <p>채용설명회에서 자세한 정보와 현직자 이야기를 직접 들어보세요.</p>
                     <div class="cta-buttons">
-                        <a href="#apply" class="btn btn-primary" data-track="jobfair">지원하기</a>
+                        <a href="apply.html?type=jobfair" class="btn btn-primary" data-track="jobfair">지원하기</a>
                         <a href="tel:010-5137-2327" class="btn btn-outline">전화 상담</a>
                     </div>
                 </div>
@@ -2748,6 +2731,9 @@
                                 <small class="field-note">만 나이 (자동 계산)</small>
                             </div>
                         </div>
+                        
+                        <!-- 나이 체크 결과 표시 -->
+                        <div id="ageCheckResult" class="age-check-result" style="display: none; margin-top: 1rem;"></div>
 
                         <div class="form-group">
                             <label for="address">주소 <span class="required">*</span></label>
@@ -3348,8 +3334,14 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="images/samsung-life-logo-white.png" alt="삼성생명" class="logo">
-                    <p>삼성생명 GFC 채용</p>
+                    <a href="#hero" aria-label="페이지 상단으로 이동">
+                        <div class="logo-text-brand footer-brand">
+                            <span class="logo-samsung">삼성생명</span>
+                            <span class="logo-divider">|</span>
+                            <span class="logo-gfc">GFC 채용</span>
+                        </div>
+                    </a>
+                    <p>기업재무컨설턴트 모집</p>
                 </div>
                 <div class="footer-links">
                     <h4>바로가기</h4>
@@ -3394,8 +3386,32 @@
         </button>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script>
+        // Firebase 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx",
+            authDomain: "samsung-gfc.firebaseapp.com",
+            projectId: "samsung-gfc",
+            storageBucket: "samsung-gfc.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef1234567890abcdef"
+        };
+        
+        // Firebase 초기화
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        console.log('🔥 Firebase 초기화 완료');
+    </script>
+
     <!-- mobile-complete.js 비활성화 -->
     <!-- <script src="js/mobile-complete.js?v=22.0"></script> -->
+    <script src="js/main.js?v=2.4"></script>
     <script src="js/mobile-interactive.js?v=7.0"></script>
     <script src="js/form-enhancements.js?v=7.0"></script>
     <script src="js/official-form-v31.0.js?v=1.0"></script>
@@ -3407,8 +3423,8 @@
         // ============================================
         console.log('🚀 v23.0 시작 - 인라인 드롭다운 제어');
         
-        // 페이지 로드 후 실행
-        document.addEventListener('DOMContentLoaded', function() {
+        // 페이지 로드 후 실행 (이미 로드된 경우 즉시 실행)
+        function initMobileMenu() {
             console.log('✅ DOMContentLoaded');
             
             // 모바일 메뉴 토글
@@ -3428,7 +3444,49 @@
                         icon.classList.toggle('fa-times', isActive);
                     }
                     
-                    document.body.style.overflow = isActive ? 'hidden' : '';
+                    // 모바일 메뉴 열림/닫힘 시 body 클래스 제어 (v32.0 개선)
+                    if (isActive) {
+                        document.body.classList.add('menu-open');
+                        document.body.style.overflow = 'hidden';
+                        
+                        // 🔥 모든 드롭다운 메뉴 자동으로 펼치기
+                        const allDropdowns = navMenu.querySelectorAll('.nav-dropdown');
+                        console.log('🔍 발견된 드롭다운:', allDropdowns.length + '개');
+                        
+                        allDropdowns.forEach((dropdown, index) => {
+                            dropdown.classList.add('active');
+                            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                            if (dropdownMenu) {
+                                // CSS 우선순위를 무시하고 강제로 표시
+                                dropdownMenu.classList.add('show');
+                                dropdownMenu.style.setProperty('display', 'block', 'important');
+                                dropdownMenu.style.setProperty('max-height', '1000px', 'important');
+                                dropdownMenu.style.setProperty('opacity', '1', 'important');
+                                dropdownMenu.style.setProperty('visibility', 'visible', 'important');
+                                dropdownMenu.style.setProperty('position', 'static', 'important');
+                                dropdownMenu.style.setProperty('transform', 'none', 'important');
+                                
+                                const itemCount = dropdownMenu.querySelectorAll('li').length;
+                                console.log(`  ${index + 1}. "${dropdown.querySelector('.dropdown-toggle').textContent.trim()}" - ${itemCount}개 항목`);
+                            }
+                        });
+                        console.log('✅ 모든 드롭다운 자동 펼침 완료');
+                    } else {
+                        document.body.classList.remove('menu-open');
+                        document.body.style.overflow = '';
+                        
+                        // 메뉴 닫힐 때 모든 드롭다운도 닫기
+                        const allDropdowns = navMenu.querySelectorAll('.nav-dropdown');
+                        allDropdowns.forEach(dropdown => {
+                            dropdown.classList.remove('active');
+                            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                            if (dropdownMenu) {
+                                dropdownMenu.classList.remove('show');
+                                dropdownMenu.style.display = 'none';
+                            }
+                        });
+                    }
+                    
                     console.log('📱 모바일 메뉴:', isActive ? '열림' : '닫힘');
                 });
             }
@@ -3497,12 +3555,24 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    document.body.style.overflow = '';
                     const icon = mobileMenuToggle.querySelector('i');
                     if (icon) {
                         icon.classList.add('fa-bars');
                         icon.classList.remove('fa-times');
                     }
-                    document.body.style.overflow = '';
+                    
+                    // 모든 드롭다운도 닫기
+                    const allDropdowns = navMenu.querySelectorAll('.nav-dropdown');
+                    allDropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                        if (dropdownMenu) {
+                            dropdownMenu.classList.remove('show');
+                            dropdownMenu.style.display = 'none';
+                        }
+                    });
                 }
             });
             
@@ -3520,12 +3590,13 @@
                         // 메뉴 닫기
                         if (window.innerWidth <= 1024 && navMenu) {
                             navMenu.classList.remove('active');
+                            document.body.classList.remove('menu-open');
+                            document.body.style.overflow = '';
                             const icon = mobileMenuToggle.querySelector('i');
                             if (icon) {
                                 icon.classList.add('fa-bars');
                                 icon.classList.remove('fa-times');
                             }
-                            document.body.style.overflow = '';
                         }
                         
                         // 타겟 섹션으로 스크롤
@@ -3591,7 +3662,18 @@
             }
             
             console.log('✅ v24.0 초기화 완료');
-        });
+        }
+        
+        // DOM이 이미 로드되었는지 확인하고 실행
+        if (document.readyState === 'loading') {
+            // 아직 로딩 중이면 이벤트 리스너 등록
+            document.addEventListener('DOMContentLoaded', initMobileMenu);
+            console.log('⏳ DOMContentLoaded 대기 중...');
+        } else {
+            // 이미 로드되었으면 즉시 실행
+            console.log('⚡ DOM 이미 준비됨 - 즉시 실행');
+            initMobileMenu();
+        }
     </script>
     
     <script>
@@ -3646,7 +3728,7 @@
                     return {
                         eligible: true,
                         status: 'conditional',
-                        message: `⚠️ 비적격 (만 ${age}세 - 남성)\n※ 지원은 가능하나 위촉 가능 여부는 별도 심사가 필요합니다.`
+                        message: `✅ 지원 가능 (만 ${age}세 - 남성)\n※ 담당자 검토 후 위촉 가능 여부를 안내드립니다.`
                     };
                 } else {
                     return {
@@ -3669,7 +3751,7 @@
                     return {
                         eligible: true,
                         status: 'conditional',
-                        message: `⚠️ 비적격 (만 ${age}세 - 여성)\n※ 지원은 가능하나 위촉 가능 여부는 별도 심사가 필요합니다.`
+                        message: `✅ 지원 가능 (만 ${age}세 - 여성)\n※ 담당자 검토 후 위촉 가능 여부를 안내드립니다.`
                     };
                 } else {
                     return {
@@ -4113,10 +4195,14 @@
             }
         }
     </script>
-
-    <!-- Supabase Configuration -->
-    <script type="module" src="js/supabase-config.js"></script>
-    <script type="module" src="js/supabase-api.js"></script>
+    
+    <!-- 성능 최적화 스크립트 -->
+    <script src="js/performance-optimization.js?v=1.0" defer></script>
+    
+    <!-- 스크롤 진행 표시 -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar"></div>
+    </div>
 </body>
 
 </html>

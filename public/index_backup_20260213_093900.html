@@ -5,28 +5,268 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="삼성생명 GFC 기업재무컨설턴트 채용 - 정년 없는 전문직, 새로운 인생 2막을 시작하세요">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>삼성생명 GFC 채용 | 기업재무컨설턴트 모집</title>
-    <link rel="stylesheet" href="css/style.css?v=13.0">
-    <link rel="stylesheet" href="css/samsung-premium.css?v=11.0">
-    <link rel="stylesheet" href="css/mobile-complete.css?v=11.0">
-    <link rel="stylesheet" href="css/mobile-final-fix.css?v=11.0">
-    <link rel="stylesheet" href="css/premium-income.css?v=5.0">
-    <link rel="stylesheet" href="css/checkbox-improvements.css?v=1.0">
-    <link rel="stylesheet" href="css/performance-optimizations.css?v=1.0">
-    <link rel="stylesheet" href="css/mobile-dropdown-enhanced.css?v=2.0">
-    <link rel="stylesheet" href="css/official-form-v31.0.css?v=1.0">
-    <link rel="stylesheet" href="css/official-form-v31.0.css?v=1.0">
+    <link rel="stylesheet" href="css/style.css?v=16.2">
+    <link rel="stylesheet" href="css/mobile-final-fix.css?v=2.2">
     
     <!-- 🚨 v27.0 인라인 스타일 - 캐시 우회 -->
     <style>
-        /* 보도자료 카드 텍스트 강제 스타일 */
+        /* 🚨 v31.0 헤더 z-index 최우선 순위 설정 */
+        .header {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 99999 !important;
+            background: var(--white) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+        }
+        
+        .navbar {
+            position: relative !important;
+            z-index: 100000 !important;
+        }
+        
+        /* 모든 섹션의 z-index를 헤더보다 낮게 설정 */
+        section {
+            position: relative !important;
+            z-index: 1 !important;
+        }
+        
+        /* 보도자료 섹션도 헤더보다 낮은 z-index */
+        .press-section {
+            position: relative !important;
+            z-index: 1 !important;
+        }
+        
+        .press-card {
+            position: relative !important;
+            z-index: 2 !important;
+        }
+        
+        /* 🚨 v30.0 Career Growth & Income Projection 레이아웃 수정 */
+        .income-cards-container {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 2rem !important;
+            margin: 2rem 0 !important;
+        }
+        
+        @media (max-width: 1024px) {
+            .income-cards-container {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+        }
+        
+        .income-premium-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+            border-radius: 16px !important;
+            padding: 2rem !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+            position: relative !important;
+            overflow: hidden !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+        }
+        
+        .income-premium-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3) !important;
+        }
+        
+        .income-premium-card.stage-2 {
+            background: linear-gradient(135deg, #034EA2 0%, #0066CC 100%) !important;
+            border: 2px solid #FFD700 !important;
+        }
+        
+        .income-premium-card.stage-3 {
+            background: linear-gradient(135deg, #6a1b9a 0%, #8e24aa 100%) !important;
+        }
+        
+        .card-badge {
+            position: absolute !important;
+            top: 1rem !important;
+            right: 1rem !important;
+            background: rgba(255,255,255,0.2) !important;
+            backdrop-filter: blur(10px) !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 20px !important;
+            font-weight: 600 !important;
+            color: #FFFFFF !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+        }
+        
+        .card-badge.featured {
+            background: linear-gradient(135deg, #FFD700, #FFA500) !important;
+            color: #1e3c72 !important;
+        }
+        
+        .card-badge.premium {
+            background: linear-gradient(135deg, #FFD700, #FF6B6B) !important;
+            color: #1e3c72 !important;
+        }
+        
+        .stage-title {
+            font-size: 1.8rem !important;
+            font-weight: 700 !important;
+            color: #FFD700 !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .stage-period {
+            font-size: 1rem !important;
+            color: rgba(255,255,255,0.8) !important;
+            margin-bottom: 1.5rem !important;
+        }
+        
+        .income-details {
+            background: rgba(255,255,255,0.1) !important;
+            backdrop-filter: blur(10px) !important;
+            border-radius: 12px !important;
+            padding: 1.5rem !important;
+            margin-bottom: 1.5rem !important;
+        }
+        
+        .income-main, .income-annual {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 0.5rem 0 !important;
+        }
+        
+        .income-label, .annual-label {
+            font-size: 0.9rem !important;
+            color: rgba(255,255,255,0.7) !important;
+        }
+        
+        .income-value, .annual-value {
+            font-size: 1.5rem !important;
+            font-weight: 700 !important;
+            color: #FFFFFF !important;
+        }
+        
+        .income-value.highlight, .annual-value.highlight {
+            color: #FFD700 !important;
+            font-size: 1.6rem !important;
+        }
+        
+        .income-value.premium, .annual-value.premium {
+            color: #FF6B6B !important;
+            font-size: 1.7rem !important;
+        }
+        
+        .stage-features {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0.8rem !important;
+        }
+        
+        .feature-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.8rem !important;
+            color: #FFFFFF !important;
+            font-size: 0.95rem !important;
+        }
+        
+        .feature-item i {
+            color: #4CAF50 !important;
+            font-size: 1.1rem !important;
+        }
+        
+        /* 🚨 v29.0 인사이트 카드 번호 및 텍스트 잘림 방지 */
+        .insight-number {
+            position: absolute !important;
+            top: 1.5rem !important;
+            right: 1.5rem !important;
+            font-size: 2.5rem !important;
+            font-weight: 700 !important;
+            color: #FFD700 !important;
+            opacity: 0.3 !important;
+            z-index: 1 !important;
+            line-height: 1 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .insight-number {
+                font-size: 2rem !important;
+                top: 1rem !important;
+                right: 1rem !important;
+                opacity: 0.5 !important;
+            }
+        }
+        
+        /* stat-label 텍스트 잘림 방지 */
+        .stat-label {
+            font-size: 0.9rem !important;
+            color: rgba(255, 255, 255, 0.9) !important;
+            line-height: 1.4 !important;
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            min-height: 2.8rem !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+        }
+        
+        @media (max-width: 768px) {
+            .stat-label {
+                font-size: 0.85rem !important;
+                min-height: 3rem !important;
+            }
+        }
+        
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 12px !important;
+            padding: 1.5rem !important;
+            text-align: center !important;
+            min-height: 150px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem !important;
+            font-weight: 700 !important;
+            color: #FFD700 !important;
+            margin-bottom: 0.5rem !important;
+            line-height: 1 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 2rem !important;
+            }
+            
+            .stat-box {
+                min-height: 130px !important;
+                padding: 1rem !important;
+            }
+        }
+        
+        /* 보도자료 카드 텍스트 강제 스타일 - 가독성 최대 강화 */
         .press-section .press-card .press-title {
             color: #FFFFFF !important;
             font-size: 1.3rem !important;
             font-weight: 700 !important;
             line-height: 1.5 !important;
             margin: 1rem 0 !important;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.6) !important;
+            background: rgba(0,0,0,0.2) !important;
+            padding: 0.5rem !important;
+            border-radius: 8px !important;
         }
         
         .press-section .press-card .press-company,
@@ -37,7 +277,14 @@
             font-weight: 500 !important;
             margin: 0.5rem 0 !important;
             opacity: 0.95 !important;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            max-width: 100% !important;
+            background: rgba(0,0,0,0.15) !important;
+            padding: 0.3rem 0.5rem !important;
+            border-radius: 4px !important;
         }
         
         .press-section .press-card .press-company::before {
@@ -63,7 +310,7 @@
             margin-bottom: 1rem !important;
         }
         
-        /* 배지 */
+        /* 배지 - 텍스트 잘림 방지 */
         .press-badge {
             color: #FFFFFF !important;
             font-weight: 600 !important;
@@ -71,6 +318,10 @@
             border-radius: 20px !important;
             display: inline-block !important;
             margin-bottom: 0.5rem !important;
+            white-space: nowrap !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            max-width: fit-content !important;
         }
         
         .press-badge.interview {
@@ -79,6 +330,21 @@
         
         .press-badge.news {
             background: #2196F3 !important;
+        }
+        
+        .press-badge.youtube {
+            background: #FF0000 !important;
+            color: #FFFFFF !important;
+        }
+        
+        .press-badge.portal {
+            background: #FF9800 !important;
+            color: #FFFFFF !important;
+        }
+        
+        .press-badge.blog {
+            background: #9C27B0 !important;
+            color: #FFFFFF !important;
         }
         
         /* 🚨 v28.0 필터 버튼 가독성 개선 */
@@ -108,6 +374,52 @@
             font-weight: 700 !important;
             box-shadow: 0 4px 16px rgba(3, 78, 162, 0.4) !important;
         }
+        
+        /* 🚨 햄버거 메뉴 버튼 강제 표시 - 모든 브라우저 호환 */
+        @media (max-width: 1024px) {
+            .mobile-menu-toggle {
+                display: flex !important;
+                position: fixed !important;
+                right: 15px !important;
+                top: 11px !important;
+                z-index: 99999 !important;
+                background: white !important;
+                border: 3px solid #034EA2 !important;
+                border-radius: 8px !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 48px !important;
+                height: 48px !important;
+                min-width: 48px !important;
+                min-height: 48px !important;
+                max-width: 48px !important;
+                max-height: 48px !important;
+                align-items: center !important;
+                justify-content: center !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+            }
+            
+            /* 아이콘도 강제 표시 */
+            .mobile-menu-toggle i {
+                display: block !important;
+                font-size: 24px !important;
+                color: #034EA2 !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .mobile-menu-toggle i {
+                display: block !important;
+                font-size: 1.8rem !important;
+                color: #034EA2 !important;
+                visibility: visible !important;
+            }
+        }
     </style>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,6 +427,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- 성능 최적화 CSS -->
+    <link rel="stylesheet" href="css/performance.css?v=1.0">
 </head>
 
 <body>
@@ -123,8 +438,9 @@
         <nav class="navbar">
             <div class="container">
                 <a href="#hero" class="nav-brand" aria-label="홈으로 이동">
-                    <img src="images/samsung-life-logo.webp" alt="삼성생명 로고" class="logo-img">
                     <div class="logo-text-brand">
+                        <span class="logo-samsung">삼성생명</span>
+                        <span class="logo-divider">|</span>
                         <span class="logo-gfc">GFC 채용</span>
                     </div>
                 </a>
@@ -175,18 +491,43 @@
                     </li>
                     <li><a href="#press-archive">보도자료</a></li>
                     <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#apply" class="btn-apply-nav">지원하기</a></li>
+                    <li><a href="apply.html" class="btn-apply-nav">지원하기</a></li>
                 </ul>
-                <button class="mobile-menu-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
-                    <i class="fas fa-bars" aria-hidden="true"></i>
-                </button>
             </div>
+            
+            <!-- 🚨 모바일 햄버거 버튼 - container 바깥으로 이동 -->
+            <button class="mobile-menu-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu" 
+                style="display: flex !important; 
+                       align-items: center !important; 
+                       justify-content: center !important;
+                       position: fixed !important;
+                       right: 15px !important;
+                       top: 11px !important;
+                       z-index: 99999 !important;
+                       width: 48px !important;
+                       height: 48px !important;
+                       background: white !important;
+                       border: 3px solid #034EA2 !important;
+                       border-radius: 8px !important;
+                       cursor: pointer !important;
+                       visibility: visible !important;
+                       opacity: 1 !important;
+                       margin: 0 !important;
+                       padding: 0 !important;">
+                <i class="fas fa-bars" aria-hidden="true" style="font-size: 24px !important; color: #034EA2 !important; display: block !important; margin: 0 !important; padding: 0 !important;"></i>
+            </button>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-overlay"></div>
+        
+        <!-- 페이지 식별 마커 -->
+        <div style="position: fixed; top: 0; left: 0; background: red; color: white; padding: 10px; z-index: 99999; font-size: 20px; font-weight: bold;">
+            ✅ 삼성생명 GFC 채용 페이지 (올바른 페이지입니다!)
+        </div>
+        
         <div class="container hero-content">
             <h1 class="hero-title">
                 정년 없는 전문직,<br>
@@ -573,47 +914,15 @@
                         </div>
                     </div>
                     <div class="criteria-body">
-                        <!-- 적격 -->
+                        <!-- 지원 가능 연령 -->
                         <div class="age-group eligible">
                             <div class="group-label">
                                 <i class="fas fa-check-circle"></i>
-                                <span>적격</span>
+                                <span>지원 가능</span>
                             </div>
                             <div class="age-range">
-                                <p class="age-text">만 35-60세</p>
-                                <p class="birth-year">(1966 ~ 1991년생)</p>
-                            </div>
-                        </div>
-
-                        <!-- 비적격 -->
-                        <div class="age-group conditional">
-                            <div class="group-label">
-                                <i class="fas fa-info-circle"></i>
-                                <span>비적격</span>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 30-34세</p>
-                                <p class="birth-year">(1992 ~ 1996년생)</p>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 61-65세</p>
-                                <p class="birth-year">(1961 ~ 1965년생)</p>
-                            </div>
-                        </div>
-
-                        <!-- 위촉불가 -->
-                        <div class="age-group ineligible">
-                            <div class="group-label">
-                                <i class="fas fa-times-circle"></i>
-                                <span>위촉불가</span>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 66세 이상</p>
-                                <p class="birth-year">(1960년생 이전)</p>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 29세 이하</p>
-                                <p class="birth-year">(1997년생 이후)</p>
+                                <p class="age-text">만 30~65세</p>
+                                <p class="birth-year">(1961 ~ 1996년생)</p>
                             </div>
                         </div>
                     </div>
@@ -628,47 +937,15 @@
                         </div>
                     </div>
                     <div class="criteria-body">
-                        <!-- 적격 -->
+                        <!-- 지원 가능 연령 -->
                         <div class="age-group eligible">
                             <div class="group-label">
                                 <i class="fas fa-check-circle"></i>
-                                <span>적격</span>
+                                <span>지원 가능</span>
                             </div>
                             <div class="age-range">
-                                <p class="age-text">만 30-55세</p>
-                                <p class="birth-year">(1971 ~ 1996년생)</p>
-                            </div>
-                        </div>
-
-                        <!-- 비적격 -->
-                        <div class="age-group conditional">
-                            <div class="group-label">
-                                <i class="fas fa-info-circle"></i>
-                                <span>비적격</span>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 25-29세</p>
-                                <p class="birth-year">(1997 ~ 2001년생)</p>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 56-65세</p>
-                                <p class="birth-year">(1961 ~ 1970년생)</p>
-                            </div>
-                        </div>
-
-                        <!-- 위촉불가 -->
-                        <div class="age-group ineligible">
-                            <div class="group-label">
-                                <i class="fas fa-times-circle"></i>
-                                <span>위촉불가</span>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 66세 이상</p>
-                                <p class="birth-year">(1960년생 이전)</p>
-                            </div>
-                            <div class="age-range">
-                                <p class="age-text">만 24세 이하</p>
-                                <p class="birth-year">(2002년생 이후)</p>
+                                <p class="age-text">만 25~65세</p>
+                                <p class="birth-year">(1961 ~ 2001년생)</p>
                             </div>
                         </div>
                     </div>
@@ -938,7 +1215,7 @@
 
             <div class="stories-cta">
                 <p><i class="fas fa-lightbulb"></i> <strong>당신도 GFC 성공스토리의 주인공이 될 수 있습니다!</strong></p>
-                <a href="#apply" class="btn btn-primary">지금 바로 지원하기</a>
+                <a href="apply.html" class="btn btn-primary">지금 바로 지원하기</a>
             </div>
         </div>
     </section>
@@ -1250,7 +1527,7 @@
             <!-- CTA -->
             <div class="wealth-cta">
                 <p><i class="fas fa-lightbulb"></i> <strong>GFC가 되어 고객에게 최고의 종합자산관리 서비스를 제공하세요!</strong></p>
-                <a href="#apply" class="btn btn-primary btn-large">지금 바로 지원하기</a>
+                <a href="apply.html" class="btn btn-primary btn-large">지금 바로 지원하기</a>
             </div>
         </div>
     </section>
@@ -1769,8 +2046,8 @@
             <div class="video-cta">
                 <p><i class="fas fa-info-circle"></i> 더 많은 정보가 필요하신가요?</p>
                 <div class="video-cta-buttons">
-                    <a href="#apply" class="btn btn-primary" data-track="jobfair">Job Fair 지원</a>
-                    <a href="#apply" class="btn btn-secondary" data-track="direct">일반 지원</a>
+                    <a href="apply.html?type=jobfair" class="btn btn-primary" data-track="jobfair">Job Fair 지원</a>
+                    <a href="apply.html?type=direct" class="btn btn-secondary" data-track="direct">일반 지원</a>
                 </div>
             </div>
         </div>
@@ -2062,7 +2339,7 @@
             <!-- CTA -->
             <div class="insights-cta">
                 <p><i class="fas fa-rocket"></i> <strong>지금 바로 GFC로 새로운 인생 2막을 시작하세요!</strong></p>
-                <a href="#apply" class="btn btn-primary btn-large">지원하기</a>
+                <a href="apply.html" class="btn btn-primary btn-large">지원하기</a>
             </div>
         </div>
     </section>
@@ -2552,7 +2829,7 @@
                     <h3>더 자세한 정보가 필요하신가요?</h3>
                     <p>채용설명회(Job Fair)에 참석하시거나, 아래 연락처로 문의주세요.</p>
                     <div class="cta-buttons">
-                        <a href="#apply" class="btn btn-primary" data-track="jobfair">지원하기</a>
+                        <a href="apply.html?type=jobfair" class="btn btn-primary" data-track="jobfair">지원하기</a>
                         <a href="tel:010-5137-2327" class="btn btn-outline">전화 상담</a>
                         <a href="https://open.kakao.com/o/sHw2Wgci" target="_blank" class="btn btn-outline">카카오톡 문의</a>
                     </div>
@@ -2696,7 +2973,7 @@
                     <h3>더 많은 소식이 궁금하신가요?</h3>
                     <p>채용설명회에서 자세한 정보와 현직자 이야기를 직접 들어보세요.</p>
                     <div class="cta-buttons">
-                        <a href="#apply" class="btn btn-primary" data-track="jobfair">지원하기</a>
+                        <a href="apply.html?type=jobfair" class="btn btn-primary" data-track="jobfair">지원하기</a>
                         <a href="tel:010-5137-2327" class="btn btn-outline">전화 상담</a>
                     </div>
                 </div>
@@ -2748,6 +3025,9 @@
                                 <small class="field-note">만 나이 (자동 계산)</small>
                             </div>
                         </div>
+                        
+                        <!-- 나이 체크 결과 표시 -->
+                        <div id="ageCheckResult" class="age-check-result" style="display: none; margin-top: 1rem;"></div>
 
                         <div class="form-group">
                             <label for="address">주소 <span class="required">*</span></label>
@@ -3348,8 +3628,14 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="images/samsung-life-logo-white.png" alt="삼성생명" class="logo">
-                    <p>삼성생명 GFC 채용</p>
+                    <a href="#hero" aria-label="페이지 상단으로 이동">
+                        <div class="logo-text-brand footer-brand">
+                            <span class="logo-samsung">삼성생명</span>
+                            <span class="logo-divider">|</span>
+                            <span class="logo-gfc">GFC 채용</span>
+                        </div>
+                    </a>
+                    <p>기업재무컨설턴트 모집</p>
                 </div>
                 <div class="footer-links">
                     <h4>바로가기</h4>
@@ -3394,8 +3680,32 @@
         </button>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script>
+        // Firebase 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx",
+            authDomain: "samsung-gfc.firebaseapp.com",
+            projectId: "samsung-gfc",
+            storageBucket: "samsung-gfc.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef1234567890abcdef"
+        };
+        
+        // Firebase 초기화
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        console.log('🔥 Firebase 초기화 완료');
+    </script>
+
     <!-- mobile-complete.js 비활성화 -->
     <!-- <script src="js/mobile-complete.js?v=22.0"></script> -->
+    <script src="js/main.js?v=2.8"></script>
     <script src="js/mobile-interactive.js?v=7.0"></script>
     <script src="js/form-enhancements.js?v=7.0"></script>
     <script src="js/official-form-v31.0.js?v=1.0"></script>
@@ -3407,8 +3717,8 @@
         // ============================================
         console.log('🚀 v23.0 시작 - 인라인 드롭다운 제어');
         
-        // 페이지 로드 후 실행
-        document.addEventListener('DOMContentLoaded', function() {
+        // 페이지 로드 후 실행 (이미 로드된 경우 즉시 실행)
+        function initMobileMenu() {
             console.log('✅ DOMContentLoaded');
             
             // 모바일 메뉴 토글
@@ -3428,20 +3738,105 @@
                         icon.classList.toggle('fa-times', isActive);
                     }
                     
-                    document.body.style.overflow = isActive ? 'hidden' : '';
+                    // 모바일 메뉴 열림/닫힘 시 body 클래스 제어 (v32.0 개선)
+                    if (isActive) {
+                        document.body.classList.add('menu-open');
+                        document.body.style.overflow = 'hidden';
+                        
+                        // 🔥 모든 드롭다운 메뉴 자동으로 펼치기
+                        const allDropdowns = navMenu.querySelectorAll('.nav-dropdown');
+                        console.log('🔍 발견된 드롭다운:', allDropdowns.length + '개');
+                        
+                        allDropdowns.forEach((dropdown, index) => {
+                            dropdown.classList.add('active');
+                            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                            if (dropdownMenu) {
+                                // CSS 우선순위를 무시하고 강제로 표시
+                                dropdownMenu.classList.add('show');
+                                dropdownMenu.style.setProperty('display', 'block', 'important');
+                                dropdownMenu.style.setProperty('max-height', '1000px', 'important');
+                                dropdownMenu.style.setProperty('opacity', '1', 'important');
+                                dropdownMenu.style.setProperty('visibility', 'visible', 'important');
+                                dropdownMenu.style.setProperty('position', 'static', 'important');
+                                dropdownMenu.style.setProperty('transform', 'none', 'important');
+                                
+                                const itemCount = dropdownMenu.querySelectorAll('li').length;
+                                console.log(`  ${index + 1}. "${dropdown.querySelector('.dropdown-toggle').textContent.trim()}" - ${itemCount}개 항목`);
+                            }
+                        });
+                        console.log('✅ 모든 드롭다운 자동 펼침 완료');
+                    } else {
+                        document.body.classList.remove('menu-open');
+                        document.body.style.overflow = '';
+                        
+                        // 메뉴 닫힐 때 모든 드롭다운도 닫기
+                        const allDropdowns = navMenu.querySelectorAll('.nav-dropdown');
+                        allDropdowns.forEach(dropdown => {
+                            dropdown.classList.remove('active');
+                            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                            if (dropdownMenu) {
+                                dropdownMenu.classList.remove('show');
+                                dropdownMenu.style.display = 'none';
+                            }
+                        });
+                    }
+                    
                     console.log('📱 모바일 메뉴:', isActive ? '열림' : '닫힘');
                 });
             }
             
             // 드롭다운 토글 처리
             document.addEventListener('click', function(e) {
+                // 드롭다운 메뉴 항목 클릭은 무시 (propagation 허용)
+                const isDropdownMenuItem = e.target.closest('.dropdown-menu a');
+                if (isDropdownMenuItem) {
+                    console.log('✅ 드롭다운 메뉴 항목 클릭:', e.target.textContent.trim());
+                    return; // 드롭다운 메뉴 항목은 그대로 진행
+                }
+                
                 const toggle = e.target.closest('.dropdown-toggle');
+                
+                if (toggle) {
+                    // 모바일 크기에서만 기본 동작 방지 (데스크톱에서는 첫 번째 서브메뉴로 이동)
+                    if (window.innerWidth <= 1024) {
+                        e.preventDefault(); // 모바일에서만 기본 동작 방지
+                        console.log('📱 모바일: 드롭다운 토글 클릭');
+                    } else {
+                        // 데스크톱에서는 첫 번째 서브메뉴로 이동
+                        e.preventDefault();
+                        const dropdown = toggle.closest('.nav-dropdown');
+                        const firstLink = dropdown.querySelector('.dropdown-menu a');
+                        
+                        if (firstLink) {
+                            const href = firstLink.getAttribute('href');
+                            console.log('🖥️ 데스크톱: 드롭다운 토글 클릭 →', href);
+                            
+                            if (href && href.startsWith('#')) {
+                                const targetElement = document.querySelector(href);
+                                if (targetElement) {
+                                    const header = document.querySelector('.header');
+                                    const headerHeight = header ? header.offsetHeight + 20 : 90;
+                                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                                    
+                                    window.scrollTo({
+                                        top: targetPosition,
+                                        behavior: 'smooth'
+                                    });
+                                    
+                                    console.log('✅ 스크롤 완료:', href);
+                                } else {
+                                    console.error('❌ 섹션 없음:', href);
+                                }
+                            }
+                        }
+                        return; // 데스크톱에서는 여기서 종료
+                    }
+                }
                 
                 if (toggle && window.innerWidth <= 1024) {
                     console.log('====================================');
                     console.log('🎯 드롭다운 클릭:', toggle.textContent.trim());
                     
-                    e.preventDefault();
                     e.stopPropagation();
                     e.stopImmediatePropagation();
                     
@@ -3497,12 +3892,70 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    document.body.style.overflow = '';
                     const icon = mobileMenuToggle.querySelector('i');
                     if (icon) {
                         icon.classList.add('fa-bars');
                         icon.classList.remove('fa-times');
                     }
-                    document.body.style.overflow = '';
+                    
+                    // 모든 드롭다운도 닫기
+                    const allDropdowns = navMenu.querySelectorAll('.nav-dropdown');
+                    allDropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                        if (dropdownMenu) {
+                            dropdownMenu.classList.remove('show');
+                            dropdownMenu.style.display = 'none';
+                        }
+                    });
+                }
+            });
+            
+            // 스크롤 시 메뉴 자동 닫기 (모바일)
+            let scrollTimeout;
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', function() {
+                // 모바일 메뉴가 열려있고, 화면이 모바일 크기일 때만 작동
+                if (window.innerWidth <= 1024 && navMenu && navMenu.classList.contains('active')) {
+                    const currentScrollY = window.scrollY;
+                    const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+                    
+                    // 스크롤 거리가 50px 이상이면 메뉴 닫기
+                    if (scrollDelta > 50) {
+                        console.log('📜 스크롤 감지 - 모바일 메뉴 자동 닫기');
+                        
+                        // 메뉴 닫기
+                        navMenu.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                        document.body.style.overflow = '';
+                        
+                        // 햄버거 아이콘 복원
+                        const icon = mobileMenuToggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-times');
+                        }
+                        
+                        // 모든 드롭다운 닫기
+                        const allDropdowns = navMenu.querySelectorAll('.nav-dropdown');
+                        allDropdowns.forEach(dropdown => {
+                            dropdown.classList.remove('active');
+                            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                            if (dropdownMenu) {
+                                dropdownMenu.classList.remove('show');
+                                dropdownMenu.style.display = 'none';
+                            }
+                        });
+                        
+                        lastScrollY = currentScrollY;
+                        console.log('✅ 스크롤로 인한 메뉴 닫기 완료');
+                    }
+                } else {
+                    // 메뉴가 닫혀있을 때는 현재 스크롤 위치 업데이트만
+                    lastScrollY = window.scrollY;
                 }
             });
             
@@ -3511,43 +3964,91 @@
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     
+                    console.log('🔗 링크 요소 클릭됨:', {
+                        text: this.textContent.trim(),
+                        href: href,
+                        isDropdownItem: !!this.closest('.dropdown-menu')
+                    });
+                    
                     // 내부 링크 (#로 시작)인 경우에만 처리
                     if (href && href.startsWith('#')) {
                         e.preventDefault();
+                        console.log('🚫 기본 동작 방지됨');
                         
                         console.log('📍 링크 클릭:', this.textContent.trim(), '→', href);
+                        
+                        // 드롭다운 메뉴 항목인 경우 드롭다운도 닫기
+                        const isDropdownItem = this.closest('.dropdown-menu');
+                        if (isDropdownItem && window.innerWidth <= 1024) {
+                            const dropdown = this.closest('.nav-dropdown');
+                            if (dropdown) {
+                                dropdown.classList.remove('active');
+                                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                                if (dropdownMenu) {
+                                    dropdownMenu.classList.remove('show');
+                                    dropdownMenu.style.display = 'none';
+                                }
+                                console.log('✅ 드롭다운 닫기:', this.textContent.trim());
+                            }
+                        }
                         
                         // 메뉴 닫기
                         if (window.innerWidth <= 1024 && navMenu) {
                             navMenu.classList.remove('active');
+                            document.body.classList.remove('menu-open');
+                            document.body.style.overflow = '';
                             const icon = mobileMenuToggle.querySelector('i');
                             if (icon) {
                                 icon.classList.add('fa-bars');
                                 icon.classList.remove('fa-times');
                             }
-                            document.body.style.overflow = '';
+                            console.log('✅ 모바일 메뉴 닫기 완료');
                         }
                         
                         // 타겟 섹션으로 스크롤
                         const targetId = href.substring(1); // # 제거
                         const targetElement = document.getElementById(targetId);
                         
+                        console.log('🎯 타겟 섹션 검색:', targetId, '→', targetElement ? '발견 ✅' : '없음 ❌');
+                        
                         if (targetElement) {
                             // 메뉴 닫히는 애니메이션 후 스크롤 (300ms)
                             setTimeout(() => {
-                                const headerHeight = 70;
+                                // 헤더 높이를 동적으로 가져오기
+                                const header = document.querySelector('.header');
+                                const baseHeaderHeight = header ? header.offsetHeight : 70;
+                                
+                                // 모바일에서는 추가 여백을 더 많이 줌 (컨텐츠가 헤더에 가려지지 않도록)
+                                const extraPadding = window.innerWidth <= 768 ? 40 : 20;
+                                const headerHeight = baseHeaderHeight + extraPadding;
+                                
                                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                                
+                                console.log('📱 모바일 스크롤 정보:');
+                                console.log('  - 화면 폭:', window.innerWidth, 'px');
+                                console.log('  - 헤더 높이:', baseHeaderHeight, 'px');
+                                console.log('  - 추가 여백:', extraPadding, 'px');
+                                console.log('  - 총 오프셋:', headerHeight, 'px');
+                                console.log('  - 타겟 위치:', targetPosition, 'px');
+                                console.log('  - 현재 스크롤:', window.pageYOffset, 'px');
                                 
                                 window.scrollTo({
                                     top: targetPosition,
                                     behavior: 'smooth'
                                 });
                                 
-                                console.log('✅ 스크롤 완료:', href);
+                                // 스크롤 완료 후 확인
+                                setTimeout(() => {
+                                    console.log('✅ 스크롤 완료:', href);
+                                    console.log('  - 최종 스크롤 위치:', window.pageYOffset, 'px');
+                                    console.log('  - 타겟 섹션:', targetElement.className);
+                                }, 500);
                             }, 300);
                         } else {
                             console.error('❌ 타겟 요소를 찾을 수 없습니다:', href);
                         }
+                    } else {
+                        console.log('ℹ️ 외부 링크 또는 특수 링크:', href);
                     }
                 });
             });
@@ -3560,6 +4061,27 @@
             
             if (filterButtons.length > 0 && pressCards.length > 0) {
                 console.log('✅ 보도자료 필터 초기화:', filterButtons.length + '개 버튼,', pressCards.length + '개 카드');
+                
+                // ============================================
+                // 보도자료 담당자 "-" 처리 (가독성 개선)
+                // ============================================
+                pressCards.forEach(card => {
+                    const personElement = card.querySelector('.press-person');
+                    if (personElement) {
+                        const personText = personElement.textContent.trim();
+                        // If person is just "-", hide the element or replace with better text
+                        if (personText === '-' || personText === '- -' || personText === '') {
+                            // Option 1: Hide the element completely
+                            personElement.style.display = 'none';
+                            
+                            // Option 2: Replace with more descriptive text (commented out)
+                            // personElement.textContent = '담당자 정보 없음';
+                            // personElement.style.opacity = '0.5';
+                            // personElement.style.fontStyle = 'italic';
+                        }
+                    }
+                });
+                console.log('✅ 보도자료 담당자 정보 정리 완료');
                 
                 filterButtons.forEach(btn => {
                     btn.addEventListener('click', function() {
@@ -3591,7 +4113,18 @@
             }
             
             console.log('✅ v24.0 초기화 완료');
-        });
+        }
+        
+        // DOM이 이미 로드되었는지 확인하고 실행
+        if (document.readyState === 'loading') {
+            // 아직 로딩 중이면 이벤트 리스너 등록
+            document.addEventListener('DOMContentLoaded', initMobileMenu);
+            console.log('⏳ DOMContentLoaded 대기 중...');
+        } else {
+            // 이미 로드되었으면 즉시 실행
+            console.log('⚡ DOM 이미 준비됨 - 즉시 실행');
+            initMobileMenu();
+        }
     </script>
     
     <script>
@@ -3646,7 +4179,7 @@
                     return {
                         eligible: true,
                         status: 'conditional',
-                        message: `⚠️ 비적격 (만 ${age}세 - 남성)\n※ 지원은 가능하나 위촉 가능 여부는 별도 심사가 필요합니다.`
+                        message: `✅ 지원 가능 (만 ${age}세 - 남성)\n※ 담당자 검토 후 위촉 가능 여부를 안내드립니다.`
                     };
                 } else {
                     return {
@@ -3669,7 +4202,7 @@
                     return {
                         eligible: true,
                         status: 'conditional',
-                        message: `⚠️ 비적격 (만 ${age}세 - 여성)\n※ 지원은 가능하나 위촉 가능 여부는 별도 심사가 필요합니다.`
+                        message: `✅ 지원 가능 (만 ${age}세 - 여성)\n※ 담당자 검토 후 위촉 가능 여부를 안내드립니다.`
                     };
                 } else {
                     return {
@@ -4113,10 +4646,179 @@
             }
         }
     </script>
-
-    <!-- Supabase Configuration -->
-    <script type="module" src="js/supabase-config.js"></script>
-    <script type="module" src="js/supabase-api.js"></script>
+    
+    <!-- 성능 최적화 스크립트 -->
+    <script src="js/performance-optimization.js?v=1.0" defer></script>
+    
+    <!-- 🚨 긴급 모바일 메뉴 토글 스크립트 -->
+    <script>
+        (function() {
+            console.log('🚨 긴급 메뉴 스크립트 로드됨');
+            
+            // 모바일 체크 함수
+            function isMobile() {
+                return window.innerWidth <= 1024;
+            }
+            
+            // DOM이 완전히 로드된 후 실행
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileMenu);
+            } else {
+                initMobileMenu();
+            }
+            
+            function initMobileMenu() {
+                const toggle = document.querySelector('.mobile-menu-toggle');
+                const menu = document.querySelector('.nav-menu');
+                
+                console.log('🔍 Toggle 버튼:', toggle);
+                console.log('🔍 Menu:', menu);
+                console.log('📱 모바일 모드:', isMobile());
+                
+                if (!toggle || !menu) {
+                    console.error('❌ 버튼 또는 메뉴를 찾을 수 없습니다!');
+                    return;
+                }
+                
+                // 데스크톱에서 모든 드롭다운 닫기
+                if (!isMobile()) {
+                    console.log('💻 데스크톱 모드 - 드롭다운 초기화');
+                    
+                    // 모든 드롭다운 메뉴를 닫힌 상태로 설정
+                    const dropdowns = document.querySelectorAll('.dropdown-menu');
+                    dropdowns.forEach(function(dd) {
+                        dd.classList.remove('show');
+                        dd.style.display = '';
+                        dd.style.maxHeight = '';
+                        dd.style.opacity = '';
+                    });
+                    
+                    // nav-menu의 인라인 스타일 제거
+                    menu.style.display = '';
+                    menu.style.visibility = '';
+                    menu.style.opacity = '';
+                    menu.style.position = '';
+                    menu.style.top = '';
+                    menu.style.left = '';
+                    menu.style.width = '';
+                    menu.style.height = '';
+                    menu.style.zIndex = '';
+                    menu.style.background = '';
+                    menu.style.padding = '';
+                    menu.style.overflowY = '';
+                    menu.classList.remove('active');
+                    
+                    return;
+                }
+                
+                // 모바일에서만 실행
+                console.log('📱 모바일 메뉴 활성화');
+                
+                // 기존 이벤트 리스너 제거 후 새로 추가
+                const newToggle = toggle.cloneNode(true);
+                toggle.parentNode.replaceChild(newToggle, toggle);
+                
+                // 클릭 이벤트
+                newToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('🍔 햄버거 버튼 클릭됨!');
+                    
+                    const isActive = menu.classList.toggle('active');
+                    const icon = newToggle.querySelector('i');
+                    
+                    if (icon) {
+                        icon.className = isActive ? 'fas fa-times' : 'fas fa-bars';
+                    }
+                    
+                    // ARIA 업데이트
+                    newToggle.setAttribute('aria-expanded', isActive);
+                    newToggle.setAttribute('aria-label', isActive ? '메뉴 닫기' : '메뉴 열기');
+                    
+                    // Body 스크롤 제어
+                    document.body.style.overflow = isActive ? 'hidden' : '';
+                    
+                    // 메뉴 스타일 강제 적용
+                    if (isActive) {
+                        menu.style.display = 'flex';
+                        menu.style.visibility = 'visible';
+                        menu.style.opacity = '1';
+                        menu.style.position = 'fixed';
+                        menu.style.top = '0';
+                        menu.style.left = '0';
+                        menu.style.width = '100%';
+                        menu.style.height = '100vh';
+                        menu.style.zIndex = '9998';
+                        menu.style.background = 'rgba(255, 255, 255, 0.98)';
+                        menu.style.padding = '80px 20px';
+                        menu.style.overflowY = 'auto';
+                        
+                        // 모든 드롭다운 서브메뉴 표시
+                        const dropdowns = menu.querySelectorAll('.dropdown-menu');
+                        dropdowns.forEach(function(dd) {
+                            dd.style.display = 'block';
+                            dd.style.maxHeight = '1000px';
+                            dd.style.opacity = '1';
+                            dd.classList.add('show');
+                        });
+                        
+                        console.log('✅ 메뉴 열림');
+                    } else {
+                        menu.style.display = 'none';
+                        menu.style.visibility = 'hidden';
+                        menu.style.opacity = '0';
+                        console.log('❌ 메뉴 닫힘');
+                    }
+                    
+                    // History state 관리
+                    if (isActive) {
+                        window.history.pushState({menuOpen: true}, '', window.location.href);
+                    }
+                });
+                
+                // 터치 이벤트도 추가 (모바일 전용)
+                newToggle.addEventListener('touchstart', function(e) {
+                    console.log('👆 터치 시작');
+                }, {passive: true});
+                
+                newToggle.addEventListener('touchend', function(e) {
+                    console.log('👆 터치 끝');
+                }, {passive: true});
+                
+                // 뒤로가기 버튼 처리
+                window.addEventListener('popstate', function(e) {
+                    if (menu.classList.contains('active')) {
+                        menu.classList.remove('active');
+                        menu.style.display = 'none';
+                        const icon = newToggle.querySelector('i');
+                        if (icon) icon.className = 'fas fa-bars';
+                        document.body.style.overflow = '';
+                        e.preventDefault();
+                        window.history.pushState(null, '', window.location.href);
+                        console.log('⬅️ 뒤로가기로 메뉴 닫힘');
+                    }
+                });
+                
+                console.log('✅ 모바일 메뉴 초기화 완료');
+            }
+            
+            // 창 크기 변경 시 재초기화
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    console.log('🔄 창 크기 변경 - 재초기화');
+                    initMobileMenu();
+                }, 250);
+            });
+        })();
+    </script>
+    
+    <!-- 스크롤 진행 표시 -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar"></div>
+    </div>
 </body>
 
 </html>

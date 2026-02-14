@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>헤더 스크롤 테스트</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans KR', sans-serif; padding-top: 80px; }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .header h1 { color: #1428A0; font-size: 1.5rem; }
+        
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .section {
+            height: 100vh;
+            border: 2px solid #ddd;
+            margin-bottom: 20px;
+            padding: 40px;
+            background: #f8f9fa;
+        }
+        
+        .info-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            min-width: 250px;
+        }
+        
+        .info-box h3 { margin-bottom: 10px; color: #1428A0; }
+        .info-box p { margin: 5px 0; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <header class="header" id="mainHeader">
+        <h1>삼성생명 GFC 채용 - 헤더 스크롤 테스트</h1>
+    </header>
+    
+    <div class="content">
+        <div class="section">
+            <h2>섹션 1 - GFC 소개</h2>
+            <p>이 페이지는 헤더가 스크롤 시 사라지는 문제를 테스트하기 위한 페이지입니다.</p>
+            <p>페이지를 아래로 스크롤해보세요.</p>
+        </div>
+        
+        <div class="section">
+            <h2>섹션 2 - 채용 정보</h2>
+            <p>헤더가 계속 보이는지 확인하세요.</p>
+        </div>
+        
+        <div class="section">
+            <h2>섹션 3 - 채용설명회 일정</h2>
+            <p>현재 스크롤 위치에서도 헤더가 보여야 합니다.</p>
+        </div>
+        
+        <div class="section">
+            <h2>섹션 4 - FAQ</h2>
+            <p>헤더의 position: fixed가 정상 작동하는지 확인합니다.</p>
+        </div>
+    </div>
+    
+    <div class="info-box" id="infoBox">
+        <h3>📊 헤더 상태</h3>
+        <p id="scrollPos">스크롤 위치: 0px</p>
+        <p id="headerVisible">헤더 표시: ✅</p>
+        <p id="headerPosition">헤더 위치: 0px</p>
+        <p id="headerDisplay">Display: block</p>
+    </div>
+    
+    <script>
+        const header = document.getElementById('mainHeader');
+        const infoBox = document.getElementById('infoBox');
+        
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const headerRect = header.getBoundingClientRect();
+            const headerStyle = window.getComputedStyle(header);
+            
+            // 정보 업데이트
+            document.getElementById('scrollPos').textContent = `스크롤 위치: ${scrollY.toFixed(0)}px`;
+            document.getElementById('headerVisible').textContent = `헤더 표시: ${headerRect.top >= -100 && headerRect.top <= 100 ? '✅' : '❌'}`;
+            document.getElementById('headerPosition').textContent = `헤더 위치: ${headerRect.top.toFixed(0)}px`;
+            document.getElementById('headerDisplay').textContent = `Display: ${headerStyle.display}`;
+            
+            console.log(`스크롤: ${scrollY}px, 헤더 top: ${headerRect.top}px, display: ${headerStyle.display}`);
+        });
+        
+        console.log('✅ 헤더 스크롤 테스트 페이지 로드 완료');
+        console.log('📍 페이지를 스크롤하면서 헤더 상태를 확인하세요');
+    </script>
+</body>
+</html>

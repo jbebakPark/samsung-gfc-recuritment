@@ -5,12 +5,56 @@
    ============================================ */
 
 /* ============================================
-   0. 모바일 드롭다운 메뉴 FIX
+   0. 모바일 드롭다운 메뉴 FIX & 햄버거 메뉴 가시성 개선
    ============================================ */
 @media (max-width: 1024px) {
+    /* 네비게이션 메뉴 기본 숨김 - visibility로 제어 */
+    .nav-menu {
+        display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgb(255, 255, 255);
+        backdrop-filter: none;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem 1.5rem;
+        overflow-y: auto;
+        z-index: 9999;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease-out, transform 0.3s ease-out;
+        transform: translateY(-20px);
+    }
+    
     /* 모바일 메뉴가 열렸을 때 */
     .nav-menu.active {
-        display: block !important;
+        display: flex !important;
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* 햄버거 버튼 항상 표시 */
+    .mobile-menu-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        padding: 0.5rem;
+        min-width: 48px;
+        min-height: 48px;
+        z-index: 1001;
+        transition: all 0.3s ease;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     
     /* 드롭다운 메뉴 - mobile-dropdown-enhanced.css가 우선하도록 주석 처리 */
