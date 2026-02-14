@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자료실 관리 - 삼성생명 GFC</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #034EA2;
+            --secondary-color: #1D74C6;
+            --accent-color: #FF6B35;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --bg-light: #F8F9FA;
+            --white: #FFFFFF;
+            --border-color: #E0E0E0;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --gradient-primary: linear-gradient(135deg, #034EA2 0%, #1D74C6 100%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+
+        .admin-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            font-size: 2rem;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .admin-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .admin-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .admin-nav a.active {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .section-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 1rem;
+            background: var(--bg-light);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-input-label:hover {
+            border-color: var(--primary-color);
+            background: #e3f2fd;
+        }
+
+        .file-input-label i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .file-info {
+            margin-top: 0.5rem;
+            padding: 0.75rem;
+            background: #e3f2fd;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .file-info.active {
+            display: block;
+        }
+
+        .progress-wrapper {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .progress-wrapper.active {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: var(--bg-light);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:disabled {
+            background: var(--border-color);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .resources-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .resource-item {
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .resource-item:hover {
+            box-shadow: var(--shadow-sm);
+            transform: translateX(4px);
+        }
+
+        .resource-info {
+            flex: 1;
+        }
+
+        .resource-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .resource-meta {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .resource-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        .category-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        .badge-brochure {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-training {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .badge-case-study {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .badge-video {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert.active {
+            display: block;
+        }
+
+        .alert-success {
+            background: #d1e7dd;
+            color: #0a3622;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+            opacity: 0.3;
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .admin-nav {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .admin-nav a {
+                text-align: center;
+            }
+
+            .resource-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .resource-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Header -->
+        <div class="admin-header">
+            <div>
+                <h1><i class="fas fa-folder-open"></i> 자료실 관리</h1>
+                <p>파일 업로드 및 관리</p>
+            </div>
+            <nav class="admin-nav">
+                <a href="index.html"><i class="fas fa-tachometer-alt"></i> 대시보드</a>
+                <a href="applications.html">지원자 관리</a>
+                <a href="resources.html" class="active">자료실 관리</a>
+                <a href="../index.html"><i class="fas fa-home"></i> 메인</a>
+            </nav>
+        </div>
+
+        <!-- Alert Messages -->
+        <div id="alert-success" class="alert alert-success">
+            <i class="fas fa-check-circle"></i> <span id="success-message"></span>
+        </div>
+        <div id="alert-error" class="alert alert-error">
+            <i class="fas fa-exclamation-circle"></i> <span id="error-message"></span>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Upload Form -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    자료 업로드
+                </h2>
+
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label for="fileInput">
+                            <i class="fas fa-file"></i> 파일 선택
+                            <small style="color: var(--text-light);">(PDF, DOCX, PPTX, MP4)</small>
+                        </label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="fileInput" 
+                                   accept=".pdf,.docx,.pptx,.mp4" 
+                                   required>
+                            <div class="file-input-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>파일을 드래그하거나 클릭하여 선택하세요</p>
+                                <small style="color: var(--text-light);">
+                                    최대 100MB
+                                </small>
+                            </div>
+                        </div>
+                        <div id="fileInfo" class="file-info"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="titleInput">
+                            <i class="fas fa-heading"></i> 제목
+                        </label>
+                        <input type="text" id="titleInput" 
+                               placeholder="자료 제목을 입력하세요" 
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descInput">
+                            <i class="fas fa-align-left"></i> 설명
+                        </label>
+                        <textarea id="descInput" 
+                                  placeholder="자료에 대한 설명을 입력하세요"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categorySelect">
+                            <i class="fas fa-tags"></i> 카테고리
+                        </label>
+                        <select id="categorySelect" required>
+                            <option value="">카테고리 선택</option>
+                            <option value="brochure">브로셔</option>
+                            <option value="training">교육 자료</option>
+                            <option value="case-study">성공 사례</option>
+                            <option value="video">영상 자료</option>
+                        </select>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div id="progressWrapper" class="progress-wrapper">
+                        <p style="margin-bottom: 0.5rem; font-weight: 600;">업로드 중...</p>
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill">0%</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="uploadBtn">
+                        <i class="fas fa-upload"></i> 업로드
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                        <i class="fas fa-redo"></i> 초기화
+                    </button>
+                </form>
+            </div>
+
+            <!-- Resources List -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="fas fa-list"></i>
+                    업로드된 자료
+                    <button class="btn btn-sm btn-secondary" onclick="loadResources()" style="margin-left: auto;">
+                        <i class="fas fa-sync-alt"></i> 새로고침
+                    </button>
+                </h2>
+
+                <div id="resourcesList" class="resources-list">
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <p>자료를 불러오는 중...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase & Storage Config -->
+    <script src="../js/env-loader.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/storage-config.js"></script>
+    <script src="resources-upload.js"></script>
+</body>
+
+</html>
