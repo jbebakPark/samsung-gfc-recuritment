@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="삼성생명 GFC 기업재무컨설턴트 채용 - 정년 없는 전문직, 새로운 인생 2막을 시작하세요">
     <title>삼성생명 GFC 채용 | 기업재무컨설턴트 모집</title>
-    <link rel="stylesheet" href="css/style.css?v=14.1">
-    <link rel="stylesheet" href="css/mobile-final-fix.css?v=2.0">
-    <link rel="stylesheet" href="css/mobile-menu-fix.css?v=2.0">
+    
+    <!-- 🚀 Critical CSS - 인라인 삽입으로 초기 렌더링 속도 향상 -->
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Noto Sans KR',sans-serif;line-height:1.6;color:#333;background:#fff}.header{position:fixed;top:0;width:100%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.1);z-index:1000}.navbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem}.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#034EA2 0%,#0066CC 100%);color:#fff}@media(max-width:768px){.navbar{padding:0.5rem 1rem}.hero{min-height:80vh}}
+    </style>
     
     <!-- 🚨 v27.0 인라인 스타일 - 캐시 우회 -->
     <style>
@@ -109,24 +111,30 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     
-    <!-- 성능 최적화 CSS -->
-    <link rel="stylesheet" href="css/performance.css?v=1.0">
+    <!-- 🚀 최적화된 CSS 파일 (지연 로딩) -->
+    <link rel="preload" href="optimized/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="optimized/css/mobile-final-fix.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="optimized/css/mobile-menu-fix.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="optimized/css/official-form-v31.0.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="optimized/css/performance.css">
+    <link rel="stylesheet" href="optimized/css/error-handler.css">
     
-    <!-- 에러 핸들러 CSS (Phase 3-A) -->
-    <link rel="stylesheet" href="css/error-handler.css?v=1.0">
+    <!-- CSS 지연 로딩 폴백 -->
+    <noscript>
+        <link rel="stylesheet" href="optimized/css/style.css">
+        <link rel="stylesheet" href="optimized/css/mobile-final-fix.css">
+        <link rel="stylesheet" href="optimized/css/mobile-menu-fix.css">
+        <link rel="stylesheet" href="optimized/css/official-form-v31.0.css">
+    </noscript>
     
     <!-- Firebase SDK (v9 compat mode) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     
-    <!-- 환경 변수 로더 (Phase 3-A) -->
-    <script src="js/env-loader.js?v=1.0"></script>
-    
-    <!-- Firebase 설정 (Phase 3-A) -->
-    <script src="js/firebase-config.js?v=1.0"></script>
-    
-    <!-- 에러 핸들러 (Phase 3-A) -->
-    <script src="js/error-handler.js?v=1.0"></script>
+    <!-- 🚀 최적화된 JavaScript (Phase 3-A) -->
+    <script src="optimized/js/env-loader.js" defer></script>
+    <script src="optimized/js/firebase-config.js" defer></script>
+    <script src="optimized/js/error-handler.js" defer></script>
 </head>
 
 <body>
@@ -3352,12 +3360,11 @@
         </button>
     </div>
 
-    <!-- mobile-complete.js 비활성화 -->
-    <!-- <script src="js/mobile-complete.js?v=22.0"></script> -->
-    <script src="js/main.js?v=2.2"></script>
-    <script src="js/mobile-interactive.js?v=7.0"></script>
-    <script src="js/form-enhancements.js?v=7.0"></script>
-    <script src="js/official-form-v31.0.js?v=1.0"></script>
+    <!-- 🚀 최적화된 JavaScript 파일 (비동기 로딩) -->
+    <script src="optimized/js/main.js" defer></script>
+    <script src="optimized/js/mobile-interactive.js" defer></script>
+    <script src="optimized/js/form-enhancements.js" defer></script>
+    <script src="optimized/js/official-form-v31.0.js" defer></script>
     
     <!-- v23.0 인라인 스크립트 비활성화 - main.js가 대체 -->
     <!-- <script>
@@ -4086,7 +4093,10 @@
     </script>
     
     <!-- 성능 최적화 스크립트 -->
-    <script src="js/performance-optimization.js?v=1.0" defer></script>
+    <script src="optimized/js/performance-optimization.js" defer></script>
+    
+    <!-- 🚀 레이지 로딩 스크립트 -->
+    <script src="optimized/js/lazy-loading.min.js" defer></script>
     
     <!-- 스크롤 진행 표시 -->
     <div class="scroll-progress">
