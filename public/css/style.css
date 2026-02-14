@@ -95,6 +95,7 @@ body {
     display: flex;
     flex-direction: column;
     line-height: 1.2;
+    white-space: nowrap;
 }
 
 .logo-text .logo-samsung {
@@ -102,6 +103,7 @@ body {
     font-weight: 700;
     color: var(--primary-color);
     letter-spacing: -0.5px;
+    white-space: nowrap;
 }
 
 .logo-text .logo-sub {
@@ -6504,6 +6506,7 @@ body {
     gap: 0.75rem;
     font-weight: 700;
     letter-spacing: -0.5px;
+    white-space: nowrap;
 }
 
 /* 삼성생명 텍스트 */
@@ -6515,6 +6518,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    white-space: nowrap;
 }
 
 /* 구분선 */
@@ -6529,6 +6533,7 @@ body {
     font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-dark);
+    white-space: nowrap;
 }
 
 /* 네비게이션 로고 박스 개선 */
@@ -6589,10 +6594,12 @@ body {
 @media (max-width: 1024px) {
     .logo-text-brand {
         gap: 0.5rem;
+        white-space: nowrap;
     }
     
     .logo-samsung {
         font-size: 1.3rem;
+        white-space: nowrap;
     }
     
     .logo-divider {
@@ -6601,6 +6608,7 @@ body {
     
     .logo-gfc {
         font-size: 1.1rem;
+        white-space: nowrap;
     }
     
     .nav-brand {
@@ -6609,6 +6617,7 @@ body {
     
     .footer-brand .logo-samsung {
         font-size: 1.4rem;
+        white-space: nowrap;
     }
     
     .footer-brand .logo-divider {
@@ -6617,6 +6626,7 @@ body {
     
     .footer-brand .logo-gfc {
         font-size: 1.2rem;
+        white-space: nowrap;
     }
 }
 
@@ -6624,10 +6634,12 @@ body {
 @media (max-width: 360px) {
     .logo-text-brand {
         gap: 0.4rem;
+        white-space: nowrap;
     }
     
     .logo-samsung {
         font-size: 1.1rem;
+        white-space: nowrap;
     }
     
     .logo-divider {
@@ -6636,6 +6648,7 @@ body {
     
     .logo-gfc {
         font-size: 1rem;
+        white-space: nowrap;
     }
     
     .nav-brand {
