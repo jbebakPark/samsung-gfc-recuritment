@@ -79,6 +79,7 @@ body {
     cursor: pointer;
     transition: transform 0.3s ease;
     text-decoration: none;
+    flex-shrink: 0;
 }
 
 .nav-brand:hover {
@@ -3836,6 +3837,9 @@ body {
     /* 모바일 로고 최적화 */
     .nav-brand {
         gap: 10px;
+        padding: 0.5rem 0.8rem;
+        flex-shrink: 0;
+        max-width: none;
     }
 
     .logo {
@@ -3855,6 +3859,8 @@ body {
         justify-content: space-between;
         align-items: center;
         position: relative;
+        flex-wrap: nowrap;
+        gap: 0.5rem;
     }
     
     /* 모바일 메뉴 토글 버튼 */
@@ -6501,12 +6507,13 @@ body {
 
 /* 텍스트 로고 공통 스타일 */
 .logo-text-brand {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.75rem;
     font-weight: 700;
     letter-spacing: -0.5px;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* 삼성생명 텍스트 */
@@ -6544,6 +6551,8 @@ body {
     box-shadow: 0 2px 10px rgba(3, 78, 162, 0.12);
     border: 2px solid rgba(3, 78, 162, 0.15);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    max-width: none;
 }
 
 .nav-brand:hover {
@@ -6595,24 +6604,26 @@ body {
     .logo-text-brand {
         gap: 0.5rem;
         white-space: nowrap;
+        flex-shrink: 0;
     }
     
     .logo-samsung {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         white-space: nowrap;
     }
     
     .logo-divider {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     
     .logo-gfc {
-        font-size: 1.1rem;
+        font-size: 1rem;
         white-space: nowrap;
     }
     
     .nav-brand {
         padding: 0.5rem 1rem;
+        flex-shrink: 0;
     }
     
     .footer-brand .logo-samsung {
@@ -6633,26 +6644,28 @@ body {
 /* 초소형 모바일 (360px 이하) */
 @media (max-width: 360px) {
     .logo-text-brand {
-        gap: 0.4rem;
+        gap: 0.3rem;
         white-space: nowrap;
+        flex-shrink: 0;
     }
     
     .logo-samsung {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         white-space: nowrap;
     }
     
     .logo-divider {
-        font-size: 1rem;
+        font-size: 0.85rem;
     }
     
     .logo-gfc {
-        font-size: 1rem;
+        font-size: 0.9rem;
         white-space: nowrap;
     }
     
     .nav-brand {
-        padding: 0.4rem 0.8rem;
+        padding: 0.4rem 0.6rem;
+        flex-shrink: 0;
     }
 }
 /* GTC Schedule Box Styles */
