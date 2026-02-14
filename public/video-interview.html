@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비디오 인터뷰 - 삼성생명 GFC</title>
+    
+    <style>
+        :root {
+            --primary-color: #034EA2;
+            --secondary-color: #1D74C6;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --bg-light: #F8F9FA;
+            --white: #FFFFFF;
+            --success-color: #28A745;
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            color: var(--text-light);
+        }
+        
+        .interview-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        #video-preview {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+        
+        .btn-success {
+            background: var(--success-color);
+            color: var(--white);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: var(--white);
+        }
+        
+        .status {
+            text-align: center;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
+        .status.info {
+            background: #E3F2FD;
+            color: #1976D2;
+        }
+        
+        .status.success {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+        
+        .status.error {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+        
+        .questions {
+            margin-top: 2rem;
+        }
+        
+        .question-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .question-item h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .instructions {
+            background: #FFF3E0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .instructions h3 {
+            color: #E65100;
+            margin-bottom: 1rem;
+        }
+        
+        .instructions ul {
+            margin-left: 1.5rem;
+        }
+        
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+        
+        #upload-progress {
+            width: 100%;
+            height: 8px;
+            background: #E0E0E0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+            display: none;
+        }
+        
+        #upload-progress-bar {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎥 비디오 인터뷰</h1>
+            <p>삼성생명 GFC 채용 비디오 인터뷰 시스템</p>
+        </div>
+        
+        <div class="interview-section">
+            <div class="instructions">
+                <h3>📋 인터뷰 진행 안내</h3>
+                <ul>
+                    <li>카메라와 마이크 권한을 허용해주세요</li>
+                    <li>조용한 환경에서 진행해주세요</li>
+                    <li>각 질문당 2-3분 내외로 답변해주세요</li>
+                    <li>녹화 후 검토하고 재녹화 가능합니다</li>
+                    <li>모든 답변 완료 후 제출하세요</li>
+                </ul>
+            </div>
+            
+            <div id="status-message" class="status info">
+                시작 버튼을 클릭하여 인터뷰를 시작하세요
+            </div>
+            
+            <div class="video-container">
+                <video id="video-preview" autoplay muted playsinline></video>
+            </div>
+            
+            <div class="controls">
+                <button id="start-btn" class="btn btn-primary">🎬 카메라 시작</button>
+                <button id="record-btn" class="btn btn-success" disabled>⏺️ 녹화 시작</button>
+                <button id="stop-btn" class="btn btn-secondary" disabled>⏹️ 녹화 중지</button>
+                <button id="upload-btn" class="btn btn-primary" style="display:none;">📤 업로드</button>
+            </div>
+            
+            <div id="upload-progress">
+                <div id="upload-progress-bar"></div>
+            </div>
+            
+            <div class="questions">
+                <h2>인터뷰 질문</h2>
+                <div class="question-item">
+                    <h3>질문 1</h3>
+                    <p>GFC로 지원하게 된 동기와 이유를 말씀해주세요.</p>
+                </div>
+                <div class="question-item">
+                    <h3>질문 2</h3>
+                    <p>본인의 강점과 GFC 업무에 어떻게 활용할 수 있는지 설명해주세요.</p>
+                </div>
+                <div class="question-item">
+                    <h3>질문 3</h3>
+                    <p>향후 GFC로서의 목표와 비전을 말씀해주세요.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    
+    <script>
+        // Note: This is a basic implementation
+        // For production, use proper Firebase configuration
+        
+        let mediaStream = null;
+        let mediaRecorder = null;
+        let recordedChunks = [];
+        
+        const videoPreview = document.getElementById('video-preview');
+        const startBtn = document.getElementById('start-btn');
+        const recordBtn = document.getElementById('record-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        const uploadBtn = document.getElementById('upload-btn');
+        const statusMessage = document.getElementById('status-message');
+        const uploadProgress = document.getElementById('upload-progress');
+        const uploadProgressBar = document.getElementById('upload-progress-bar');
+        
+        function updateStatus(message, type = 'info') {
+            statusMessage.textContent = message;
+            statusMessage.className = `status ${type}`;
+        }
+        
+        // 카메라 시작
+        startBtn.addEventListener('click', async () => {
+            try {
+                mediaStream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    },
+                    audio: true
+                });
+                
+                videoPreview.srcObject = mediaStream;
+                videoPreview.muted = true;  // Preview는 음소거
+                
+                startBtn.disabled = true;
+                recordBtn.disabled = false;
+                updateStatus('카메라가 준비되었습니다. 녹화를 시작하세요.', 'success');
+            } catch (error) {
+                console.error('Camera error:', error);
+                updateStatus('카메라 접근 실패: ' + error.message, 'error');
+            }
+        });
+        
+        // 녹화 시작
+        recordBtn.addEventListener('click', () => {
+            recordedChunks = [];
+            
+            mediaRecorder = new MediaRecorder(mediaStream, {
+                mimeType: 'video/webm;codecs=vp9'
+            });
+            
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+            
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, {
+                    type: 'video/webm'
+                });
+                
+                // Preview 전환
+                videoPreview.srcObject = null;
+                videoPreview.src = URL.createObjectURL(blob);
+                videoPreview.muted = false;
+                videoPreview.controls = true;
+                
+                // 업로드 버튼 표시
+                uploadBtn.style.display = 'inline-block';
+                uploadBtn.onclick = () => uploadVideo(blob);
+                
+                updateStatus('녹화가 완료되었습니다. 영상을 확인하고 업로드하세요.', 'success');
+            };
+            
+            mediaRecorder.start();
+            recordBtn.disabled = true;
+            stopBtn.disabled = false;
+            updateStatus('🔴 녹화 중...', 'error');
+        });
+        
+        // 녹화 중지
+        stopBtn.addEventListener('click', () => {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                
+                // 카메라 스트림 중지
+                if (mediaStream) {
+                    mediaStream.getTracks().forEach(track => track.stop());
+                }
+                
+                recordBtn.disabled = false;
+                stopBtn.disabled = true;
+            }
+        });
+        
+        // 비디오 업로드 (Firebase Storage)
+        function uploadVideo(blob) {
+            // Note: Requires proper Firebase initialization
+            updateStatus('업로드 기능은 Firebase 설정 후 사용 가능합니다.', 'info');
+            
+            /*
+            // Firebase Storage 업로드 코드 예시
+            const timestamp = Date.now();
+            const fileName = `interviews/${timestamp}_interview.webm`;
+            const storageRef = firebase.storage().ref(fileName);
+            
+            const uploadTask = storageRef.put(blob);
+            
+            uploadProgress.style.display = 'block';
+            
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    uploadProgressBar.style.width = progress + '%';
+                    updateStatus(`업로드 중: ${Math.round(progress)}%`, 'info');
+                },
+                (error) => {
+                    console.error('Upload error:', error);
+                    updateStatus('업로드 실패: ' + error.message, 'error');
+                },
+                () => {
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        updateStatus('업로드 완료! 제출되었습니다.', 'success');
+                        console.log('Video URL:', downloadURL);
+                        
+                        // Firestore에 메타데이터 저장
+                        // ...
+                    });
+                }
+            );
+            */
+        }
+        
+        // 페이지 종료 시 카메라 정리
+        window.addEventListener('beforeunload', () => {
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+        });
+    </script>
+</body>
+</html>
