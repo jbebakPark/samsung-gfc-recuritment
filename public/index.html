@@ -17,6 +17,86 @@
     <link rel="stylesheet" href="css/official-form-v31.0.css?v=1.0">
     <link rel="stylesheet" href="css/official-form-v31.0.css?v=1.0">
     
+    <!-- 🚨 v32.0 모바일 로고 & 햄버거 메뉴 긴급 수정 -->
+    <style>
+        /* 🚨 모바일 네비게이션 강제 수정 */
+        @media (max-width: 768px) {
+            /* 네비게이션 컨테이너 */
+            .navbar .container {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                width: 100% !important;
+                padding: 0.5rem 1rem !important;
+                position: relative !important;
+            }
+            
+            /* 로고 브랜드 */
+            .nav-brand {
+                display: flex !important;
+                align-items: center !important;
+                flex: 1 !important;
+                justify-content: center !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            /* 로고 텍스트 브랜드 - 줄바꿈 절대 금지 */
+            .logo-text-brand {
+                display: flex !important;
+                align-items: center !important;
+                gap: 0.5rem !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
+            }
+            
+            .logo-samsung {
+                font-size: 1.1rem !important;
+                font-weight: 700 !important;
+                white-space: nowrap !important;
+                display: inline-block !important;
+            }
+            
+            .logo-divider {
+                font-size: 1rem !important;
+                margin: 0 0.3rem !important;
+                display: inline-block !important;
+            }
+            
+            .logo-gfc {
+                font-size: 1rem !important;
+                font-weight: 600 !important;
+                white-space: nowrap !important;
+                display: inline-block !important;
+            }
+            
+            /* 햄버거 메뉴 버튼 - 강제 표시 */
+            .mobile-menu-toggle {
+                display: flex !important;
+                position: absolute !important;
+                right: 1rem !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                background: none !important;
+                border: none !important;
+                font-size: 1.8rem !important;
+                color: #034EA2 !important;
+                cursor: pointer !important;
+                z-index: 1002 !important;
+                padding: 0.5rem !important;
+                width: 44px !important;
+                height: 44px !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            
+            .mobile-menu-toggle i {
+                font-size: 1.5rem !important;
+                display: block !important;
+            }
+        }
+    </style>
+    
     <!-- 🚨 v27.0 인라인 스타일 - 캐시 우회 -->
     <style>
         /* 보도자료 카드 텍스트 강제 스타일 */
