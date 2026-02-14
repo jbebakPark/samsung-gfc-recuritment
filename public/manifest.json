@@ -1,0 +1,27 @@
+{
+  "name": "삼성생명 GFC 채용",
+  "short_name": "GFC 채용",
+  "description": "삼성생명 GFC 기업재무컨설턴트 채용 사이트",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#034EA2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/samsung-life-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/samsung-life-logo-premium.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "finance", "recruitment"],
+  "lang": "ko",
+  "dir": "ltr"
+}

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    
+    <!-- 메인 페이지 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- GFC 소개 섹션 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#about</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- 왜 GFC인가 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#why</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- 채용 대상 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#target</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 채용 일정 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#schedule</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- GTC 교육 일정 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#gtc</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 연령 기준 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#age</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 채용 트랙 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#tracks</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- 채용 프로세스 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#process</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 주요 업무 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#duties</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 핵심 역량 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#competencies</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 경력 경로 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#career</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 지원 시스템 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#support</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 실제 인사이트 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#insights</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 성공 사례 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#success</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 보도자료 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#press</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 지원하기 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/#apply</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- 관리자 페이지 -->
+    <url>
+        <loc>https://samsung-gfc.web.app/admin/</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    
+</urlset>

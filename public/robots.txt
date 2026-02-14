@@ -1,0 +1,63 @@
+# robots.txt for Samsung Life GFC Recruitment Site
+# 생성일: 2026-02-14
+# 목적: 검색 엔진 크롤링 최적화
+
+# 모든 검색 엔진 허용
+User-agent: *
+Allow: /
+
+# 크롤링 제외 경로
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /firebase-config.js
+Disallow: /env-loader.js
+
+# 특정 파일 제외
+Disallow: /.git
+Disallow: /node_modules/
+Disallow: /.firebase/
+Disallow: /.env
+
+# 크롤 속도 제한 (초당 1개 요청)
+Crawl-delay: 1
+
+# Sitemap 위치
+Sitemap: https://samsung-gfc.web.app/sitemap.xml
+
+# Google 봇 특별 규칙
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Crawl-delay: 0.5
+
+# Naver 봇 특별 규칙
+User-agent: Yeti
+Allow: /
+Disallow: /admin/
+Crawl-delay: 0.5
+
+# Daum 봇 특별 규칙
+User-agent: Daumoa
+Allow: /
+Disallow: /admin/
+Crawl-delay: 0.5
+
+# Bing 봇 특별 규칙
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Crawl-delay: 0.5
+
+# 악의적 봇 차단
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
