@@ -7,6 +7,10 @@
     <title>GFC 지원서 제출 - 삼성생명</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <style>
         .application-page {
             min-height: 100vh;
@@ -592,15 +596,13 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="branch">지점명 <span class="required">*</span></label>
-                            <input type="text" id="branch" name="branch" required value="안산법인지점" readonly
-                                style="background-color: #f5f5f5;">
+                            <input type="text" id="branch" name="branch" required placeholder="예: 서초지점">
                             <div class="error-message">지점명을 입력해주세요.</div>
                         </div>
 
                         <div class="form-group">
                             <label for="recruiter">유치자 <span class="required">*</span></label>
-                            <input type="text" id="recruiter" name="recruiter" required value="박재박" readonly
-                                style="background-color: #f5f5f5;">
+                            <input type="text" id="recruiter" name="recruiter" required placeholder="예: 홍길동">
                             <div class="error-message">유치자를 입력해주세요.</div>
                         </div>
                     </div>
@@ -834,7 +836,9 @@
                             <label for="job_fair_date">참석 희망 잡페어 (Job Fair) <span class="required">*</span></label>
                             <select id="job_fair_date" name="job_fair_date">
                                 <option value="">일정을 선택하세요</option>
-                                <option value="2026-01-29">26.01.29(목) 10:30 - 용인 휴먼센터 323호</option>
+                                <option value="2026-02-20">26.02.20(목) 10:30 - 용인 휴먼센터 323호</option>
+                                <option value="2026-02-27">26.02.27(목) 14:00 - 서울 본사</option>
+                                <option value="2026-03-06">26.03.06(목) 10:30 - 부산 지점</option>
                                 <option value="future">추후 안내 (다음 일정 예약)</option>
                             </select>
                             <div class="error-message">참석 희망 일정을 선택해주세요.</div>
@@ -1001,6 +1005,8 @@
         </div>
     </div>
 
+    <script src="js/env-loader.js"></script>
+    <script src="js/firebase-config.js"></script>
     <script src="js/kakao-notification.js"></script>
     <script src="js/application.js"></script>
     <script src="js/applicant-manager.js"></script>
