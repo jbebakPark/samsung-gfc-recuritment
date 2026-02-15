@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>햄버거 메뉴 디버그</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .debug-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #034EA2;
+        }
+        
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #034EA2;
+            background: #e3f2fd;
+        }
+        
+        .success {
+            border-left-color: #4CAF50;
+            background: #e8f5e9;
+        }
+        
+        .error {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+        
+        button {
+            background: #034EA2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #02366b;
+        }
+        
+        .log {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        
+        .log-item {
+            margin: 2px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 햄버거 메뉴 디버그 도구</h1>
+    
+    <div class="debug-panel">
+        <h2>📱 현재 환경</h2>
+        <div class="status">
+            <strong>화면 크기:</strong> <span id="screenSize"></span>
+        </div>
+        <div class="status">
+            <strong>User Agent:</strong> <span id="userAgent"></span>
+        </div>
+        <div class="status">
+            <strong>현재 시간:</strong> <span id="currentTime"></span>
+        </div>
+    </div>
+    
+    <div class="debug-panel">
+        <h2>🧪 테스트 실행</h2>
+        <button onclick="testMainPage()">메인 페이지에서 테스트</button>
+        <button onclick="testSimple()">간단한 테스트</button>
+        <button onclick="clearLogs()">로그 지우기</button>
+        
+        <div class="log" id="logContainer"></div>
+    </div>
+    
+    <div class="debug-panel">
+        <h2>📋 체크리스트</h2>
+        <div id="checklist"></div>
+    </div>
+    
+    <script>
+        const logContainer = document.getElementById('logContainer');
+        const checklist = document.getElementById('checklist');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString('ko-KR');
+            const logItem = document.createElement('div');
+            logItem.className = 'log-item';
+            
+            let icon = '💬';
+            if (type === 'success') icon = '✅';
+            if (type === 'error') icon = '❌';
+            if (type === 'warning') icon = '⚠️';
+            
+            logItem.textContent = `[${timestamp}] ${icon} ${message}`;
+            logContainer.appendChild(logItem);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        function clearLogs() {
+            logContainer.innerHTML = '';
+            log('로그가 지워졌습니다', 'info');
+        }
+        
+        function updateStatus() {
+            document.getElementById('screenSize').textContent = 
+                `${window.innerWidth}x${window.innerHeight}px`;
+            document.getElementById('userAgent').textContent = 
+                navigator.userAgent.substring(0, 100) + '...';
+            document.getElementById('currentTime').textContent = 
+                new Date().toLocaleString('ko-KR');
+        }
+        
+        function testMainPage() {
+            log('메인 페이지 테스트 시작...', 'info');
+            
+            // iframe으로 메인 페이지 로드
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = '/index.html?nocache=' + Date.now();
+            
+            iframe.onload = function() {
+                log('메인 페이지 로드 완료', 'success');
+                
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // 요소 찾기
+                    const menuToggle = iframeDoc.querySelector('.mobile-menu-toggle');
+                    const navMenu = iframeDoc.querySelector('.nav-menu');
+                    const dropdowns = iframeDoc.querySelectorAll('.nav-dropdown');
+                    
+                    log(`햄버거 버튼: ${menuToggle ? '발견 ✅' : '없음 ❌'}`, menuToggle ? 'success' : 'error');
+                    log(`네비 메뉴: ${navMenu ? '발견 ✅' : '없음 ❌'}`, navMenu ? 'success' : 'error');
+                    log(`드롭다운 개수: ${dropdowns.length}개`, dropdowns.length > 0 ? 'success' : 'error');
+                    
+                    if (menuToggle) {
+                        // 클릭 이벤트 시뮬레이션
+                        log('햄버거 버튼 클릭 시뮬레이션...', 'info');
+                        menuToggle.click();
+                        
+                        setTimeout(() => {
+                            const isActive = navMenu.classList.contains('active');
+                            log(`메뉴 상태: ${isActive ? '열림 ✅' : '닫힘 ❌'}`, isActive ? 'success' : 'error');
+                            
+                            if (isActive) {
+                                dropdowns.forEach((dropdown, index) => {
+                                    const menu = dropdown.querySelector('.dropdown-menu');
+                                    const isVisible = menu && (menu.style.display === 'block' || menu.classList.contains('show'));
+                                    const itemCount = menu ? menu.querySelectorAll('li').length : 0;
+                                    
+                                    log(`드롭다운 ${index + 1}: ${isVisible ? '표시됨 ✅' : '숨겨짐 ❌'} (${itemCount}개 항목)`, 
+                                        isVisible ? 'success' : 'error');
+                                });
+                            }
+                            
+                            document.body.removeChild(iframe);
+                        }, 500);
+                    }
+                } catch (e) {
+                    log(`오류 발생: ${e.message}`, 'error');
+                    document.body.removeChild(iframe);
+                }
+            };
+            
+            iframe.onerror = function() {
+                log('메인 페이지 로드 실패', 'error');
+                document.body.removeChild(iframe);
+            };
+            
+            document.body.appendChild(iframe);
+        }
+        
+        function testSimple() {
+            log('간단한 테스트 시작...', 'info');
+            log('JavaScript 실행: ✅', 'success');
+            log('DOM 조작 가능: ✅', 'success');
+            log('setProperty 테스트...', 'info');
+            
+            const testDiv = document.createElement('div');
+            testDiv.style.setProperty('display', 'block', 'important');
+            log(`setProperty with important: ${testDiv.style.display === 'block' ? '성공 ✅' : '실패 ❌'}`, 
+                testDiv.style.display === 'block' ? 'success' : 'error');
+        }
+        
+        function runChecklist() {
+            const checks = [
+                { name: 'JavaScript 활성화', check: () => true },
+                { name: 'CSS 로드', check: () => document.styleSheets.length > 0 },
+                { name: 'DOM 준비', check: () => document.readyState === 'complete' },
+                { name: 'querySelector 지원', check: () => typeof document.querySelector === 'function' },
+                { name: 'classList 지원', check: () => 'classList' in document.createElement('div') },
+                { name: 'setProperty 지원', check: () => typeof document.createElement('div').style.setProperty === 'function' }
+            ];
+            
+            checklist.innerHTML = '';
+            checks.forEach(item => {
+                const result = item.check();
+                const div = document.createElement('div');
+                div.className = result ? 'status success' : 'status error';
+                div.innerHTML = `<strong>${item.name}:</strong> ${result ? '✅ 정상' : '❌ 실패'}`;
+                checklist.appendChild(div);
+            });
+        }
+        
+        // 초기화
+        updateStatus();
+        runChecklist();
+        log('디버그 도구 초기화 완료', 'success');
+        
+        // 주기적으로 업데이트
+        setInterval(updateStatus, 1000);
+    </script>
+</body>
+</html>

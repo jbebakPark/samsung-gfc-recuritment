@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR 코드 - 삼성생명 GFC 테스트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #034EA2 0%, #1D74C6 100%);
+            color: white;
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            background: white;
+            color: #333;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 600px;
+        }
+        
+        h1 {
+            color: #034EA2;
+            margin-bottom: 10px;
+        }
+        
+        .qr-code {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            display: inline-block;
+        }
+        
+        .qr-code img {
+            max-width: 300px;
+            height: auto;
+        }
+        
+        .url {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 14px;
+            color: #034EA2;
+        }
+        
+        .button {
+            display: inline-block;
+            background: #034EA2;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .button:hover {
+            background: #023675;
+            transform: translateY(-2px);
+        }
+        
+        .instructions {
+            text-align: left;
+            margin-top: 30px;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 8px;
+        }
+        
+        .instructions h3 {
+            color: #034EA2;
+            margin-top: 0;
+        }
+        
+        .instructions ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 삼성생명 GFC 채용 사이트</h1>
+        <p>햄버거 메뉴 테스트 페이지</p>
+        
+        <div class="qr-code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://8080-ixoh3xzot57hcn4zfrefy-5634da27.sandbox.novita.ai/" alt="QR Code">
+        </div>
+        
+        <div class="url">
+            https://8080-ixoh3xzot57hcn4zfrefy-5634da27.sandbox.novita.ai/
+        </div>
+        
+        <a href="https://8080-ixoh3xzot57hcn4zfrefy-5634da27.sandbox.novita.ai/" class="button">
+            🔗 직접 이동하기
+        </a>
+        
+        <a href="https://8080-ixoh3xzot57hcn4zfrefy-5634da27.sandbox.novita.ai/?v=1770910191" class="button">
+            🔄 캐시 우회 접속
+        </a>
+        
+        <div class="instructions">
+            <h3>📋 테스트 방법</h3>
+            <ol>
+                <li><strong>모바일에서:</strong> 위의 QR 코드를 카메라로 스캔</li>
+                <li><strong>PC에서:</strong> 위의 "직접 이동하기" 버튼 클릭</li>
+                <li><strong>브라우저 크기를 작게</strong> 조절하여 모바일 뷰 확인</li>
+                <li>우측 상단에 <strong>☰ 햄버거 버튼</strong> 확인</li>
+                <li>클릭하면 <strong>4개 드롭다운 메뉴가 자동으로 펼쳐짐</strong></li>
+            </ol>
+            
+            <h3>✅ 확인 사항</h3>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>✔️ 파란색 배경 페이지</li>
+                <li>✔️ "정년 없는 전문직, 삼성생명 GFC..." 텍스트</li>
+                <li>✔️ 315.7조, 5,000+, 212.8%, 816만 통계</li>
+                <li>✔️ 우측 상단 햄버거 버튼 ☰</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

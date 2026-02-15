@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS approved_users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  role VARCHAR(50) DEFAULT 'viewer',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE approved_users ENABLE ROW LEVEL SECURITY;

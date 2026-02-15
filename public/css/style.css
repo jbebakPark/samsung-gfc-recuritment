@@ -204,7 +204,19 @@ body {
         transform: translateY(-10px);
         transition: all 0.3s ease;
         z-index: 1000;
-        margin-top: 0.5rem;
+        margin-top: 0;
+        /* 간격 제거하여 hover 영역 연결 */
+    }
+    
+    /* 드롭다운 메뉴 상단에 보이지 않는 hover 영역 추가 */
+    .dropdown-menu::before {
+        content: '';
+        position: absolute;
+        top: -0.5rem;
+        left: 0;
+        right: 0;
+        height: 0.5rem;
+        background: transparent;
     }
 
     .dropdown-menu li {
@@ -2650,6 +2662,10 @@ body {
     font-weight: 600;
     margin-bottom: 1rem;
     align-self: flex-start;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    max-width: fit-content;
 }
 
 .press-section .press-badge.news {
@@ -2707,6 +2723,10 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 .press-section .press-company::before {
@@ -6241,8 +6261,15 @@ body {
     .nav-dropdown.active .dropdown-menu,
     .dropdown-menu.show {
         display: block !important;
-        max-height: 500px;
-        padding: 0.5rem;
+        max-height: 500px !important;
+        padding: 0.5rem !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* 모바일 메뉴 열렸을 때 드롭다운 토글도 항상 표시 */
+    .nav-menu.active .dropdown-toggle {
+        display: flex !important;
     }
     
     .dropdown-menu li {
@@ -6726,5 +6753,163 @@ body {
     color: #034EA2;
     min-width: 120px;
     display: inline-block;
+}
+
+/* ========================================
+   로고 & 햄버거 버튼 스타일 개선 (2026-02-14)
+   ======================================== */
+
+/* 로고 이미지 스타일 */
+.logo-img {
+    height: 45px;
+    width: auto;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.nav-brand:hover .logo-img {
+    filter: drop-shadow(0 4px 8px rgba(3, 78, 162, 0.2));
+    transform: scale(1.05);
+}
+
+/* 네비게이션 브랜드 개선 */
+.nav-brand {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.98);
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(3, 78, 162, 0.12);
+    border: 2px solid rgba(3, 78, 162, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 로고 텍스트 브랜드 개선 */
+.logo-text-brand {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.logo-text-brand .logo-gfc {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    white-space: nowrap;
+}
+
+/* 햄버거 버튼 개선 스타일 */
+.mobile-menu-toggle {
+    display: none;
+    background: linear-gradient(135deg, #034EA2 0%, #1D74C6 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    font-size: 1.5rem;
+    color: #FFFFFF !important;
+    cursor: pointer;
+    position: relative;
+    z-index: 1002;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(3, 78, 162, 0.3);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu-toggle:hover {
+    background: linear-gradient(135deg, #1D74C6 0%, #034EA2 100%);
+    box-shadow: 0 4px 12px rgba(3, 78, 162, 0.4);
+    transform: translateY(-2px);
+}
+
+.mobile-menu-toggle:active {
+    transform: scale(0.95) translateY(0);
+    box-shadow: 0 2px 6px rgba(3, 78, 162, 0.3);
+}
+
+.mobile-menu-toggle i {
+    color: #FFFFFF !important;
+    font-size: 1.5rem;
+}
+
+/* 모바일 반응형 스타일 */
+@media (max-width: 1024px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .logo-img {
+        height: 40px;
+    }
+    
+    .logo-text-brand .logo-gfc {
+        font-size: 1.1rem;
+    }
+    
+    .nav-brand {
+        padding: 0.5rem 1rem;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        height: 35px;
+    }
+    
+    .logo-text-brand .logo-gfc {
+        font-size: 1rem;
+    }
+    
+    .nav-brand {
+        padding: 0.4rem 0.8rem;
+        gap: 8px;
+    }
+    
+    .mobile-menu-toggle {
+        padding: 0.6rem 0.8rem;
+        font-size: 1.4rem;
+    }
+    
+    .mobile-menu-toggle i {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-img {
+        height: 32px;
+    }
+    
+    .logo-text-brand .logo-gfc {
+        font-size: 0.95rem;
+    }
+    
+    .nav-brand {
+        padding: 0.4rem 0.7rem;
+        gap: 6px;
+    }
+    
+    .mobile-menu-toggle {
+        padding: 0.5rem 0.7rem;
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .logo-img {
+        height: 28px;
+    }
+    
+    .logo-text-brand .logo-gfc {
+        font-size: 0.9rem;
+    }
+    
+    .nav-brand {
+        padding: 0.3rem 0.6rem;
+        gap: 5px;
+    }
 }
 

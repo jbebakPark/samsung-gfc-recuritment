@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>모바일 메뉴 테스트</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #034EA2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .status {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        
+        /* 햄버거 버튼 스타일 */
+        .mobile-menu-toggle {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border: 4px solid #034EA2;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-toggle:active {
+            transform: scale(0.95);
+            background: #034EA2;
+        }
+        
+        .mobile-menu-toggle:active i {
+            color: white !important;
+        }
+        
+        .mobile-menu-toggle i {
+            font-size: 28px;
+            color: #034EA2;
+        }
+        
+        /* 모바일 메뉴 */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+        
+        .nav-menu.active {
+            display: flex;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .nav-menu ul {
+            list-style: none;
+            text-align: center;
+        }
+        
+        .nav-menu li {
+            margin: 20px 0;
+        }
+        
+        .nav-menu a {
+            color: #034EA2;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 600;
+            display: block;
+            padding: 15px 30px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-menu a:active {
+            background: #034EA2;
+            color: white;
+        }
+        
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .instruction {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .instruction h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .instruction p {
+            color: #856404;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- 햄버거 버튼 -->
+    <button class="mobile-menu-toggle" id="menuToggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- 모바일 메뉴 -->
+    <nav class="nav-menu" id="navMenu">
+        <button class="close-btn" onclick="closeMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul>
+            <li><a href="#" onclick="alert('메뉴 1 클릭!'); return false;">메뉴 항목 1</a></li>
+            <li><a href="#" onclick="alert('메뉴 2 클릭!'); return false;">메뉴 항목 2</a></li>
+            <li><a href="#" onclick="alert('메뉴 3 클릭!'); return false;">메뉴 항목 3</a></li>
+            <li><a href="#" onclick="alert('메뉴 4 클릭!'); return false;">메뉴 항목 4</a></li>
+        </ul>
+    </nav>
+    
+    <div class="test-container">
+        <h1>🍔 모바일 메뉴 테스트</h1>
+        
+        <div class="instruction">
+            <h3>📱 테스트 방법:</h3>
+            <p>
+                1. 화면 우측 상단에 <strong>파란색 테두리의 햄버거 버튼(☰)</strong>이 보이나요?<br>
+                2. 버튼을 터치하면 전체 화면 메뉴가 열립니다<br>
+                3. 빨간색 X 버튼 또는 뒤로가기로 메뉴를 닫습니다<br>
+                4. 메뉴 항목을 터치하면 알림이 나타납니다
+            </p>
+        </div>
+        
+        <div class="status" id="status">
+            <strong>🔍 상태:</strong> 버튼 테스트 대기 중...
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #e7f3ff; border-radius: 10px;">
+            <h3 style="color: #034EA2; margin-bottom: 10px;">✅ 체크리스트:</h3>
+            <ul style="line-height: 2; color: #333;">
+                <li>햄버거 버튼이 보이는가?</li>
+                <li>버튼을 클릭할 수 있는가?</li>
+                <li>메뉴가 정상적으로 열리는가?</li>
+                <li>X 버튼으로 메뉴가 닫히는가?</li>
+                <li>뒤로가기 버튼으로 메뉴가 닫히는가?</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="index-mobile-test.html" style="display: inline-block; padding: 15px 30px; background: #034EA2; color: white; text-decoration: none; border-radius: 10px; font-weight: 600;">
+                실제 페이지로 이동 →
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const toggle = document.getElementById('menuToggle');
+            const status = document.getElementById('status');
+            
+            menu.classList.toggle('active');
+            
+            if (menu.classList.contains('active')) {
+                toggle.style.display = 'none';
+                status.className = 'status success';
+                status.innerHTML = '<strong>✅ 성공!</strong> 메뉴가 열렸습니다!';
+                
+                // Add history state
+                window.history.pushState({menuOpen: true}, '', window.location.href);
+            } else {
+                toggle.style.display = 'flex';
+                status.className = 'status';
+                status.innerHTML = '<strong>🔍 상태:</strong> 메뉴가 닫혔습니다.';
+            }
+        }
+        
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const toggle = document.getElementById('menuToggle');
+            
+            menu.classList.remove('active');
+            toggle.style.display = 'flex';
+            
+            // Remove history state
+            if (window.history.state && window.history.state.menuOpen) {
+                window.history.back();
+            }
+        }
+        
+        // Handle back button
+        window.addEventListener('popstate', (e) => {
+            const menu = document.getElementById('navMenu');
+            if (menu.classList.contains('active')) {
+                closeMenu();
+                e.preventDefault();
+                window.history.pushState(null, '', window.location.href);
+            }
+        });
+        
+        // Log on load
+        console.log('✅ 모바일 메뉴 테스트 페이지 로드 완료');
+        console.log('📱 화면 너비:', window.innerWidth);
+        console.log('📱 화면 높이:', window.innerHeight);
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모바일 메뉴 테스트</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+        
+        .nav-brand {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #034EA2;
+        }
+        
+        .mobile-menu-toggle {
+            display: flex;
+            background: none;
+            border: 2px solid #034EA2;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            color: #034EA2;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .nav-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            padding: 1rem;
+            overflow-y: auto;
+            z-index: 999;
+        }
+        
+        .nav-menu.active {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .nav-dropdown {
+            width: 100%;
+        }
+        
+        .dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(3, 78, 162, 0.1);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #034EA2;
+            cursor: pointer;
+            text-align: left;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            background: #f5f5f5;
+            margin-top: 0.5rem;
+            border-radius: 8px;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+            max-height: 500px;
+            padding: 0.5rem;
+        }
+        
+        .dropdown-menu li {
+            list-style: none;
+            margin: 0.25rem 0;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            background: white;
+            border-radius: 6px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: #034EA2;
+            color: white;
+        }
+        
+        .content {
+            margin-top: 80px;
+            padding: 2rem 1rem;
+        }
+        
+        .status {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .status-item {
+            margin: 0.5rem 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">삼성생명 GFC</div>
+                <button class="mobile-menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <ul class="nav-menu" id="navMenu">
+        <li class="nav-dropdown">
+            <button class="dropdown-toggle">
+                GFC 소개 <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#about">GFC란?</a></li>
+                <li><a href="#why-join">왜 GFC인가</a></li>
+                <li><a href="#target">지원 대상</a></li>
+                <li><a href="#video">GFC 소개영상</a></li>
+                <li><a href="#insights">GFC 인사이트</a></li>
+            </ul>
+        </li>
+        <li class="nav-dropdown">
+            <button class="dropdown-toggle">
+                채용 정보 <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#fair">채용설명회</a></li>
+                <li><a href="#training">GTC 교육 일정</a></li>
+                <li><a href="#age">연령 기준</a></li>
+                <li><a href="#tracks">채용 트랙</a></li>
+                <li><a href="#process">채용 프로세스</a></li>
+            </ul>
+        </li>
+        <li class="nav-dropdown">
+            <button class="dropdown-toggle">
+                업무 안내 <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#duties">주요 업무</a></li>
+                <li><a href="#wealth">종합자산관리</a></li>
+                <li><a href="#competencies">핵심 역량</a></li>
+            </ul>
+        </li>
+    </ul>
+    
+    <div class="content">
+        <div class="status">
+            <h2>📱 모바일 메뉴 테스트</h2>
+            <div class="status-item">화면 너비: <span id="screenWidth"></span>px</div>
+            <div class="status-item">메뉴 상태: <span id="menuStatus">닫힘</span></div>
+            <div class="status-item">드롭다운 개수: <span id="dropdownCount">0</span></div>
+        </div>
+        
+        <h2>테스트 방법:</h2>
+        <ol>
+            <li>위의 햄버거 버튼(☰)을 클릭하세요</li>
+            <li>메뉴가 열리면서 모든 서브메뉴가 자동으로 표시되어야 합니다</li>
+            <li>GFC 소개 (5개), 채용 정보 (5개), 업무 안내 (3개) 링크가 보여야 합니다</li>
+        </ol>
+    </div>
+    
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const screenWidth = document.getElementById('screenWidth');
+        const menuStatus = document.getElementById('menuStatus');
+        const dropdownCount = document.getElementById('dropdownCount');
+        
+        // 화면 크기 표시
+        function updateScreenWidth() {
+            screenWidth.textContent = window.innerWidth;
+        }
+        updateScreenWidth();
+        window.addEventListener('resize', updateScreenWidth);
+        
+        // 햄버거 메뉴 토글
+        menuToggle.addEventListener('click', function() {
+            const isActive = navMenu.classList.toggle('active');
+            const icon = this.querySelector('i');
+            
+            // 아이콘 변경
+            if (icon) {
+                icon.classList.toggle('fa-bars', !isActive);
+                icon.classList.toggle('fa-times', isActive);
+            }
+            
+            // 상태 업데이트
+            menuStatus.textContent = isActive ? '열림 ✅' : '닫힘 ❌';
+            
+            if (isActive) {
+                // 모든 드롭다운 자동으로 열기
+                const allDropdowns = navMenu.querySelectorAll('.nav-dropdown');
+                let count = 0;
+                
+                allDropdowns.forEach(dropdown => {
+                    dropdown.classList.add('active');
+                    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                    if (dropdownMenu) {
+                        dropdownMenu.classList.add('show');
+                        dropdownMenu.style.display = 'block';
+                        dropdownMenu.style.maxHeight = '1000px';
+                        dropdownMenu.style.padding = '0.5rem';
+                        count++;
+                    }
+                });
+                
+                dropdownCount.textContent = count + '개 자동 열림 ✅';
+                console.log('✅ 모든 드롭다운 자동 열림:', count);
+            } else {
+                // 모든 드롭다운 닫기
+                const allDropdowns = navMenu.querySelectorAll('.nav-dropdown');
+                allDropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                    if (dropdownMenu) {
+                        dropdownMenu.classList.remove('show');
+                        dropdownMenu.style.display = 'none';
+                    }
+                });
+                
+                dropdownCount.textContent = '0개';
+                console.log('❌ 모든 드롭다운 닫힘');
+            }
+        });
+        
+        // 드롭다운 토글 (개별 클릭)
+        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const dropdown = this.closest('.nav-dropdown');
+                const menu = dropdown.querySelector('.dropdown-menu');
+                
+                // 이미 모두 열려있지만 개별 토글도 가능하게
+                const isOpen = menu.classList.contains('show');
+                if (isOpen) {
+                    menu.classList.remove('show');
+                    menu.style.display = 'none';
+                    console.log('드롭다운 닫기:', this.textContent.trim());
+                } else {
+                    menu.classList.add('show');
+                    menu.style.display = 'block';
+                    menu.style.maxHeight = '1000px';
+                    menu.style.padding = '0.5rem';
+                    console.log('드롭다운 열기:', this.textContent.trim());
+                }
+            });
+        });
+        
+        console.log('🚀 모바일 메뉴 테스트 페이지 로드 완료');
+        console.log('📱 현재 화면 너비:', window.innerWidth);
+    </script>
+</body>
+</html>

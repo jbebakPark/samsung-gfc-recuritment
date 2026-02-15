@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모바일 드롭다운 테스트</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .test-section {
+            background: #f5f5f5;
+            border: 2px solid #034EA2;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .test-button {
+            background: #034EA2;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            text-align: left;
+        }
+        .test-button:active {
+            background: #023578;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .success {
+            background: #c8e6c9;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .console-log {
+            background: #263238;
+            color: #aed581;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 10px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        h1 { color: #034EA2; }
+        h2 { color: #034EA2; font-size: 18px; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>📱 모바일 드롭다운 클릭 테스트</h1>
+    
+    <div class="info">
+        <strong>테스트 목적:</strong> "채용설명회" 클릭 시 내용이 표시되고 정상적으로 스크롤되는지 확인
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 테스트 방법</h2>
+        <ol>
+            <li>아래 버튼을 클릭하여 메인 페이지로 이동</li>
+            <li>모바일 화면 크기로 조정 (또는 실제 모바일 기기 사용)</li>
+            <li>우측 상단 햄버거 메뉴(☰) 클릭</li>
+            <li>"채용 정보" 클릭하여 드롭다운 열기</li>
+            <li>"채용설명회" 클릭</li>
+            <li>개발자 도구 콘솔을 열어 로그 확인</li>
+        </ol>
+
+        <button class="test-button" onclick="window.location.href='index.html'">
+            🔗 메인 페이지로 이동
+        </button>
+
+        <button class="test-button" onclick="window.location.href='index.html#job-fair'">
+            🔗 직접 채용설명회 섹션으로 이동 (테스트용)
+        </button>
+    </div>
+
+    <div class="test-section">
+        <h2>✅ 예상되는 동작</h2>
+        <div class="success">
+            <strong>1단계:</strong> 콘솔에 "✅ 드롭다운 메뉴 항목 클릭: 채용설명회" 표시
+        </div>
+        <div class="success">
+            <strong>2단계:</strong> 콘솔에 "📍 링크 클릭: 채용설명회 → #job-fair" 표시
+        </div>
+        <div class="success">
+            <strong>3단계:</strong> 콘솔에 "✅ 드롭다운 닫기: 채용설명회" 표시
+        </div>
+        <div class="success">
+            <strong>4단계:</strong> 메뉴가 닫히고 "채용설명회 일정" 섹션으로 스크롤 이동
+        </div>
+        <div class="success">
+            <strong>5단계:</strong> 콘솔에 "✅ 스크롤 완료: #job-fair" 표시
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🐛 수정 전 문제</h2>
+        <ul>
+            <li>❌ "채용설명회" 클릭 시 내용이 안 나옴</li>
+            <li>❌ 다음 항목으로 넘어감</li>
+            <li>❌ 섹션으로 스크롤되지 않음</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 적용된 수정 사항</h2>
+        <p><strong>1. 이벤트 전파 허용:</strong></p>
+        <div class="console-log">
+// 드롭다운 메뉴 항목 클릭은 무시 (propagation 허용)
+const isDropdownMenuItem = e.target.closest('.dropdown-menu a');
+if (isDropdownMenuItem) {
+    console.log('✅ 드롭다운 메뉴 항목 클릭:', e.target.textContent.trim());
+    return; // 드롭다운 메뉴 항목은 그대로 진행
+}
+        </div>
+
+        <p><strong>2. 드롭다운 닫기 로직 추가:</strong></p>
+        <div class="console-log">
+// 드롭다운 메뉴 항목인 경우 드롭다운도 닫기
+const isDropdownItem = this.closest('.dropdown-menu');
+if (isDropdownItem && window.innerWidth <= 1024) {
+    const dropdown = this.closest('.nav-dropdown');
+    if (dropdown) {
+        dropdown.classList.remove('active');
+        // ... 드롭다운 메뉴 닫기
+    }
+}
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 테스트 결과 기록</h2>
+        <p>테스트 후 아래에 결과를 기록하세요:</p>
+        <textarea id="testResults" rows="6" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-family: sans-serif;">
+테스트 일시: 
+테스트 기기: 
+결과: ✅ 성공 / ❌ 실패
+문제점 (있는 경우): 
+콘솔 로그: 
+        </textarea>
+        <button class="test-button" onclick="downloadResults()">
+            💾 테스트 결과 다운로드
+        </button>
+    </div>
+
+    <div class="info">
+        <strong>💡 참고:</strong> 
+        <ul>
+            <li>모바일 테스트는 화면 너비 1024px 이하에서 작동합니다</li>
+            <li>개발자 도구(F12)의 콘솔 탭을 열어 로그를 확인하세요</li>
+            <li>실제 모바일 기기에서 테스트하는 것이 가장 정확합니다</li>
+        </ul>
+    </div>
+
+    <script>
+        function downloadResults() {
+            const results = document.getElementById('testResults').value;
+            const blob = new Blob([results], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'mobile-dropdown-test-results.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // 현재 화면 크기 표시
+        window.addEventListener('load', function() {
+            const width = window.innerWidth;
+            const isMobile = width <= 1024;
+            const deviceInfo = document.createElement('div');
+            deviceInfo.className = isMobile ? 'success' : 'info';
+            deviceInfo.innerHTML = `
+                <strong>현재 화면:</strong> ${width}px ${isMobile ? '(모바일 모드 ✅)' : '(데스크톱 모드)'}<br>
+                <strong>User Agent:</strong> ${navigator.userAgent.substring(0, 60)}...
+            `;
+            document.body.insertBefore(deviceInfo, document.body.firstChild);
+        });
+    </script>
+</body>
+</html>

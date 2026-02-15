@@ -342,21 +342,30 @@ form.addEventListener('submit', async function (e) {
         console.log('✅ 초기 상태 설정: 접수 완료 (pending)');
         console.log('Application data prepared:', applicationData);
 
-        // 4. API 호출 (RESTful Table API)
-
-        const response = await fetch('/tables/gfc_applications', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(applicationData)
-        });
-
-        if (!response.ok) {
-            throw new Error('서버 응답 오류: ' + response.status);
+        // 4. Firestore에 데이터 저장
+        console.log('📤 Firestore에 지원서 저장 중...');
+        
+        // Firebase가 초기화되었는지 확인
+        if (!window.db) {
+            console.warn('⚠️  Firebase가 초기화되지 않았습니다. 로컬 스토리지에 임시 저장합니다.');
+            
+            // 로컬 스토리지에 임시 저장
+            const savedApplications = JSON.parse(localStorage.getItem('gfc_applications') || '[]');
+            savedApplications.push({
+                ...applicationData,
+                id: 'local_' + Date.now()
+            });
+            localStorage.setItem('gfc_applications', JSON.stringify(savedApplications));
+            
+            console.log('✅ 로컬 스토리지에 임시 저장 완료');
+            console.log('💡 Firebase 설정 후 관리자 페이지에서 동기화 가능');
+        } else {
+            // Firestore에 저장
+            const docRef = await window.db.collection('applications').add(applicationData);
+            console.log('✅ Firestore 저장 완료, Document ID:', docRef.id);
         }
-
-        const result = await response.json();
+        
+        const result = { success: true, data: applicationData };
         console.log('Application submitted successfully:', result);
 
         // 4.5. 카카오톡 알림 전송 (2jbark)

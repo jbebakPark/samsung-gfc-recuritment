@@ -65,15 +65,41 @@ const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
 
 if (mobileMenuToggle && navMenu) {
+    console.log('📱 Mobile menu handler initialized');
+    console.log('🔍 Window width:', window.innerWidth);
+    
     // Toggle mobile menu
     mobileMenuToggle.addEventListener('click', (e) => {
+        console.log('🍔 Hamburger clicked! Width:', window.innerWidth);
+        
+        // Only work on mobile (≤1024px)
+        if (window.innerWidth > 1024) {
+            console.log('💻 Desktop mode - ignoring click');
+            return;
+        }
+        
+        e.preventDefault();
         e.stopPropagation();
+        
         const isActive = navMenu.classList.toggle('active');
         const icon = mobileMenuToggle.querySelector('i');
+        
+        console.log('📱 Menu active:', isActive);
         
         if (icon) {
             icon.classList.toggle('fa-bars', !isActive);
             icon.classList.toggle('fa-times', isActive);
+        }
+        
+        // Force display styles
+        if (isActive) {
+            navMenu.style.display = 'flex';
+            navMenu.style.visibility = 'visible';
+            navMenu.style.opacity = '1';
+        } else {
+            navMenu.style.display = '';
+            navMenu.style.visibility = '';
+            navMenu.style.opacity = '';
         }
         
         // Update ARIA attributes for accessibility
@@ -82,6 +108,44 @@ if (mobileMenuToggle && navMenu) {
         
         // Prevent body scroll when menu is open
         document.body.style.overflow = isActive ? 'hidden' : '';
+        
+        // Handle history state for back button
+        if (isActive) {
+            // Add a history entry when menu opens
+            window.history.pushState({menuOpen: true}, '', window.location.href);
+        } else {
+            // Remove history entry when menu closes manually
+            if (window.history.state && window.history.state.menuOpen) {
+                window.history.back();
+            }
+        }
+        
+        // 모바일 메뉴가 열렸을 때 모든 드롭다운 서브메뉴 자동 표시
+        if (isActive) {
+            // 모든 드롭다운 메뉴를 찾아서 표시
+            const allDropdownMenus = navMenu.querySelectorAll('.dropdown-menu');
+            allDropdownMenus.forEach(menu => {
+                menu.style.display = 'block';
+                menu.style.maxHeight = '600px';
+                menu.style.opacity = '1';
+                menu.style.visibility = 'visible';
+                menu.style.padding = '0.5rem';
+                menu.classList.add('show');
+            });
+            console.log('✅ All dropdown menus shown:', allDropdownMenus.length);
+        } else {
+            // 모바일 메뉴가 닫혔을 때 드롭다운도 리셋
+            const allDropdownMenus = navMenu.querySelectorAll('.dropdown-menu');
+            allDropdownMenus.forEach(menu => {
+                menu.style.display = 'none';
+                menu.style.maxHeight = '0';
+                menu.style.opacity = '0';
+                menu.style.visibility = 'hidden';
+                menu.style.padding = '0';
+                menu.classList.remove('show');
+            });
+            console.log('❌ All dropdown menus hidden');
+        }
         
         console.log('📱 Mobile menu toggled:', isActive ? 'OPEN' : 'CLOSED');
     });
@@ -92,7 +156,40 @@ if (mobileMenuToggle && navMenu) {
     // 2. Press Escape key to close
     // 3. Click a menu item to navigate (menu stays open until X or Escape)
     
-    console.log('✅ Mobile menu initialized (outside click DISABLED)');
+    // Handle browser back button
+    window.addEventListener('popstate', (e) => {
+        if (navMenu.classList.contains('active')) {
+            // Close menu instead of navigating back
+            navMenu.classList.remove('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            
+            // 드롭다운 메뉴도 리셋
+            const allDropdownMenus = navMenu.querySelectorAll('.dropdown-menu');
+            allDropdownMenus.forEach(menu => {
+                menu.style.display = 'none';
+                menu.style.maxHeight = '0';
+                menu.style.opacity = '0';
+                menu.style.visibility = 'hidden';
+                menu.style.padding = '0';
+                menu.classList.remove('show');
+            });
+            
+            console.log('📱 Mobile menu closed by back button');
+            
+            // Prevent default back navigation
+            e.preventDefault();
+            // Stay on current page
+            window.history.pushState(null, '', window.location.href);
+        }
+    });
+    
+    console.log('✅ Mobile menu initialized with back button handling');
     
     // Close menu on Escape key
     document.addEventListener('keydown', (e) => {
@@ -104,8 +201,25 @@ if (mobileMenuToggle && navMenu) {
                 icon.classList.remove('fa-times');
             }
             mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            mobileMenuToggle.focus(); // Return focus to toggle button
+            mobileMenuToggle.focus();
             document.body.style.overflow = '';
+            
+            // Remove history entry
+            if (window.history.state && window.history.state.menuOpen) {
+                window.history.back();
+            }
+            
+            // 드롭다운 메뉴도 리셋
+            const allDropdownMenus = navMenu.querySelectorAll('.dropdown-menu');
+            allDropdownMenus.forEach(menu => {
+                menu.style.display = 'none';
+                menu.style.maxHeight = '0';
+                menu.style.opacity = '0';
+                menu.style.visibility = 'hidden';
+                menu.style.padding = '0';
+                menu.classList.remove('show');
+            });
+            
             console.log('❌ Mobile menu closed (Escape key)');
         }
     });
@@ -121,19 +235,31 @@ navDropdowns.forEach(dropdown => {
     
     if (!dropdownToggle || !dropdownMenu) return;
     
-    // Initialize dropdown in closed state with inline styles
-    dropdownMenu.style.display = 'none';
-    dropdownMenu.style.maxHeight = '0';
-    dropdownMenu.style.opacity = '0';
-    dropdownMenu.style.overflow = 'hidden';
+    // Initialize dropdown - DON'T set inline styles on desktop
+    // Let CSS :hover handle it naturally
+    if (window.innerWidth < 1025) {
+        // Only set initial state for mobile
+        dropdownMenu.style.display = 'none';
+        dropdownMenu.style.maxHeight = '0';
+        dropdownMenu.style.opacity = '0';
+        dropdownMenu.style.overflow = 'hidden';
+    }
     dropdownMenu.style.transition = 'max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease';
     
     // Toggle dropdown on click
     dropdownToggle.addEventListener('click', function(e) {
+        // On DESKTOP (≥1025px): Prevent default link behavior but allow CSS :hover
+        if (window.innerWidth >= 1025) {
+            e.preventDefault(); // Prevent navigation
+            console.log('🖥️ Desktop: CSS hover handles dropdown');
+            return; // Don't toggle anything, CSS :hover will show/hide
+        }
+        
+        // On MOBILE (<1025px): Use JavaScript click handling
         e.preventDefault();
         e.stopPropagation();
         
-        console.log('🔹 Dropdown toggle clicked:', dropdownToggle.textContent.trim());
+        console.log('📱 Mobile: Dropdown toggle clicked:', dropdownToggle.textContent.trim());
         
         const isVisible = dropdownMenu.classList.contains('show');
         const isMobileMenuOpen = navMenu && navMenu.classList.contains('active');
@@ -249,16 +375,48 @@ navDropdowns.forEach(dropdown => {
     });
 });
 
-// Close all dropdowns when clicking outside
+// Close all dropdowns when clicking outside (MOBILE ONLY)
+// Desktop uses CSS :hover which automatically closes when mouse leaves
 document.addEventListener('click', function(e) {
+    // Only apply to mobile (width < 1025px)
+    if (window.innerWidth >= 1025) {
+        return; // Skip on desktop - CSS :hover handles it
+    }
+    
+    // Check if mobile menu is open
+    const isMobileMenuOpen = navMenu && navMenu.classList.contains('active');
+    if (!isMobileMenuOpen) {
+        return; // Only handle clicks when mobile menu is active
+    }
+    
+    // Close dropdowns when clicking outside in mobile menu
     if (!e.target.closest('.nav-dropdown')) {
         document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
             menu.classList.remove('show');
+            
+            // Force close with inline styles
+            menu.style.maxHeight = '0';
+            menu.style.opacity = '0';
+            menu.style.padding = '0';
+            setTimeout(() => {
+                if (!menu.classList.contains('show')) {
+                    menu.style.display = 'none';
+                }
+            }, 400);
+            
             const toggle = menu.closest('.nav-dropdown')?.querySelector('.dropdown-toggle');
             if (toggle) {
                 toggle.setAttribute('aria-expanded', 'false');
+                
+                // Reset chevron rotation
+                const chevron = toggle.querySelector('.fa-chevron-down');
+                if (chevron) {
+                    chevron.style.transform = 'rotate(0deg)';
+                }
             }
         });
+        
+        console.log('📱 Mobile: Closed all dropdowns (outside click)');
     }
 });
 
@@ -288,29 +446,23 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth'
             });
 
-            // Close mobile menu if open - DELAYED to allow user to see scroll
+            // Close mobile menu if open
             if (navMenu && navMenu.classList.contains('active')) {
-                // Wait for smooth scroll to complete (approx 800ms)
-                setTimeout(() => {
-                    navMenu.classList.remove('active');
-                    if (mobileMenuToggle) {
-                        const icon = mobileMenuToggle.querySelector('i');
-                        if (icon) {
-                            icon.classList.add('fa-bars');
-                            icon.classList.remove('fa-times');
-                        }
-                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                navMenu.classList.remove('active');
+                if (mobileMenuToggle) {
+                    const icon = mobileMenuToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times');
                     }
-                    document.body.style.overflow = '';
-                    console.log('📱 Mobile menu closed after scroll');
-                }, 800);
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                }
+                document.body.style.overflow = '';
             }
             
             // Set focus to target for accessibility
-            setTimeout(() => {
-                target.setAttribute('tabindex', '-1');
-                target.focus();
-            }, 850);
+            target.setAttribute('tabindex', '-1');
+            target.focus();
         }
     });
 });
@@ -750,92 +902,55 @@ if (header) {
 
 // ==================== Press Archive Filter ====================
 
-// DOMContentLoaded 후 또는 즉시 실행
-function initPressFilter() {
-    const pressFilterButtons = document.querySelectorAll('.press-filter .filter-btn');
-    const pressCards = document.querySelectorAll('.press-card[data-category]');
+const pressFilterButtons = document.querySelectorAll('.press-filter .filter-btn');
+const pressCards = document.querySelectorAll('.press-card[data-category]');
 
-    console.log('🗞️ Press Filter 초기화:', {
-        buttons: pressFilterButtons.length,
-        cards: pressCards.length
+if (pressFilterButtons.length > 0 && pressCards.length > 0) {
+    // Initialize - show all cards on page load
+    pressCards.forEach(card => {
+        card.style.display = 'block';
+        card.style.opacity = '1';
     });
-
-    if (pressFilterButtons.length > 0 && pressCards.length > 0) {
-        // Initialize - show all cards on page load
-        pressCards.forEach(card => {
-            card.style.display = 'block';
-            card.style.opacity = '1';
-            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        });
-        
-        pressFilterButtons.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const filter = this.getAttribute('data-filter');
-                console.log('🔍 필터 클릭:', filter);
-                
-                // Update active button
-                pressFilterButtons.forEach(b => {
-                    b.classList.remove('active');
-                    b.setAttribute('aria-pressed', 'false');
-                });
-                this.classList.add('active');
-                this.setAttribute('aria-pressed', 'true');
-                
-                // Filter cards with improved animation
-                let visibleCount = 0;
-                pressCards.forEach((card, index) => {
-                    const category = card.getAttribute('data-category');
-                    const shouldShow = filter === 'all' || category === filter;
-                    
-                    if (shouldShow) {
-                        visibleCount++;
-                        // Show card
-                        card.style.display = 'block';
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        
-                        // Staggered fade in
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, index * 50);
-                    } else {
-                        // Hide card
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(-20px)';
-                        setTimeout(() => {
-                            card.style.display = 'none';
-                        }, 300);
-                    }
-                });
-                
-                console.log('✅ 필터 적용 완료:', visibleCount + '개 카드 표시');
-            });
+    
+    pressFilterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
             
-            // Keyboard support
-            btn.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
+            // Update active button
+            pressFilterButtons.forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
+            this.classList.add('active');
+            this.setAttribute('aria-pressed', 'true');
+            
+            // Filter cards with animation
+            pressCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                    // Fade in animation
+                    card.style.opacity = '0';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transition = 'opacity 0.3s ease';
+                    }, 10);
+                } else {
+                    card.style.opacity = '0';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
                 }
             });
         });
         
-        console.log('✅ Press Filter 이벤트 리스너 등록 완료');
-    } else {
-        console.warn('⚠️ Press Filter 요소를 찾을 수 없습니다');
-    }
-}
-
-// 즉시 실행 시도
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPressFilter);
-} else {
-    // DOM이 이미 로드된 경우 즉시 실행
-    initPressFilter();
+        // Keyboard support
+        btn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
 }
 
 // ==================== Performance Monitoring ====================
